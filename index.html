@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Shevet Achim</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Shevet Achim">
+<meta name="theme-color" content="#FAFAF9">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Jost:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FAFAF9;--card:#fff;--cream:#F1EFEA;--gold:#A16207;--goldL:#BFA46F;--ink:#1C1917;--soft:#57534E;--faint:#A8A29E;--line:#E3DFD8}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+#app{height:100dvh;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 10px) 20px 8px;color:var(--soft);flex:none}
+.top svg{width:22px;height:22px;stroke:var(--soft);cursor:pointer}
+.glob{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--soft);border:1px solid var(--line);padding:5px 12px;border-radius:30px}
+.glob svg{width:15px;height:15px}
+.scr{flex:1;overflow-y:auto;padding:4px 20px 24px;-webkit-overflow-scrolling:touch}
+.scr::-webkit-scrollbar{display:none}
+.lbl{font-size:10.5px;font-weight:500;letter-spacing:2px;color:var(--faint);text-transform:uppercase;margin:22px 2px 12px;display:flex;align-items:center;gap:9px}
+.lbl .ln{flex:1;height:1px;background:var(--line)}
+.date{font-family:'Bodoni Moda',serif;font-size:34px;font-weight:600;line-height:1.05}
+.greg{font-size:13px;color:var(--soft);margin-top:4px}
+.meta{font-size:12.5px;color:var(--gold);margin-top:7px;min-height:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:14px}
+.hero{text-align:center;padding:22px 16px 24px}
+.hrow{display:flex;align-items:center;justify-content:center;gap:6px}
+.chev{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--soft);cursor:pointer;font-size:18px;flex:none}
+.pname{font-family:'Bodoni Moda',serif;font-size:28px;font-weight:600;flex:1}
+.count{font-size:14px;color:var(--gold);margin-top:8px;font-weight:500;min-height:18px}
+.win{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:9px}
+.wrow{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--soft)}
+.wrow b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--goldL)}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.tool{background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0}
+.tc{width:56px;height:56px;border-radius:18px;background:var(--cream);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.tc svg{width:24px;height:24px;stroke:var(--gold)}
+.tl{font-size:11px;color:var(--soft);text-align:center;line-height:1.25}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.qt{background:var(--ink);color:#fff;border:none;border-radius:18px;padding:16px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px}
+.qt.alt{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.qt svg{width:24px;height:24px;stroke:var(--goldL);flex:none}
+.qt .qn{font-size:14.5px;font-weight:500}
+.qt .qh{font-family:'Frank Ruhl Libre';font-size:13px;opacity:.75}
+.group{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.row{display:flex;align-items:center;padding:16px 20px;border-top:1px solid var(--line);cursor:pointer}
+.row:first-child{border-top:none}
+.row:active{background:var(--cream)}
+.rt{flex:1}
+.rt .nm{font-size:15.5px;font-weight:500}
+.rt .sub{font-size:12px;color:var(--faint);margin-top:1px}
+.he{font-family:'Frank Ruhl Libre',serif;font-size:17px;margin:0 4px}
+.time{font-size:14px;color:var(--soft);font-variant-numeric:tabular-nums}
+.soon{font-size:11px;color:var(--faint)}
+.star{color:var(--gold);display:flex}.star svg{width:17px;height:17px;stroke:var(--gold)}
+.ch{color:var(--faint);margin-left:8px;font-size:18px}
+.back{display:flex;align-items:center;gap:6px;color:var(--soft);font-size:14px;cursor:pointer;margin:8px 0 2px;border:none;background:none}
+.back svg{width:18px;height:18px;stroke:var(--soft)}
+.mtitle{font-family:'Bodoni Moda',serif;font-size:26px;text-align:center;margin-top:4px}
+.mdist{font-family:'Bodoni Moda',serif;font-size:30px;text-align:center;margin-top:14px}
+.mbear{font-size:13px;color:var(--gold);text-align:center;margin-top:4px;letter-spacing:1px}
+.cbtn{display:block;margin:14px auto 0;background:var(--ink);color:#fff;border:none;border-radius:30px;padding:11px 22px;font-family:'Jost';font-size:14px;cursor:pointer}
+.fav-h{display:flex;align-items:center;gap:10px;margin-top:8px}
+.fav-h svg{width:26px;height:26px;stroke:var(--gold)}
+.fav-h .ft{font-family:'Bodoni Moda',serif;font-size:26px}
+.nav{display:flex;align-items:flex-end;border-top:1px solid var(--line);background:var(--paper);padding:8px 6px calc(env(safe-area-inset-bottom) + 8px);flex:none}
+.nav button{flex:1;background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--faint);padding:4px 0}
+.nav button svg{width:23px;height:23px;stroke:currentColor}
+.nav button .n{font-size:9.5px;font-weight:500}
+.nav button.on{color:var(--gold)}
+.navc{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.navc .circ{width:54px;height:54px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;margin-top:-26px;border:3px solid var(--paper)}
+.navc .circ svg{width:25px;height:25px;stroke:#fff}
+.navc .n{font-size:9.5px;font-weight:600;color:var(--gold)}
+.rtl{direction:rtl}.rtl .rt,.rtl .qt{text-align:right}
+/* onboarding */
+#ob{position:fixed;inset:0;background:var(--paper);z-index:50;display:flex;flex-direction:column;justify-content:center;padding:40px 32px calc(env(safe-area-inset-bottom) + 40px)}
+#ob .obhe{font-family:'Frank Ruhl Libre';color:var(--gold);font-size:30px;direction:rtl}
+#ob h1{font-family:'Bodoni Moda',serif;font-size:26px;font-weight:600;margin-top:6px}
+#ob p{font-size:13px;color:var(--soft);margin-top:6px}
+#ob .langs{margin-top:34px;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+#ob .langs button{background:var(--card);border:none;padding:18px 22px;font-family:'Jost';font-size:16px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
+#ob .langs button:active{background:var(--cream)}
+#ob .langs button span{font-family:'Frank Ruhl Libre';color:var(--faint)}
+#ob small{display:block;margin-top:20px;color:var(--faint);font-size:12px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="ob">
+  <div class="obhe">שבת אחים גם יחד</div>
+  <h1>Выберите язык</h1>
+  <p>Choose your language · בחרו שפה</p>
+  <div class="langs">
+    <button onclick="pickLang('ru')">Русский <span>транслитерация</span></button>
+    <button onclick="pickLang('en')">English <span>transliteration</span></button>
+    <button onclick="pickLang('he')">עברית <span>מקור</span></button>
+  </div>
+  <small>Один язык — на весь интерфейс и тексты. Можно изменить позже.</small>
+</div>
+
+<div id="app" class="hidden">
+  <div class="top">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" onclick="go('more')"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    <div class="glob" onclick="cycleLang()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg><span id="lc">RU</span></div>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+  </div>
+  <div class="scr" id="scr"></div>
+  <div class="nav" id="nav"></div>
+</div>
+
+<script>
+const ICON={
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ book:'<path d="M4 5a2 2 0 0 1 2-2h7v16H6a2 2 0 0 0-2 2zM20 3v18M13 3h5a2 2 0 0 1 2 2"/>',
+ grape:'<path d="M12 4v3M10 5h4M12 9a3 3 0 1 0 0 0M9 13a3 3 0 1 0 0 0M15 13a3 3 0 1 0 0 0M12 17a3 3 0 1 0 0 0"/>',
+ bookmark:'<path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/>',
+ dots:'<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>',
+ compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+ calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/>',
+ coin:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/>',
+ bread:'<path d="M5 11a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2zM7 14v4M12 14v4M17 14v4"/>',
+ wine:'<path d="M8 3h8l-1 6a3 3 0 0 1-6 0zM12 12v6M9 21h6"/>',
+ drop:'<path d="M12 3s6 6 6 10a6 6 0 0 1-12 0c0-4 6-10 6-10z"/>',
+ wash:'<path d="M5 11h14v6a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3zM8 11V6a2 2 0 0 1 4 0M3 11h18"/>',
+ chevL:'<path d="M15 5l-7 7 7 7"/>',
+ bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.4 1a7 7 0 0 0-1.7-1L14.5 2h-5l-.3 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.5L3.1 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.4-1a7 7 0 0 0 1.7 1l.3 2.5h5l.3-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.5-2-1.5a7 7 0 0 0 .1-1z"/>'
+};
+function svg(k,cls){return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" ${cls?`class="${cls}"`:''}>${ICON[k]}</svg>`}
+
+const ROOT=document.documentElement;
+const KOTEL={lat:31.7780,lng:35.2354};
+const L={
+ ru:{lc:'RU',today:'Сегодня',zmanim:'Зманим',brachot:'Брахот',prayers:'Молитвы',fav:'Избранное',more:'Ещё',
+   nearest:'Ближайшая молитва',tools:'Инструменты',prayToday:'Молитвы сегодня',locating:'Определяем место…',
+   t_mizrah:'Мизрах',t_zmanim:'Зманим',t_cal:'Календарь',t_tzedaka:'Цдака',
+   sh:'Шахарит',mi:'Минха',ma:'Маарив',now:'идёт сейчас',in:'через',until:'до',
+   shma:'Шма',amida:'Амида',mgedola:'Минха гдола',shkia:'Шкия',tzeit:'Цет а-кохавим',
+   often:'Часто нужные',bf:'Перед едой',af:'После еды',other:'Природа · Запахи · Заповеди',
+   bread:'Хлеб',wine:'Вино',shehakol:'Шеаколь',asher:'Ашер яцар',
+   breadF:'Хлеб · а-Моци',wineF:'Вино · а-Гефен',fruitF:'Фрукты · а-Эц',veg:'Овощи · а-Адама',
+   birkat:'Биркат а-Мазон',meein:'Меэйн шалош',boreh:'Борэ нефашот',thunder:'Гром',rainbow:'Радуга',
+   daily:'Ежедневные',personal:'Личные молитвы',road:'Дорожная молитва',shmaY:'Шма Исраэль',bed:'Шма перед сном',
+   dir:'Направление молитвы',mizrahHe:'מִזְרָח',toJer:'до Иерусалима',km:'км',
+   favHint:'Закреплённые тексты — всегда под рукой и офлайн',favEmpty:'Пока пусто. Нажмите закладку на любом тексте.',
+   moreTools:'Духовные инструменты',personal2:'Личное',remind:'Напоминания',settings:'Настройки',
+   enableC:'Включить компас',rotate:'Поверните устройство — стрелка укажет на Иерусалим',
+   z:['Алот а-Шахар','Мишеякир','Нец','Соф зман Шма','Соф зман Тфила','Хацот','Минха гдола','Минха ктана','Плаг а-Минха','Шкия','Цет а-кохавим','Хацот лайла'],
+   zh:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת','חֲצוֹת הַלַּיְלָה'],
+   favList:[['Дорожная молитва','Личные'],['Хлеб · а-Моци','Брахот'],['Минха','Ежедневные']],locale:'ru-RU'},
+ en:{lc:'EN',today:'Today',zmanim:'Zmanim',brachot:'Brachot',prayers:'Prayers',fav:'Saved',more:'More',
+   nearest:'Next prayer',tools:'Tools',prayToday:'Prayers today',locating:'Locating…',
+   t_mizrah:'Mizrah',t_zmanim:'Zmanim',t_cal:'Calendar',t_tzedaka:'Tzedaka',
+   sh:'Shacharit',mi:'Mincha',ma:'Maariv',now:'now',in:'in',until:'until',
+   shma:'Shema',amida:'Amidah',mgedola:'Mincha Gedola',shkia:'Sunset',tzeit:'Tzeit',
+   often:'Most used',bf:'Before eating',af:'After eating',other:'Nature · Fragrance · Mitzvot',
+   bread:'Bread',wine:'Wine',shehakol:'Shehakol',asher:'Asher Yatzar',
+   breadF:'Bread · HaMotzi',wineF:'Wine · HaGefen',fruitF:'Fruit · HaEtz',veg:'Veg · HaAdama',
+   birkat:'Birkat Hamazon',meein:'Al HaMichya',boreh:'Borei Nefashot',thunder:'Thunder',rainbow:'Rainbow',
+   daily:'Daily',personal:'Personal prayers',road:'Tefilat HaDerech',shmaY:'Shema Yisrael',bed:'Bedtime Shema',
+   dir:'Direction of prayer',mizrahHe:'מִזְרָח',toJer:'to Jerusalem',km:'km',
+   favHint:'Pinned texts — always at hand and offline',favEmpty:'Empty for now. Tap the bookmark on any text.',
+   moreTools:'Spiritual tools',personal2:'Personal',remind:'Reminders',settings:'Settings',
+   enableC:'Enable compass',rotate:'Rotate your device — the needle points to Jerusalem',
+   z:['Alot HaShachar','Misheyakir','Sunrise','Sof zman Shma','Sof zman Tfila','Chatzot','Mincha Gedola','Mincha Ketana','Plag HaMincha','Sunset','Tzeit','Chatzot Layla'],
+   zh:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת','חֲצוֹת הַלַּיְלָה'],
+   favList:[['Tefilat HaDerech','Personal'],['Bread · HaMotzi','Brachot'],['Mincha','Daily']],locale:'en-GB'},
+ he:{lc:'HE',today:'היום',zmanim:'זמנים',brachot:'ברכות',prayers:'תפילות',fav:'שמורים',more:'עוד',
+   nearest:'התפילה הקרובה',tools:'כלים',prayToday:'תפילות היום',locating:'מאתר מיקום…',
+   t_mizrah:'מזרח',t_zmanim:'זמנים',t_cal:'לוח',t_tzedaka:'צדקה',
+   sh:'שַׁחֲרִית',mi:'מִנְחָה',ma:'מַעֲרִיב',now:'עכשיו',in:'בעוד',until:'עד',
+   shma:'שמע',amida:'עמידה',mgedola:'מנחה גדולה',shkia:'שקיעה',tzeit:'צאת הכוכבים',
+   often:'הנפוצות',bf:'לפני האכילה',af:'לאחר האכילה',other:'טבע · בשמים · מצוות',
+   bread:'הַמּוֹצִיא',wine:'הַגֶּפֶן',shehakol:'שֶׁהַכֹּל',asher:'אֲשֶׁר יָצַר',
+   breadF:'הַמּוֹצִיא',wineF:'הַגֶּפֶן',fruitF:'הָעֵץ',veg:'הָאֲדָמָה',
+   birkat:'בִּרְכַּת הַמָּזוֹן',meein:'מֵעֵין שָׁלוֹשׁ',boreh:'בּוֹרֵא נְפָשׁוֹת',thunder:'רַעַם',rainbow:'קֶשֶׁת',
+   daily:'יומיות',personal:'תפילות אישיות',road:'תְּפִלַּת הַדֶּרֶךְ',shmaY:'שְׁמַע יִשְׂרָאֵל',bed:'קְרִיאַת שְׁמַע',
+   dir:'כיוון התפילה',mizrahHe:'מִזְרָח',toJer:'לירושלים',km:'ק״מ',
+   favHint:'טקסטים שמורים — תמיד בהישג יד וגם לא מקוון',favEmpty:'ריק כרגע. הקישו על הסימנייה.',
+   moreTools:'כלים רוחניים',personal2:'אישי',remind:'תזכורות',settings:'הגדרות',
+   enableC:'הפעלת מצפן',rotate:'סובבו את המכשיר — החץ מצביע לירושלים',
+   z:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת','חֲצוֹת הַלַּיְלָה'],
+   zh:['','','','','','','','','','','',''],
+   favList:[['תְּפִלַּת הַדֶּרֶךְ','אישיות'],['הַמּוֹצִיא','ברכות'],['מִנְחָה','יומיות']],locale:'he-IL'}
+};
+
+let lang=localStorage.getItem('lang')||null;
+let scrn='today', pidx=null, loc=null, heading=null, compassOn=false;
+const scr=document.getElementById('scr'), nav=document.getElementById('nav');
+
+/* ---------- zmanim (NOAA solar) ---------- */
+function solarEvent(date, lat, lng, elevDeg, morning){
+ const rad=Math.PI/180, deg=180/Math.PI;
+ const start=Date.UTC(date.getUTCFullYear(),0,0);
+ const n=(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate())-start)/86400000;
+ const g=2*Math.PI/365*(n-1);
+ const eqtime=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));
+ const decl=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);
+ const latR=lat*rad, zen=(90-elevDeg)*rad;
+ let cosH=(Math.cos(zen)-Math.sin(latR)*Math.sin(decl))/(Math.cos(latR)*Math.cos(decl));
+ if(cosH>1||cosH<-1) return null;
+ const ha=Math.acos(cosH)*deg;
+ const minUTC=720-4*lng-eqtime+4*(morning?-ha:ha);
+ const d=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth(),date.getUTCDate(),0,0,0));
+ d.setUTCMinutes(d.getUTCMinutes()+minUTC);
+ return d;
+}
+function zmanim(lat,lng,base){
+ const sr=solarEvent(base,lat,lng,-0.833,true), ss=solarEvent(base,lat,lng,-0.833,false);
+ if(!sr||!ss) return null;
+ const shaa=(ss-sr)/12, noon=new Date((+sr+ +ss)/2);
+ const add=(t,h)=>new Date(+sr+h*shaa);
+ // Фолбэк фиксированными минутами для высоких широт (белые ночи), когда
+ // солнце не достигает нужного угла депрессии и градусный расчёт невозможен.
+ const alot=solarEvent(base,lat,lng,-16.1,true)||new Date(+sr-72*60000);
+ const misheyakir=solarEvent(base,lat,lng,-11.5,true)||new Date(+sr-50*60000);
+ const tzeit=solarEvent(base,lat,lng,-8.5,false)||new Date(+ss+50*60000);
+ return {
+  alot, misheyakir, netz:sr,
+  sofShma:add(sr,3), sofTfila:add(sr,4), chatzot:noon, minchaG:add(sr,6.5), minchaK:add(sr,9.5),
+  plag:add(sr,10.75), shkia:ss, tzeit, chatzotL:new Date(+noon+43200000)
+ };
+}
+function fmt(d){if(!d)return '—';return d.toLocaleTimeString(L[lang].locale,{hour:'2-digit',minute:'2-digit',hour12:false})}
+function gap(ms){const m=Math.round(ms/60000),h=Math.floor(m/60),mm=m%60;const d=L[lang];return h>0?`${h} ${lang==='he'?'שע׳':lang==='en'?'h':'ч'} ${mm} ${lang==='he'?'דק׳':lang==='en'?'min':'мин'}`:`${mm} ${lang==='he'?'דק׳':lang==='en'?'min':'мин'}`}
+
+/* ---------- geometry ---------- */
+function bearing(a,b){const r=Math.PI/180,dL=(b.lng-a.lng)*r,y=Math.sin(dL)*Math.cos(b.lat*r),x=Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos(dL);return (Math.atan2(y,x)*180/Math.PI+360)%360}
+function distKm(a,b){const r=Math.PI/180,R=6371,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r,h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
+
+/* ---------- dates ---------- */
+function hebDate(){try{const s=new Intl.DateTimeFormat(L[lang].locale+'-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric'}).format(new Date());return s.replace(/\s*(AM|anno mundi|לבריאת העולם|לבריאה)\s*$/i,'').trim()}catch(e){return ''}}
+function gregDate(){return new Intl.DateTimeFormat(L[lang].locale,{weekday:'short',day:'numeric',month:'long'}).format(new Date())}
+
+/* ---------- prayer hero ---------- */
+function prayerState(z){
+ const now=new Date(), d=L[lang];
+ const items=[
+  {n:d.sh, start:z.netz, end:z.chatzot, w:[[d.shma,z.sofShma],[d.amida,z.sofTfila]]},
+  {n:d.mi, start:z.minchaG, end:z.shkia, w:[[d.mgedola,z.minchaG],[d.shkia,z.shkia]]},
+  {n:d.ma, start:z.tzeit, end:z.chatzotL, w:[[d.tzeit,z.tzeit]]}
+ ];
+ let cur=0;
+ if(now<z.chatzot) cur=0; else if(now<z.shkia) cur=1; else cur=2;
+ if(pidx===null) pidx=cur;
+ const p=items[pidx];
+ let count;
+ if(now>=p.start && now<p.end) count=`${d.now} · ${d.until} ${fmt(p.end)}`;
+ else if(now<p.start) count=`${d.in} ${gap(p.start-now)} · ${fmt(p.start)}`;
+ else count=fmt(p.start);
+ return {p,count};
+}
+
+/* ---------- render ---------- */
+function lbl(t){return `<div class="lbl">${t}<span class="ln"></span></div>`}
+function row(nm,he,o){o=o||{};return `<div class="row" onclick="${o.fn||''}"><div class="rt"><div class="nm">${nm}</div>${o.sub?`<div class="sub">${o.sub}</div>`:''}</div>${o.fav?`<span class="star">${svg('bookmark')}</span>`:''}${he&&lang!=='he'?`<span class="he">${he}</span>`:''}${o.time?`<span class="time">${o.time}</span>`:''}${o.soon?`<span class="soon">${o.soon}</span>`:''}<span class="ch">›</span></div>`}
+function tool(ic,l,fn){return `<button class="tool" onclick="${fn}"><span class="tc">${svg(ic)}</span><span class="tl">${l}</span></button>`}
+
+function compassSVG(){
+ let ticks='';for(let i=0;i<72;i++){const a=i*5*Math.PI/180,maj=i%9===0,r2=maj?90:98,x1=120+104*Math.sin(a),y1=120-104*Math.cos(a),x2=120+r2*Math.sin(a),y2=120-r2*Math.cos(a);ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${maj?'#BFA46F':'#E3DFD8'}" stroke-width="${maj?2:1}"/>`}
+ const labels=lang==='he'?['צ','מז','ד','מע']:['N','E','S','W'];
+ const card=[[labels[0],0],[labels[1],90],[labels[2],180],[labels[3],270]].map(([k,dg])=>{const a=dg*Math.PI/180,x=120+72*Math.sin(a),y=120-72*Math.cos(a);return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-family="Jost" font-size="13" fill="#A8A29E">${k}</text>`}).join('');
+ const b= loc? bearing(loc,KOTEL):176;
+ const rot= heading!==null? (b-heading) : b;
+ const ba=b*Math.PI/180,sx=120+104*Math.sin(ba),sy=120-104*Math.cos(ba);
+ return `<svg id="cmp" viewBox="0 0 240 240" width="234" height="234" style="display:block;margin:8px auto 0">
+   <circle cx="120" cy="120" r="116" fill="#fff" stroke="#E3DFD8"/><circle cx="120" cy="120" r="108" fill="none" stroke="#F1EFEA"/>
+   ${ticks}${card}
+   <g id="needle" transform="rotate(${rot.toFixed(1)} 120 120)" style="transition:transform .25s ease-out">
+     <path d="M120 36 L131 120 L120 130 L109 120 Z" fill="#A16207"/><path d="M120 204 L109 120 L120 130 L131 120 Z" fill="#D6D3CE"/>
+   </g>
+   <circle cx="120" cy="120" r="7" fill="#1C1917"/><circle cx="120" cy="120" r="3" fill="#BFA46F"/>
+   <circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="11" fill="#FAF6EC" stroke="#A16207"/>
+   <text x="${sx.toFixed(1)}" y="${(sy+5).toFixed(1)}" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="14" fill="#A16207">✡</text>
+ </svg>`;
+}
+
+function screens(){
+ const d=L[lang];
+ const z=loc?zmanim(loc.lat,loc.lng,new Date()):null;
+ const hero=z?prayerState(z):null;
+ const dist=loc?Math.round(distKm(loc,KOTEL)).toLocaleString(d.locale):'—';
+ const bear=loc?Math.round(bearing(loc,KOTEL)):176;
+ return {
+ today:`${lbl(d.today)}
+   <div class="date">${hebDate()}</div><div class="greg">${gregDate()}${loc?'':' · '+d.locating}</div>
+   <div class="meta"></div>
+   <div class="card hero" style="margin-top:18px">
+     <div class="lbl" style="margin:0 0 14px;justify-content:center">${d.nearest}</div>
+     <div class="hrow"><button class="chev" onclick="prev()">‹</button><div class="pname">${hero?hero.p.n:'—'}</div><button class="chev" onclick="next()">›</button></div>
+     <div class="count">${hero?hero.count:d.locating}</div>
+     <div class="win">${hero?hero.p.w.map(x=>`<div class="wrow"><span class="dot"></span>${x[0]} <b>${fmt(x[1])}</b></div>`).join(''):''}</div>
+   </div>
+   <div class="quick">
+     <button class="qt" onclick="go('brachot')">${svg('grape')}<div><div class="qn">${d.brachot}</div><div class="qh">בְּרָכוֹת</div></div></button>
+     <button class="qt alt" onclick="go('mizrah')">${svg('compass')}<div><div class="qn">${d.t_mizrah}</div><div class="qh">מִזְרָח</div></div></button>
+   </div>
+   ${lbl(d.tools)}
+   <div class="tools">${tool('clock',d.t_zmanim,"go('zmanim')")}${tool('calendar',d.t_cal,"go('more')")}${tool('coin',d.t_tzedaka,"go('more')")}${tool('bookmark',d.fav,"go('fav')")}</div>
+   ${lbl(d.prayToday)}
+   <div class="group">${row(d.sh,'שַׁחֲרִית',{time:z?fmt(z.netz):''})}${row(d.mi,'מִנְחָה',{time:z?fmt(z.minchaG):''})}${row(d.ma,'מַעֲרִיב',{time:z?fmt(z.tzeit):''})}</div>`,
+ zmanim:`${lbl(d.zmanim)}<div class="group">${z?d.z.map((nm,i)=>{const key=['alot','misheyakir','netz','sofShma','sofTfila','chatzot','minchaG','minchaK','plag','shkia','tzeit','chatzotL'][i];return row(nm,d.zh[i],{time:fmt(z[key])})}).join(''):`<div style="padding:24px;text-align:center;color:var(--faint)">${d.locating}</div>`}</div>`,
+ brachot:`${lbl(d.often)}
+   <div class="tools" style="margin-bottom:4px">${tool('bread',d.bread,'')}${tool('wine',d.wine,'')}${tool('drop',d.shehakol,'')}${tool('wash',d.asher,'')}</div>
+   ${lbl(d.bf)}<div class="group">${row(d.breadF,'הַמּוֹצִיא',{})}${row(d.wineF,'הַגֶּפֶן',{})}${row(d.fruitF,'הָעֵץ',{})}${row(d.veg,'הָאֲדָמָה',{})}</div>
+   ${lbl(d.af)}<div class="group">${row(d.birkat,'בִּרְכַּת הַמָּזוֹן',{})}${row(d.meein,'מֵעֵין שָׁלוֹשׁ',{})}${row(d.boreh,'בּוֹרֵא נְפָשׁוֹת',{})}</div>
+   ${lbl(d.other)}<div class="group">${row(d.thunder,'רַעַם',{})}${row(d.rainbow,'קֶשֶׁת',{soon:lang==='ru'?'скоро':lang==='en'?'soon':'בקרוב'})}</div>`,
+ prayers:`${lbl(d.daily)}<div class="group">${row(d.sh,'שַׁחֲרִית',{})}${row(d.mi,'מִנְחָה',{})}${row(d.ma,'מַעֲרִיב',{})}</div>
+   ${lbl(d.personal)}<div class="group">${row(d.road,'תְּפִלַּת הַדֶּרֶךְ',{})}${row(d.shmaY,'שְׁמַע',{})}${row(d.asher,'אֲשֶׁר יָצַר',{})}${row(d.bed,'קְרִיאַת שְׁמַע',{})}</div>`,
+ fav:`<div class="fav-h">${svg('bookmark')}<span class="ft">${d.fav}</span></div>
+   <div style="font-size:12.5px;color:var(--soft);margin:8px 2px 4px">${d.favHint}</div>
+   <div class="group" style="margin-top:14px">${d.favList.map(f=>row(f[0],'',{sub:f[1],fav:true})).join('')}</div>`,
+ mizrah:`<button class="back" onclick="go('today')">${svg('chevL')}${d.today}</button>
+   <div class="mtitle">${d.mizrahHe}</div>${compassSVG()}
+   <div class="mdist">${dist} ${d.km}</div><div class="mbear">${bear}° · ${d.toJer}</div>
+   ${compassOn?`<div style="text-align:center;font-size:12px;color:var(--faint);margin-top:18px">${d.rotate}</div>`:`<button class="cbtn" onclick="enableCompass()">${d.enableC}</button>`}`,
+ more:`<button class="back" onclick="go('today')">${svg('chevL')}${d.today}</button>
+   ${lbl(d.moreTools)}<div class="group">${row(d.dir,'',{fn:"go('mizrah')"})}${row(d.t_cal,'',{})}${row(d.t_tzedaka,'',{})}</div>
+   ${lbl(d.personal2)}<div class="group">${row(d.fav,'',{fn:"go('fav')"})}${row(d.remind,'',{})}${row(d.settings,'',{})}</div>
+   <div style="text-align:center;color:var(--faint);font-size:11px;margin-top:28px">Shevet Achim · пробная версия</div>`
+ };
+}
+function render(){
+ const d=L[lang];
+ scr.className='scr'+(lang==='he'?' rtl':'');
+ scr.dir=lang==='he'?'rtl':'ltr';
+ scr.innerHTML=screens()[scrn];
+ const tabs=[['today','sun'],['zmanim','clock'],['brachot','C'],['prayers','book'],['fav','bookmark']];
+ nav.innerHTML=tabs.map(([k,ic])=>{
+   if(ic==='C')return `<div class="navc" onclick="go('brachot')"><span class="circ">${svg('grape')}</span><span class="n">${d.brachot}</span></div>`;
+   const on=(scrn===k)||(k==='today'&&(scrn==='mizrah'||scrn==='more'));
+   return `<button class="${on?'on':''}" onclick="go('${k}')">${svg(ic)}<span class="n">${d[k]}</span></button>`}).join('');
+ document.getElementById('lc').textContent=d.lc;
+}
+window.go=function(s){scrn=s;render();scr.scrollTop=0};
+window.next=function(){pidx=(pidx+1)%3;render()};
+window.prev=function(){pidx=(pidx+2)%3;render()};
+window.cycleLang=function(){const o=['ru','en','he'];lang=o[(o.indexOf(lang)+1)%3];localStorage.setItem('lang',lang);ROOT.lang=lang;render()};
+window.pickLang=function(l){lang=l;localStorage.setItem('lang',l);ROOT.lang=l;document.getElementById('ob').classList.add('hidden');document.getElementById('app').classList.remove('hidden');requestLocation();render()};
+
+/* ---------- sensors ---------- */
+function requestLocation(){
+ if(!navigator.geolocation) return;
+ navigator.geolocation.getCurrentPosition(
+  p=>{loc={lat:p.coords.latitude,lng:p.coords.longitude};pidx=null;render()},
+  ()=>{loc={lat:31.7683,lng:35.2137};render()},
+  {enableHighAccuracy:false,timeout:8000,maximumAge:600000});
+}
+window.enableCompass=function(){
+ const start=()=>{compassOn=true;window.addEventListener('deviceorientation',e=>{
+   let h=e.webkitCompassHeading!=null?e.webkitCompassHeading:(e.alpha!=null?360-e.alpha:null);
+   if(h!=null){heading=h;const g=document.getElementById('needle');if(g&&loc){g.setAttribute('transform',`rotate(${(bearing(loc,KOTEL)-heading).toFixed(1)} 120 120)`)}}
+ },true);render()};
+ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
+   DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')start()}).catch(()=>{});
+ } else start();
+};
+
+/* ---------- init ---------- */
+if(lang){ROOT.lang=lang;document.getElementById('ob').classList.add('hidden');document.getElementById('app').classList.remove('hidden');requestLocation();render()}
+setInterval(()=>{if(lang&&(scrn==='today'||scrn==='zmanim'))render()},60000);
+if(location.search.indexOf('nosw')<0 && 'serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+</script>
+</body>
+</html>
