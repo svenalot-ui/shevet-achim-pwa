@@ -1,4 +1,4 @@
-const CACHE = 'shevet-achim-v1';
+const CACHE = 'shevet-achim-v2';
 const SHELL = [
   './',
   './index.html',
@@ -29,7 +29,7 @@ self.addEventListener('fetch', e => {
       if (hit) return hit;
       return fetch(request).then(res => {
         const url = new URL(request.url);
-        if (res.ok && (url.origin === location.origin || url.host.includes('gstatic') || url.host.includes('googleapis'))) {
+        if (res.ok && (url.origin === location.origin || url.host.includes('gstatic') || url.host.includes('googleapis') || url.host.includes('jsdelivr') || url.host.includes('unpkg'))) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(request, copy));
         }
