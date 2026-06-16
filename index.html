@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>Shevet Achim</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Shevet Achim">
 <meta name="theme-color" content="#FAFAF9">
 <link rel="manifest" href="manifest.webmanifest">
@@ -14,100 +14,116 @@
 <link rel="icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=Jost:wght@400;500;600&family=Frank+Ruhl+Libre:wght@500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/kosher-zmanim@0.9.0/dist/kosher-zmanim.min.js" defer onload="window.__zReady&&window.__zReady()"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <style>
-:root{--paper:#FAFAF9;--card:#fff;--cream:#F1EFEA;--gold:#A16207;--goldL:#BFA46F;--ink:#1C1917;--soft:#57534E;--faint:#A8A29E;--line:#E3DFD8}
+:root{--paper:#FAFAF9;--card:#fff;--cream:#F1EFEA;--gold:#A16207;--goldL:#BFA46F;--ink:#1C1917;--soft:#57534E;--faint:#A8A29E;--line:#E3DFD8;--navbg:rgba(250,250,249,.62);--navbd:rgba(255,255,255,.7)}
+html[data-theme="dark"]{--paper:#13110E;--card:#1E1B16;--cream:#262119;--gold:#CBA250;--goldL:#9C8350;--ink:#F0EBE1;--soft:#A8A096;--faint:#6E6759;--line:#322C23;--navbg:rgba(20,17,13,.6);--navbd:rgba(255,255,255,.08)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
 #app{position:relative;height:100dvh;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
-.top{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 10px) 20px 6px;color:var(--soft);flex:none;z-index:5}
-.top svg{width:22px;height:22px;stroke:var(--soft);cursor:pointer}
-.glob{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;color:var(--soft);border:1px solid var(--line);padding:5px 12px;border-radius:30px}
-.glob svg{width:15px;height:15px}
-.scr{flex:1;overflow-y:auto;padding:2px 20px 120px;-webkit-overflow-scrolling:touch}
+.top{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top) + 10px) 18px 6px;color:var(--soft);flex:none;z-index:5}
+.locpill{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:7px 13px;border-radius:30px;max-width:60%}
+.locpill svg{width:15px;height:15px;stroke:var(--gold);flex:none}
+.locpill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.topr{display:flex;align-items:center;gap:14px}
+.topr svg{width:22px;height:22px;stroke:var(--soft);cursor:pointer}
+.scr{flex:1;overflow-y:auto;padding:6px 20px 124px;-webkit-overflow-scrolling:touch}
 .scr::-webkit-scrollbar{display:none}
-.back{display:inline-flex;align-items:center;gap:5px;color:var(--soft);font-size:14px;cursor:pointer;margin:6px 0 4px;border:none;background:none;padding:6px 2px}
+.back{display:inline-flex;align-items:center;gap:5px;color:var(--soft);font-size:14px;cursor:pointer;margin:4px 0 6px;border:none;background:none;padding:6px 2px}
 .back svg{width:19px;height:19px;stroke:var(--soft)}
 .lbl{font-size:10.5px;font-weight:500;letter-spacing:2px;color:var(--faint);text-transform:uppercase;margin:22px 2px 12px;display:flex;align-items:center;gap:9px}
 .lbl .ln{flex:1;height:1px;background:var(--line)}
-.h1{font-family:'Bodoni Moda',serif;font-size:30px;font-weight:600;line-height:1.06}
-.date{font-family:'Bodoni Moda',serif;font-size:33px;font-weight:600;line-height:1.05}
+.h1{font-family:'Bodoni Moda',serif;font-size:29px;font-weight:600;line-height:1.06}
+.date{font-family:'Bodoni Moda',serif;font-size:32px;font-weight:600;line-height:1.05}
 .greg{font-size:13px;color:var(--soft);margin-top:4px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin-bottom:14px}
 .hero{text-align:center;padding:22px 16px 22px}
 .hrow{display:flex;align-items:center;justify-content:center;gap:6px}
 .chev{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--soft);cursor:pointer;font-size:18px;flex:none}
-.pname{font-family:'Bodoni Moda',serif;font-size:28px;font-weight:600;flex:1}
+.pname{font-family:'Bodoni Moda',serif;font-size:28px;font-weight:600;flex:1;color:var(--ink)}
 .count{font-size:14px;color:var(--gold);margin-top:8px;font-weight:500;min-height:18px}
 .win{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:9px}
 .wrow{display:flex;align-items:center;justify-content:center;gap:7px;font-size:13px;color:var(--soft)}
 .wrow b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--goldL)}
 .bigtiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.bt{border:none;border-radius:20px;padding:18px 16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:10px;min-height:96px;justify-content:space-between}
-.bt.dark{background:var(--ink);color:#fff}.bt.dark svg{stroke:var(--goldL)}
+.bt{border:none;border-radius:20px;padding:18px 16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:10px;min-height:100px;justify-content:space-between}
+.bt.dark{background:var(--ink);color:var(--paper)}.bt.dark svg{stroke:var(--gold)}
 .bt.light{background:var(--card);color:var(--ink);border:1px solid var(--line)}.bt.light svg{stroke:var(--gold)}
-.bt svg{width:26px;height:26px}
+.bt svg{width:28px;height:28px}
 .bt .bn{font-size:16px;font-weight:500}
 .bt .bh{font-family:'Frank Ruhl Libre';font-size:13px;opacity:.7;margin-top:-4px}
-.tehil{display:flex;align-items:center;gap:14px;background:linear-gradient(0deg,var(--cream),var(--cream));border:1px solid var(--line);border-radius:20px;padding:15px 18px;cursor:pointer;margin-bottom:14px}
-.tehil .tn{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Bodoni Moda';font-size:18px;flex:none}
+.tehil{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:15px 18px;cursor:pointer;margin-bottom:14px}
+.tehil .tn{width:42px;height:42px;border-radius:13px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:'Bodoni Moda';font-size:20px;flex:none}
 .tehil .tt{flex:1}.tehil .tt .a{font-size:14.5px;font-weight:500}.tehil .tt .b{font-size:12.5px;color:var(--soft);margin-top:1px}
-.tehil svg{width:18px;height:18px;stroke:var(--faint)}
+.tehil svg{width:18px;height:18px;stroke:var(--faint);transform:scaleX(-1)}
 .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .tool{background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0}
-.tc{width:56px;height:56px;border-radius:18px;background:var(--cream);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold)}
-.tc svg{width:24px;height:24px;stroke:var(--gold)}
+.tc{width:56px;height:56px;border-radius:18px;background:var(--cream);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.tc svg{width:25px;height:25px;stroke:var(--gold)}
 .tl{font-size:11px;color:var(--soft);text-align:center;line-height:1.25}
 .group{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden}
 .row{display:flex;align-items:center;padding:15px 18px;border-top:1px solid var(--line);cursor:pointer;gap:13px}
 .row:first-child{border-top:none}
 .row:active{background:var(--cream)}
-.ricon{width:40px;height:40px;border-radius:12px;background:var(--cream);display:flex;align-items:center;justify-content:center;color:var(--gold);flex:none}
-.ricon svg{width:21px;height:21px;stroke:var(--gold)}
-.rt{flex:1}
-.rt .nm{font-size:15px;font-weight:500}
-.rt .sub{font-size:12px;color:var(--faint);margin-top:1px}
-.he{font-family:'Frank Ruhl Libre',serif;font-size:17px}
+.ricon{width:40px;height:40px;border-radius:12px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex:none}
+.ricon svg{width:22px;height:22px;stroke:var(--gold)}
+.rt{flex:1}.rt .nm{font-size:15px;font-weight:500}.rt .sub{font-size:12px;color:var(--faint);margin-top:1px}
+.he{font-family:'Frank Ruhl Libre',serif;font-size:17px;color:var(--ink)}
 .time{font-size:14px;color:var(--soft);font-variant-numeric:tabular-nums}
 .soon{font-size:11px;color:var(--faint)}
-.star{display:flex;color:var(--gold)}.star svg{width:17px;height:17px;stroke:var(--gold)}
 .ch{color:var(--faint);font-size:18px}
-.tz{background:var(--ink);color:#fff;border-radius:22px;padding:20px;margin-bottom:14px}
-.tz .tzt{font-family:'Bodoni Moda';font-size:19px;display:flex;align-items:center;gap:9px}
-.tz .tzt svg{width:22px;height:22px;stroke:var(--goldL)}
-.tz p{font-size:13px;color:#d8d2c7;margin-top:8px;line-height:1.6}
-.tz .acc{margin-top:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 14px;font-size:13px}
-.tz .acc b{font-weight:500}
-.tz .accrow{display:flex;justify-content:space-between;gap:10px;padding:3px 0;color:#e9e4d8}
+/* tzedaka compact */
+.tzc{display:flex;align-items:center;gap:13px;background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:14px;cursor:pointer}
+.tzc .ic{width:40px;height:40px;border-radius:12px;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none}
+.tzc .ic svg{width:21px;height:21px;stroke:var(--gold)}
+.tzc .tt{flex:1}.tzc .tt .a{font-size:14.5px;font-weight:500}.tzc .tt .b{font-size:12px;color:var(--soft);margin-top:2px;line-height:1.4}
+.tzc svg.cv{width:18px;height:18px;stroke:var(--faint);transform:scaleX(-1)}
+.qrbox{background:#fff;border-radius:16px;padding:16px;width:max-content;margin:14px auto 0;display:flex;align-items:center;justify-content:center}
+.req{font-size:13px}.reqrow{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);align-items:center}
+.reqrow:first-child{border-top:none}.reqrow .k{color:var(--soft);flex:none}.reqrow .v{font-weight:500;text-align:right;font-variant-numeric:tabular-nums;word-break:break-all}
+.copy{background:none;border:none;cursor:pointer;color:var(--gold);display:flex;flex:none;margin-inline-start:6px}.copy svg{width:16px;height:16px;stroke:var(--gold)}
 .note{font-size:12.5px;color:var(--soft);line-height:1.6;padding:2px 2px}
+.btn{display:block;width:100%;background:var(--ink);color:var(--paper);border:none;border-radius:16px;padding:13px;font-family:'Jost';font-size:14.5px;font-weight:500;cursor:pointer;margin-top:14px}
+/* reader (texts) */
+.langseg{display:flex;gap:6px;justify-content:center;margin:6px 0 18px}
+.langseg button{border:1px solid var(--line);background:var(--card);border-radius:30px;padding:7px 16px;font-family:'Jost';font-size:13px;cursor:pointer;color:var(--soft)}
+.langseg button.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.verse{margin-bottom:16px}
+.vhe{font-family:'Frank Ruhl Libre',serif;font-size:22px;line-height:1.95;color:var(--ink);direction:rtl;text-align:right}
+.vtr{font-size:16px;line-height:1.7;color:var(--ink);margin-top:4px}
+.vnum{display:inline-block;min-width:22px;color:var(--gold);font-family:'Bodoni Moda';font-size:14px;margin-inline-end:6px}
+.loading{text-align:center;color:var(--faint);padding:30px;font-size:14px}
 /* compass */
-.cwrap{display:flex;flex-direction:column;align-items:center;padding-top:8px}
-.cmpbox{position:relative;width:268px;height:268px;margin:6px auto 0}
-.cmp-idx{position:absolute;top:-3px;left:50%;transform:translateX(-50%);z-index:3}
-.cmp-idx svg{width:20px;height:20px;fill:var(--gold)}
-.mdist{font-family:'Bodoni Moda',serif;font-size:30px;text-align:center;margin-top:16px}
+.cwrap{display:flex;flex-direction:column;align-items:center;padding-top:6px}
+.cmpbox{position:relative;width:270px;max-width:80vw;aspect-ratio:1;margin:8px auto 0}
+.cmp-idx{position:absolute;top:-4px;left:50%;transform:translateX(-50%);z-index:3}.cmp-idx svg{width:22px;height:22px;fill:var(--gold)}
+.mdist{font-family:'Bodoni Moda',serif;font-size:30px;text-align:center;margin-top:16px;color:var(--ink)}
 .mbear{font-size:13px;color:var(--gold);text-align:center;margin-top:3px;letter-spacing:1px}
 .aligned{text-align:center;margin-top:14px;font-size:14px;color:var(--gold);font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;min-height:20px}
 .aligned svg{width:18px;height:18px;stroke:var(--gold)}
-.cbtn{display:block;margin:16px auto 0;background:var(--ink);color:#fff;border:none;border-radius:30px;padding:12px 24px;font-family:'Jost';font-size:14px;cursor:pointer}
+.cbtn{display:block;margin:16px auto 0;background:var(--ink);color:var(--paper);border:none;border-radius:30px;padding:12px 24px;font-family:'Jost';font-size:14px;cursor:pointer}
 .set-seg{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
 .set-seg button{border:1px solid var(--line);background:var(--card);border-radius:30px;padding:9px 15px;font-family:'Jost';font-size:13px;cursor:pointer;color:var(--soft)}
-.set-seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.set-seg button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;margin-bottom:10px}
+.seg-card .sn{font-size:15px;font-weight:500;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.seg-card .sc{font-size:13px;color:var(--gold);font-variant-numeric:tabular-nums;flex:none}
+.seg-card .sd{font-size:13px;color:var(--soft);margin-top:5px;line-height:1.5}
 /* liquid glass nav */
 .navwrap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;pointer-events:none;padding:0 12px calc(env(safe-area-inset-bottom) + 10px);z-index:10}
-.navbar{pointer-events:auto;display:flex;align-items:flex-end;gap:0;width:100%;max-width:480px;background:rgba(250,250,249,.62);backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);border:1px solid rgba(255,255,255,.7);border-radius:28px;padding:7px 6px;box-shadow:0 10px 34px rgba(28,25,23,.16),inset 0 1px 0 rgba(255,255,255,.5)}
+.navbar{pointer-events:auto;display:flex;align-items:flex-end;width:100%;max-width:480px;background:var(--navbg);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--navbd);border-radius:28px;padding:7px 6px;box-shadow:0 10px 34px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.4)}
 .navbar button{flex:1;background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--faint);padding:5px 0}
 .navbar button svg{width:23px;height:23px;stroke:currentColor}
 .navbar button .n{font-size:9.5px;font-weight:500}
 .navbar button.on{color:var(--gold)}
 .navc{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
-.navc .circ{width:52px;height:52px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;margin-top:-24px;border:3px solid rgba(250,250,249,.85);box-shadow:0 6px 16px rgba(161,98,7,.4)}
+.navc .circ{width:52px;height:52px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;margin-top:-24px;border:3px solid var(--paper);box-shadow:0 6px 16px rgba(161,98,7,.45)}
 .navc .circ svg{width:24px;height:24px;stroke:#fff}
 .navc .n{font-size:9.5px;font-weight:600;color:var(--gold)}
-.rtl{direction:rtl}.rtl .rt,.rtl .bt,.rtl .tz,.rtl .note{text-align:right}.rtl .row{flex-direction:row}
+.rtl{direction:rtl}.rtl .rt,.rtl .bt,.rtl .note,.rtl .tzc .tt{text-align:right}
 .hidden{display:none!important}
-/* onboarding */
 #ob{position:absolute;inset:0;background:var(--paper);z-index:50;display:flex;flex-direction:column;justify-content:center;padding:36px 30px calc(env(safe-area-inset-bottom) + 36px)}
 #ob .obhe{font-family:'Frank Ruhl Libre';color:var(--gold);font-size:28px;direction:rtl}
 #ob h1{font-family:'Bodoni Moda',serif;font-size:25px;font-weight:600;margin-top:6px}
@@ -117,256 +133,247 @@ body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);-web
 #ob .opts button:active{background:var(--cream)}
 #ob .opts button span{font-family:'Frank Ruhl Libre';color:var(--faint);font-size:15px}
 #ob small{display:block;margin-top:18px;color:var(--faint);font-size:12px;line-height:1.5}
+#toast{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:30px;font-size:13px;z-index:60;opacity:0;transition:opacity .25s;pointer-events:none}
+#toast.show{opacity:1}
 </style>
 </head>
 <body>
 <div id="app">
   <div class="top">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" onclick="go('more',true)"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-    <div class="glob" onclick="cycleLang()"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg><span id="lc">RU</span></div>
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+    <div class="locpill" onclick="go('settings')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10zM12 11a2 2 0 1 0 .01 0"/></svg><span id="loctext">…</span></div>
+    <div class="topr">
+      <svg id="themebtn" viewBox="0 0 24 24" fill="none" stroke-width="1.6" onclick="cycleTheme()"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg onclick="cycleLang()" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+    </div>
   </div>
   <div class="scr" id="scr"></div>
   <div class="navwrap"><div class="navbar" id="nav"></div></div>
   <div id="ob" class="hidden"></div>
+  <div id="toast"></div>
 </div>
 
 <script>
 const ICON={
- sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
- clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
- book:'<path d="M4 5a2 2 0 0 1 2-2h7v16H6a2 2 0 0 0-2 2zM20 3v18M13 3h5a2 2 0 0 1 2 2"/>',
- grape:'<path d="M12 3v3M10 4.5h4M9 9.5a2.4 2.4 0 1 0 .01 0M15 9.5a2.4 2.4 0 1 0 .01 0M12 9.5a2.4 2.4 0 1 0 .01 0M10.5 13.5a2.4 2.4 0 1 0 .01 0M13.5 13.5a2.4 2.4 0 1 0 .01 0M12 17.5a2.4 2.4 0 1 0 .01 0"/>',
- bookmark:'<path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/>',
- dots:'<circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/>',
- compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
- calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/>',
- coin:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/>',
- bread:'<path d="M5 11a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4 2 2 0 0 1-2 2v5a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-5a2 2 0 0 1-2-2zM10 9v10M14 9v10"/>',
- wine:'<path d="M8 3h8l-1 6a3 3 0 0 1-6 0zM12 12v6M9 21h6"/>',
- apple:'<path d="M12 7c0-2 1.5-3.5 3.5-3.5M12 7c-1.6-1.4-4-1.6-5.6 0C4.5 8.8 5 13 7 16c1 1.5 2 3 3.2 3.5.9.4 1.7.4 2.6 0C14 19 15 17.5 16 16c2-3 2.5-7.2.6-9-1.6-1.6-4-1.4-5.6 0z"/>',
- leaf:'<path d="M5 19c0-7 5-13 14-14 1 9-5 15-12 15a8 8 0 0 1-2-1zM9 15c2-3 4-5 7-6"/>',
- drop:'<path d="M12 3s6 6 6 10a6 6 0 0 1-12 0c0-4 6-10 6-10z"/>',
- hands:'<path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10.5V6a1.5 1.5 0 0 1 3 0v7c0 3-2 6-5 6s-5-2-6-5l-1.5-3a1.5 1.5 0 0 1 2.6-1.5L7 11"/>',
- bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
- rainbow:'<path d="M3 18a9 9 0 0 1 18 0M6 18a6 6 0 0 1 12 0M9 18a3 3 0 0 1 6 0"/>',
- wave:'<path d="M2 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
- candle:'<path d="M10 21h4M9 12h6v9H9zM12 12V9M12 9c0-1.5-1.5-2-1.5-3.5A1.5 1.5 0 0 1 12 4a1.5 1.5 0 0 1 1.5 2C13.5 7 12 7.5 12 9z"/>',
- scroll:'<path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M6 4a2 2 0 0 0-2 2v1h2M9 9h6M9 13h6"/>',
- sparkle:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
- scales:'<path d="M12 4v16M7 20h10M5 8h14M5 8l-2.5 5a2.5 2.5 0 0 0 5 0zM19 8l-2.5 5a2.5 2.5 0 0 0 5 0zM12 4a1 1 0 1 0 .01 0"/>',
- mezuzah:'<path d="M9 3h6a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM12 7v5"/>',
- tallit:'<path d="M5 5h14M7 5l-1 15M17 5l1 15M6 20h12M9 5v15M15 5v15"/>',
- bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',
- gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.3 1a7.6 7.6 0 0 0-1.7-1L15 3H9.9l-.4 2.6a7.6 7.6 0 0 0-1.7 1l-2.3-1-2 3.4L3.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.3-1a7.6 7.6 0 0 0 1.7 1l.4 2.6H15l.4-2.6a7.6 7.6 0 0 0 1.7-1l2.3 1 2-3.4z"/>',
+ sun:'<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7.2v5l3.2 1.8"/>',
+ book:'<path d="M12 6.5C10.3 5 7.8 4.5 5.5 4.8 4.7 4.9 4 5.6 4 6.4v10.8c0 .9.8 1.6 1.7 1.5 2.1-.2 4.5.2 6.3 1.5 1.8-1.3 4.2-1.7 6.3-1.5.9.1 1.7-.6 1.7-1.5V6.4c0-.8-.7-1.5-1.5-1.6-2.3-.3-4.8.2-6.5 1.7zM12 6.5V19"/>',
+ grape:'<path d="M12 3.2v2.6M10.2 4.6h3.6M12 8.4a2.1 2.1 0 1 0 .01 0M9.1 12a2.1 2.1 0 1 0 .01 0M14.9 12a2.1 2.1 0 1 0 .01 0M10.5 15.6a2.1 2.1 0 1 0 .01 0M13.5 15.6a2.1 2.1 0 1 0 .01 0M12 18.8a2.1 2.1 0 1 0 .01 0"/>',
+ bookmark:'<path d="M6.5 3.5h11a1 1 0 0 1 1 1v15.4a.6.6 0 0 1-.9.5L12 17.6 6.4 20.4a.6.6 0 0 1-.9-.5V4.5a1 1 0 0 1 1-1z"/>',
+ dots:'<circle cx="5.5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18.5" cy="12" r="1.5"/>',
+ compass:'<circle cx="12" cy="12" r="9"/><path d="M14.8 9.2 13 14.6a1 1 0 0 1-.6.6L7 17l1.8-5.4a1 1 0 0 1 .6-.6z"/><circle cx="12" cy="12" r="1"/>',
+ calendar:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.2h17M8 3.2v3.4M16 3.2v3.4"/>',
+ coin:'<circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.6 9.6h3.9a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/>',
+ bread:'<path d="M6 8.5C6 6.6 8 5.5 12 5.5s6 1.1 6 3c0 1.1-.8 1.8-1.6 2v6.5a1.5 1.5 0 0 1-1.5 1.5h-5.8A1.5 1.5 0 0 1 7.6 17v-6.5C6.8 10.3 6 9.6 6 8.5z"/><path d="M10.2 11v6M13.8 11v6"/>',
+ wine:'<path d="M8 4h8c0 3.5-1 6.5-4 6.5S8 7.5 8 4zM12 10.5V18M8.8 18h6.4"/>',
+ apple:'<path d="M12 8.2c.2-2.4 1.7-3.8 3.8-3.8M12 8.2C10.8 6.6 8.4 6 6.8 7.2 4.6 8.9 5 13 7 16c1 1.6 2.3 3.2 3.5 3.6.9.3 2.1.3 3 0C14.7 19.2 16 17.6 17 16c2-3 2.4-7.1.2-8.8-1.6-1.2-4-.6-5.2 1z"/>',
+ leaf:'<path d="M5 19c-.5-7 4.5-14 14-14.5C19.5 11.5 14.5 18 7 18c-.7 0-1.4-.1-2-.4zM9.5 14.5C11 11.5 13.5 9.5 16.5 8.5"/>',
+ drop:'<path d="M12 3.5c1.8 2.3 6 6.3 6 10a6 6 0 0 1-12 0c0-3.7 4.2-7.7 6-10z"/>',
+ hands:'<path d="M7 11.5V6.6a1.4 1.4 0 0 1 2.8 0v3.9M9.8 10.5V5a1.4 1.4 0 0 1 2.8 0v5M12.6 10.6V6.4a1.4 1.4 0 0 1 2.8 0v6.6c0 3-2.1 5.8-5.2 5.8-2.4 0-3.9-1.3-4.9-3.3l-1.3-2.6a1.4 1.4 0 0 1 2.4-1.4L7 11.6"/>',
+ bolt:'<path d="M13.5 2.5 5 13.5h6l-1 8 8.5-11.5H13z"/>',
+ rainbow:'<path d="M3.5 18a8.5 8.5 0 0 1 17 0M6.5 18a5.5 5.5 0 0 1 11 0M9.5 18a2.5 2.5 0 0 1 5 0"/>',
+ wave:'<path d="M2.5 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2.5 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
+ candle:'<path d="M9.5 20.5h5M9.8 11.5h4.4v9H9.8zM12 11.5V8.8M12 8.8c0-1.4-1.4-1.9-1.4-3.3A1.4 1.4 0 0 1 12 4.2a1.4 1.4 0 0 1 1.4 1.3c0 1.4-1.4 1.9-1.4 3.3z"/>',
+ moon:'<path d="M20 13a8 8 0 1 1-9-9 6.3 6.3 0 0 0 9 9z"/>',
+ scroll:'<path d="M7 4.5h10a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-11M7 4.5a2 2 0 0 0-2 2v1.5h2M9.5 9.5h6M9.5 13h6M9.5 16.5h3"/>',
+ sparkle:'<path d="M12 3l1.9 5.4L19.5 10l-5.6 1.6L12 17l-1.9-5.4L4.5 10l5.6-1.6zM18.5 15l.8 2 .8-2 2-.8-2-.8z"/>',
+ scales:'<path d="M12 4v16M7.5 20h9M5.5 8h13M5.5 8l-2.4 5a2.4 2.4 0 0 0 4.8 0zM18.5 8l-2.4 5a2.4 2.4 0 0 0 4.8 0zM12 4a1.2 1.2 0 1 0 .01 0"/>',
+ mezuzah:'<path d="M9.2 3.5h5.6a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H9.2a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1zM12 7v4.5"/>',
+ tallit:'<path d="M5 5h14M7.2 5l-1 14.5M16.8 5l1 14.5M6.5 19.5h11M9.5 5v14.5M14.5 5v14.5"/>',
+ bell:'<path d="M18 8.5a6 6 0 1 0-12 0c0 6.5-2.5 8.5-2.5 8.5h17S18 15 18 8.5M13.7 20.5a2 2 0 0 1-3.4 0"/>',
+ gear:'<circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.1a7.5 7.5 0 0 0 0-2.2l2-1.5-2-3.4-2.3 1a7.5 7.5 0 0 0-1.9-1.1L14.8 3H9.2l-.5 2.9a7.5 7.5 0 0 0-1.9 1.1l-2.3-1-2 3.4 2 1.5a7.5 7.5 0 0 0 0 2.2l-2 1.5 2 3.4 2.3-1a7.5 7.5 0 0 0 1.9 1.1l.5 2.9h5.6l.5-2.9a7.5 7.5 0 0 0 1.9-1.1l2.3 1 2-3.4z"/>',
  chevL:'<path d="M15 5l-7 7 7 7"/>',
- globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/>',
  check:'<path d="M5 13l4 4L19 7"/>',
  pin:'<path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10zM12 11a2 2 0 1 0 .01 0"/>',
- mountain:'<path d="M3 19l6-11 4 7 2-3 6 7zM9 8l4 7"/>'
+ mountain:'<path d="M3 19l5.5-10 3.5 6 2.2-3.5L21 19zM8.5 9l3.5 6"/>',
+ copy:'<rect x="8.5" y="8.5" width="11" height="11" rx="2"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/>',
+ qr:'<rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><path d="M13.5 13.5h3v3M20.5 13.5v3M16.5 20.5h4M13.5 20.5h0"/>',
+ star:'<path d="M12 3.5l2.5 4.3 5 .1-2.5 4.3 2.5 4.3-5 .1L12 21l-2.5-4.3-5-.1 2.5-4.3-2.5-4.3 5-.1z"/>'
 };
 function svg(k){return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6">${ICON[k]||''}</svg>`}
 
 const KOTEL={lat:31.7780,lng:35.2354};
 const TZID=(Intl.DateTimeFormat().resolvedOptions().timeZone)||'UTC';
-const TEHILLIM=['','1–9','10–17','18–22','23–28','29–34','35–38','39–43','44–48','49–54','55–59','60–65','66–68','69–71','72–76','77–78','79–82','83–87','88–89','90–96','97–103','104–105','106–107','108–112','113–118','119:1–96','119:97–176','120–134','135–139','140–144','145–150'];
+const TEHILLIM=['','1–9','10–17','18–22','23–28','29–34','35–38','39–43','44–48','49–54','55–59','60–65','66–68','69–71','72–76','77–78','79–82','83–87','88–89','90–96','97–103','104–105','106–107','108–112','113–118','119','119','120–134','135–139','140–144','145–150'];
+
+const REQ={bank:'ПАО «Банк «Санкт-Петербург»»',acc:'40703810190140000030',cor:'30101810900000000790',bik:'044030790',name:'Еврейская религиозная община (СПб)',purpose:'Цдака (добровольное пожертвование)'};
+
+const SEGULOT=[
+ {need:{ru:'Пропитание (парнаса)',en:'Livelihood (parnasa)',he:'פרנסה'},ch:'23 · 24 · 34 · 67',d:{ru:'Псалмы на изобилие и заработок. Принято читать главу 23 ежедневно.',en:'Psalms for sustenance. Chapter 23 is said daily by many.',he:'מזמורים לפרנסה. נהוג לומר פרק כ״ג בכל יום.'}},
+ {need:{ru:'Здоровье и исцеление',en:'Health & healing',he:'רפואה'},ch:'6 · 13 · 20 · 30 · 41 · 103',d:{ru:'За полное выздоровление; добавляют имя больного и имя матери.',en:'For a complete recovery; add the ill person’s name and mother’s name.',he:'לרפואה שלמה; מוסיפים שם החולה ושם האם.'}},
+ {need:{ru:'Удачный брак (шидух)',en:'Finding a spouse (shidduch)',he:'שידוך'},ch:'32 · 38 · 70 · 71 · 124',d:{ru:'О встрече своей пары вовремя и с лёгкостью.',en:'To find one’s match in the right time.',he:'למציאת זיווג הגון בעיתו.'}},
+ {need:{ru:'Дети',en:'Children',he:'זרע של קיימא'},ch:'102 · 105 · 128',d:{ru:'О детях и благополучии семьи.',en:'For children and family wellbeing.',he:'לזרע בר קיימא ולשלום הבית.'}},
+ {need:{ru:'Защита в дороге',en:'Protection while travelling',he:'שמירה בדרך'},ch:'91 · 121',d:{ru:'«Песнь защиты» (91) и «Возвожу очи» (121) — оберегающие главы.',en:'The “Song of protection” (91) and Psalm 121 guard the traveller.',he:'שיר של פגעים (צ״א) ופרק קכ״א לשמירה.'}},
+ {need:{ru:'От дурного глаза',en:'Against the evil eye',he:'נגד עין הרע'},ch:'31 · 121',d:{ru:'Принято читать для защиты от сглаза.',en:'Read for protection from the evil eye.',he:'נאמרים לשמירה מעין הרע.'}},
+ {need:{ru:'Спасение и помощь (йешуа)',en:'Salvation & help (yeshua)',he:'ישועה'},ch:'13 · 20 · 86 · 142',d:{ru:'В тяжёлой ситуации, когда нужна скорая помощь Свыше.',en:'In hardship, when speedy help is needed.',he:'בעת צרה לישועה קרובה.'}},
+ {need:{ru:'Смягчение приговоров',en:'Sweetening of judgments',he:'המתקת הדינים'},ch:'20 · 33 · 90',d:{ru:'О милосердии и отмене суровых приговоров.',en:'For mercy and annulment of harsh decrees.',he:'לרחמים ולהמתקת הדינים.'}}
+];
 
 const L={
- ru:{lc:'RU',locale:'ru-RU',today:'Сегодня',prayers:'Молитвы',brachot:'Брахот',zmanim:'Зманим',more:'Ещё',
-   nearest:'Ближайшая молитва',tools:'Инструменты',prayToday:'Молитвы сегодня',locating:'Определяем место…',
-   t_mizrah:'Мизрах',t_zmanim:'Зманим',t_cal:'Календарь',t_tzedaka:'Цдака',t_fav:'Избранное',
+ ru:{lc:'RU',locale:'ru-RU',back:'Назад',today:'Сегодня',prayers:'Молитвы',brachot:'Брахот',zmanim:'Зманим',more:'Ещё',
+   nearest:'Ближайшая молитва',tools:'Инструменты',prayToday:'Молитвы сегодня',locating:'Определяем место…',myloc:'Текущее место',
+   t_mizrah:'Направление молитвы',t_zmanim:'Зманим',t_cal:'Календарь',t_tzedaka:'Цдака',t_fav:'Избранное',t_teh:'Теилим',t_seg:'Сгулот',t_hal:'Алахот',
    sh:'Шахарит',mi:'Минха',ma:'Маарив',now:'идёт сейчас',into:'через',until:'до',
    shma:'Шма',amida:'Амида',mgedola:'Минха гдола',shkia:'Шкия',tzeit:'Цет',
-   tehTitle:'Теилим сегодня',tehDay:'День',tehChap:'Псалмы',
+   tehTitle:'Теилим сегодня',tehDay:'День',tehChap:'Псалмы',tehOpen:'Читать сегодняшние главы',psalm:'Псалом',tehAll:'Седер на 30 дней',
    often:'Часто нужные',bf:'Перед едой',af:'После еды',addBr:'Дополнительные благословения',
    bread:'Хлеб',wine:'Вино',shehakol:'Шеаколь',asher:'Ашер яцар',
    breadF:'Хлеб · а-Моци',wineF:'Вино · а-Гефен',fruitF:'Фрукты · а-Эц',veg:'Овощи · а-Адама',
    birkat:'Биркат а-Мазон',meein:'Меэйн шалош',boreh:'Борэ нефашот',
-   cat_smell:'На запахи (бесамим)',cat_nature:'На явления природы',cat_mitzvot:'На заповеди',cat_events:'На события',cat_see:'При виде',
-   smell_tree:'Деревья (Эцей бсамим)',smell_grass:'Травы (Исвей бсамим)',smell_oil:'Масла (Шемен)',
-   thunder:'Гром',lightning:'Молния',rainbow:'Радуга',sea:'Море/океан',mountains:'Горы и пустыни',
+   cat_nature:'На явления природы',cat_smell:'На запахи',cat_mitzvot:'На заповеди',cat_events:'На события',cat_special:'Особые',
+   thunder:'Гром',lightning:'Молния',rainbow:'Радуга',sea:'Море / океан',mountains:'Горы и пустыни',levana:'Освящение луны (Кидуш левана)',
    tzitzit:'Цицит',tefillin:'Тфилин',mezuzah:'Мезуза',candles:'Свечи Шаббата',
-   gomel:'А-Гомель (избавление)',shehecheyanu:'Шеэхеяну',good:'А-тов ве-а-метив',
-   see_sage:'Мудрец Торы',see_king:'Царь/правитель',see_wonder:'Чудеса природы',
-   netilat:'Нетилат ядаим',
+   gomel:'А-Гомель',shehecheyanu:'Шеэхеяну',good:'А-тов ве-а-метив',besamim:'Благовония (бесамим)',
    daily:'Ежедневные',personal:'Личные молитвы',road:'Дорожная молитва',shmaY:'Шма Исраэль',bed:'Шма перед сном',hagomel:'Биркат а-Гомель',
-   tzedakaTitle:'Цдака перед молитвой',tzedakaText:'Есть обычай давать цдаку перед молитвой — это пробуждает милосердие Свыше и помогает молитве быть принятой. «Цдака спасает от смерти».',
-   tzedakaGive:'Дать цдаку общине (СПб)',tzedakaAcc:'Реквизиты общины',
+   tzcTitle:'Цдака перед молитвой',tzcSub:'Дать пожертвование общине — нажмите',
+   tzedakaTitle:'Цдака перед молитвой',tzedakaText:'Принято давать цдаку перед молитвой — это пробуждает милосердие Свыше. «Цдака спасает от смерти». Отсканируйте QR в приложении вашего банка (Сбербанк, Т-Банк и др.) — реквизиты подставятся автоматически.',
+   payTitle:'Оплата по реквизитам',rq_bank:'Банк',rq_acc:'Расчётный счёт',rq_cor:'Корр. счёт',rq_bik:'БИК',rq_name:'Получатель',copied:'Скопировано',
    dir:'Направление молитвы',mizrahHe:'מִזְרָח',toJer:'до Иерусалима',km:'км',deg:'°',
    facing:'Лицом к Иерусалиму',rotate:'Поворачивайте телефон, пока стрелка не встанет вверх',enableC:'Включить компас',calib:'Если неточно — поводите телефоном «восьмёркой» для калибровки',
-   chumash:'Хумаш',segulot:'Сгулот',halachot:'Алахот',
-   chumashSub:'Недельная глава и чтение Торы',segulotSub:'Проверенные сгулот и обычаи',halachotSub:'Краткие алахот на каждый день',soon:'скоро',
-   favHint:'Закреплённые тексты — всегда под рукой и офлайн',
-   moreTitle:'Ещё',moreTools:'Учение и инструменты',personal2:'Личное',remind:'Напоминания',settings:'Настройки',
-   setLang:'Язык приложения и текстов',setNus:'Нусах молитвы',setLoc:'Местоположение',setLocBtn:'Обновить по GPS',
-   auto:'Авто',
+   segIntro:'Подборка глав Теилим на разные нужды (по материалам silatehilim.com). Тексты глав открываются в разделе Теилим.',
+   halIntro:'Короткая алаха на каждый день — в разработке.',
+   moreTitle:'Ещё',moreLearn:'Учение',moreTools:'Инструменты',personal2:'Личное',remind:'Напоминания',settings:'Настройки',
+   setTheme:'Оформление',themeAuto:'Авто',themeLight:'Светлая',themeDark:'Тёмная',
+   setLang:'Язык приложения',setNus:'Нусах молитвы',setLoc:'Местоположение',setLocBtn:'Обновить по GPS',auto:'Авто',
    z:['Алот а-Шахар','Мишеякир','Нец','Соф зман Шма','Соф зман Тфила','Хацот','Минха гдола','Минха ктана','Плаг а-Минха','Шкия','Цет а-кохавим'],
    zh:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
    onbTitle:'Выберите нусах молитвы',onbSub:'Влияет на тексты и порядок молитв. Можно изменить в настройках.',onbHint:'Язык приложения определён автоматически по вашему устройству.',
    favList:[['Дорожная молитва','Личные'],['Хлеб · а-Моци','Брахот'],['Минха','Ежедневные']]},
- en:{lc:'EN',locale:'en-GB',today:'Today',prayers:'Prayers',brachot:'Brachot',zmanim:'Zmanim',more:'More',
-   nearest:'Next prayer',tools:'Tools',prayToday:'Prayers today',locating:'Locating…',
-   t_mizrah:'Mizrah',t_zmanim:'Zmanim',t_cal:'Calendar',t_tzedaka:'Tzedaka',t_fav:'Saved',
+ en:{lc:'EN',locale:'en-GB',back:'Back',today:'Today',prayers:'Prayers',brachot:'Brachot',zmanim:'Zmanim',more:'More',
+   nearest:'Next prayer',tools:'Tools',prayToday:'Prayers today',locating:'Locating…',myloc:'Current location',
+   t_mizrah:'Direction of prayer',t_zmanim:'Zmanim',t_cal:'Calendar',t_tzedaka:'Tzedaka',t_fav:'Saved',t_teh:'Tehillim',t_seg:'Segulot',t_hal:'Halachot',
    sh:'Shacharit',mi:'Mincha',ma:'Maariv',now:'now',into:'in',until:'until',
    shma:'Shema',amida:'Amidah',mgedola:'Mincha Gedola',shkia:'Sunset',tzeit:'Tzeit',
-   tehTitle:'Tehillim today',tehDay:'Day',tehChap:'Psalms',
+   tehTitle:'Tehillim today',tehDay:'Day',tehChap:'Psalms',tehOpen:'Read today’s chapters',psalm:'Psalm',tehAll:'30-day cycle',
    often:'Most used',bf:'Before eating',af:'After eating',addBr:'Additional blessings',
    bread:'Bread',wine:'Wine',shehakol:'Shehakol',asher:'Asher Yatzar',
    breadF:'Bread · HaMotzi',wineF:'Wine · HaGefen',fruitF:'Fruit · HaEtz',veg:'Veg · HaAdama',
    birkat:'Birkat Hamazon',meein:'Al HaMichya',boreh:'Borei Nefashot',
-   cat_smell:'On fragrances',cat_nature:'On nature',cat_mitzvot:'On mitzvot',cat_events:'On events',cat_see:'On seeing',
-   smell_tree:'Fragrant trees',smell_grass:'Fragrant herbs',smell_oil:'Fragrant oil',
-   thunder:'Thunder',lightning:'Lightning',rainbow:'Rainbow',sea:'Sea / ocean',mountains:'Mountains & deserts',
+   cat_nature:'On nature',cat_smell:'On fragrances',cat_mitzvot:'On mitzvot',cat_events:'On events',cat_special:'Special',
+   thunder:'Thunder',lightning:'Lightning',rainbow:'Rainbow',sea:'Sea / ocean',mountains:'Mountains & deserts',levana:'Kiddush Levana (moon)',
    tzitzit:'Tzitzit',tefillin:'Tefillin',mezuzah:'Mezuzah',candles:'Shabbat candles',
-   gomel:'HaGomel',shehecheyanu:'Shehecheyanu',good:'HaTov VeHaMetiv',
-   see_sage:'Torah sage',see_king:'King / ruler',see_wonder:'Natural wonders',
-   netilat:'Netilat Yadayim',
+   gomel:'HaGomel',shehecheyanu:'Shehecheyanu',good:'HaTov VeHaMetiv',besamim:'Fragrances (besamim)',
    daily:'Daily',personal:'Personal prayers',road:'Tefilat HaDerech',shmaY:'Shema Yisrael',bed:'Bedtime Shema',hagomel:'Birkat HaGomel',
-   tzedakaTitle:'Tzedaka before prayer',tzedakaText:'It is customary to give tzedaka before prayer — it awakens mercy from Above and helps the prayer be accepted. “Tzedaka saves from death.”',
-   tzedakaGive:'Give tzedaka (St. Petersburg)',tzedakaAcc:'Community details',
+   tzcTitle:'Tzedaka before prayer',tzcSub:'Give to the community — tap',
+   tzedakaTitle:'Tzedaka before prayer',tzedakaText:'It is customary to give tzedaka before prayer. “Tzedaka saves from death.” Scan the QR in your bank app — the details fill automatically.',
+   payTitle:'Pay by bank details',rq_bank:'Bank',rq_acc:'Account',rq_cor:'Corr. account',rq_bik:'BIC',rq_name:'Payee',copied:'Copied',
    dir:'Direction of prayer',mizrahHe:'מִזְרָח',toJer:'to Jerusalem',km:'km',deg:'°',
    facing:'Facing Jerusalem',rotate:'Turn your phone until the arrow points up',enableC:'Enable compass',calib:'If inaccurate, move the phone in a figure-8 to calibrate',
-   chumash:'Chumash',segulot:'Segulot',halachot:'Halachot',
-   chumashSub:'Weekly portion & Torah reading',segulotSub:'Tested segulot & customs',halachotSub:'Short daily halachot',soon:'soon',
-   favHint:'Pinned texts — always at hand and offline',
-   moreTitle:'More',moreTools:'Learning & tools',personal2:'Personal',remind:'Reminders',settings:'Settings',
-   setLang:'App & text language',setNus:'Prayer nusach',setLoc:'Location',setLocBtn:'Refresh by GPS',auto:'Auto',
+   segIntro:'A selection of Tehillim chapters for various needs. Chapter texts open in the Tehillim section.',
+   halIntro:'A short daily halacha — in progress.',
+   moreTitle:'More',moreLearn:'Learning',moreTools:'Tools',personal2:'Personal',remind:'Reminders',settings:'Settings',
+   setTheme:'Appearance',themeAuto:'Auto',themeLight:'Light',themeDark:'Dark',
+   setLang:'App language',setNus:'Prayer nusach',setLoc:'Location',setLocBtn:'Refresh by GPS',auto:'Auto',
    z:['Alot HaShachar','Misheyakir','Sunrise','Sof zman Shma','Sof zman Tfila','Chatzot','Mincha Gedola','Mincha Ketana','Plag HaMincha','Sunset','Tzeit'],
    zh:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
    onbTitle:'Choose your prayer nusach',onbSub:'Affects prayer texts and order. Changeable in settings.',onbHint:'App language was detected automatically from your device.',
    favList:[['Tefilat HaDerech','Personal'],['Bread · HaMotzi','Brachot'],['Mincha','Daily']]},
- he:{lc:'HE',locale:'he-IL',today:'היום',prayers:'תפילות',brachot:'ברכות',zmanim:'זמנים',more:'עוד',
-   nearest:'התפילה הקרובה',tools:'כלים',prayToday:'תפילות היום',locating:'מאתר מיקום…',
-   t_mizrah:'מזרח',t_zmanim:'זמנים',t_cal:'לוח',t_tzedaka:'צדקה',t_fav:'שמורים',
+ he:{lc:'HE',locale:'he-IL',back:'חזרה',today:'היום',prayers:'תפילות',brachot:'ברכות',zmanim:'זמנים',more:'עוד',
+   nearest:'התפילה הקרובה',tools:'כלים',prayToday:'תפילות היום',locating:'מאתר מיקום…',myloc:'מיקום נוכחי',
+   t_mizrah:'כיוון התפילה',t_zmanim:'זמנים',t_cal:'לוח',t_tzedaka:'צדקה',t_fav:'שמורים',t_teh:'תהילים',t_seg:'סגולות',t_hal:'הלכות',
    sh:'שַׁחֲרִית',mi:'מִנְחָה',ma:'מַעֲרִיב',now:'עכשיו',into:'בעוד',until:'עד',
    shma:'שמע',amida:'עמידה',mgedola:'מנחה גדולה',shkia:'שקיעה',tzeit:'צאת',
-   tehTitle:'תהילים היום',tehDay:'יום',tehChap:'מזמורים',
+   tehTitle:'תהילים היום',tehDay:'יום',tehChap:'מזמורים',tehOpen:'קריאת פרקי היום',psalm:'מזמור',tehAll:'סדר ל-30 יום',
    often:'הנפוצות',bf:'לפני האכילה',af:'לאחר האכילה',addBr:'ברכות נוספות',
    bread:'לחם',wine:'יין',shehakol:'שהכל',asher:'אשר יצר',
    breadF:'הַמּוֹצִיא',wineF:'הַגֶּפֶן',fruitF:'הָעֵץ',veg:'הָאֲדָמָה',
    birkat:'בִּרְכַּת הַמָּזוֹן',meein:'מֵעֵין שָׁלוֹשׁ',boreh:'בּוֹרֵא נְפָשׁוֹת',
-   cat_smell:'על הריח (בשמים)',cat_nature:'על הטבע',cat_mitzvot:'על המצוות',cat_events:'על אירועים',cat_see:'על הראייה',
-   smell_tree:'עצי בשמים',smell_grass:'עשבי בשמים',smell_oil:'שמן ערב',
-   thunder:'רעם',lightning:'ברק',rainbow:'קשת',sea:'ים / אוקיינוס',mountains:'הרים ומדבריות',
+   cat_nature:'על הטבע',cat_smell:'על הריח',cat_mitzvot:'על המצוות',cat_events:'על אירועים',cat_special:'מיוחדות',
+   thunder:'רעם',lightning:'ברק',rainbow:'קשת',sea:'ים / אוקיינוס',mountains:'הרים ומדבריות',levana:'קידוש לבנה',
    tzitzit:'ציצית',tefillin:'תפילין',mezuzah:'מזוזה',candles:'נרות שבת',
-   gomel:'הגומל',shehecheyanu:'שהחיינו',good:'הטוב והמטיב',
-   see_sage:'חכם תורה',see_king:'מלך',see_wonder:'נפלאות הטבע',
-   netilat:'נטילת ידיים',
+   gomel:'הגומל',shehecheyanu:'שהחיינו',good:'הטוב והמטיב',besamim:'בשמים',
    daily:'יומיות',personal:'תפילות אישיות',road:'תְּפִלַּת הַדֶּרֶךְ',shmaY:'שְׁמַע יִשְׂרָאֵל',bed:'קְרִיאַת שְׁמַע',hagomel:'בִּרְכַּת הַגּוֹמֵל',
-   tzedakaTitle:'צדקה לפני התפילה',tzedakaText:'נהגו לתת צדקה לפני התפילה — היא מעוררת רחמים מלמעלה ומסייעת שהתפילה תתקבל. «וּצְדָקָה תַּצִּיל מִמָּוֶת».',
-   tzedakaGive:'לתת צדקה (קהילת סנקט פטרבורג)',tzedakaAcc:'פרטי הקהילה',
+   tzcTitle:'צדקה לפני התפילה',tzcSub:'לתת צדקה לקהילה — הקישו',
+   tzedakaTitle:'צדקה לפני התפילה',tzedakaText:'נהגו לתת צדקה לפני התפילה. «וּצְדָקָה תַּצִּיל מִמָּוֶת». סרקו את הקוד באפליקציית הבנק והפרטים ימולאו אוטומטית.',
+   payTitle:'תשלום לפי פרטים',rq_bank:'בנק',rq_acc:'חשבון',rq_cor:'חשבון נוסטרו',rq_bik:'BIC',rq_name:'מקבל',copied:'הועתק',
    dir:'כיוון התפילה',mizrahHe:'מִזְרָח',toJer:'לירושלים',km:'ק״מ',deg:'°',
-   facing:'פונה לירושלים',rotate:'סובבו את הטלפון עד שהחץ יפנה למעלה',enableC:'הפעלת מצפן',calib:'אם לא מדויק — הניעו את הטלפון בצורת שמינייה לכיול',
-   chumash:'חומש',segulot:'סגולות',halachot:'הלכות',
-   chumashSub:'פרשת השבוע וקריאת התורה',segulotSub:'סגולות ומנהגים',halachotSub:'הלכה יומית קצרה',soon:'בקרוב',
-   favHint:'טקסטים שמורים — תמיד בהישג יד וגם לא מקוון',
-   moreTitle:'עוד',moreTools:'לימוד וכלים',personal2:'אישי',remind:'תזכורות',settings:'הגדרות',
-   setLang:'שפת האפליקציה והטקסט',setNus:'נוסח התפילה',setLoc:'מיקום',setLocBtn:'רענון לפי GPS',auto:'אוטומטי',
+   facing:'פונה לירושלים',rotate:'סובבו את הטלפון עד שהחץ יפנה למעלה',enableC:'הפעלת מצפן',calib:'אם לא מדויק — הניעו את הטלפון בצורת שמינייה',
+   segIntro:'מבחר פרקי תהילים לצרכים שונים. הטקסטים נפתחים בקטע תהילים.',
+   halIntro:'הלכה יומית קצרה — בפיתוח.',
+   moreTitle:'עוד',moreLearn:'לימוד',moreTools:'כלים',personal2:'אישי',remind:'תזכורות',settings:'הגדרות',
+   setTheme:'מראה',themeAuto:'אוטומטי',themeLight:'בהיר',themeDark:'כהה',
+   setLang:'שפת האפליקציה',setNus:'נוסח התפילה',setLoc:'מיקום',setLocBtn:'רענון לפי GPS',auto:'אוטומטי',
    z:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
    zh:['','','','','','','','','','',''],
    onbTitle:'בחרו נוסח תפילה',onbSub:'משפיע על נוסח וסדר התפילות. ניתן לשנות בהגדרות.',onbHint:'שפת האפליקציה זוהתה אוטומטית מהמכשיר.',
    favList:[['תְּפִלַּת הַדֶּרֶךְ','אישיות'],['הַמּוֹצִיא','ברכות'],['מִנְחָה','יומיות']]}
 };
-const NUSACH={ashkenaz:{ru:'Ашкеназ',en:'Ashkenaz',he:'אַשְׁכְּנַז'},sefard:{ru:'Сфард (хасидский)',en:'Sefard (Chassidic)',he:'סְפָרַד'},chabad:{ru:'Хабад (Ари)',en:'Chabad (Arizal)',he:'חב״ד'},edot:{ru:'Эдот а-Мизрах (Сфаради)',en:'Edot HaMizrach',he:'עֵדוֹת הַמִּזְרָח'}};
+const NUSACH={ashkenaz:{ru:'Ашкеназ',en:'Ashkenaz',he:'אַשְׁכְּנַז'},sefard:{ru:'Сфард (хасидский)',en:'Sefard',he:'סְפָרַד'},chabad:{ru:'Хабад (Ари)',en:'Chabad',he:'חב״ד'},edot:{ru:'Эдот а-Мизрах',en:'Edot HaMizrach',he:'עֵדוֹת הַמִּזְרָח'}};
 
 function detectLang(){const n=(navigator.language||'en').toLowerCase();if(n.startsWith('he')||n.startsWith('iw'))return 'he';if(n.startsWith('ru')||n.startsWith('uk')||n.startsWith('be'))return 'ru';return 'en';}
 let lang=localStorage.getItem('lang')||detectLang();
 let nusach=localStorage.getItem('nusach')||null;
-let cur='today', hist=[], pidx=null, loc=null, heading=null, compassOn=false, zlibReady=false;
-const scr=document.getElementById('scr'), nav=document.getElementById('nav'), ob=document.getElementById('ob');
+let theme=localStorage.getItem('theme')||'auto';
+let textLang=lang;
+let cur='today',hist=[],pidx=null,loc=null,heading=null,compassOn=false;
+const scr=document.getElementById('scr'),nav=document.getElementById('nav'),ob=document.getElementById('ob');
 
-/* ---------- zmanim via KosherJava (kosher-zmanim) ---------- */
+/* theme */
+function isNight(){const z=getZmanim();const now=new Date();if(z&&z.tzeit&&z.alot){return now>=z.tzeit||now<z.alot;}const h=now.getHours();return h>=19||h<6;}
+function applyTheme(){const eff=theme==='auto'?(isNight()?'dark':'light'):theme;document.documentElement.setAttribute('data-theme',eff);const m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',eff==='dark'?'#13110E':'#FAFAF9');}
+window.cycleTheme=function(){const o=['auto','light','dark'];theme=o[(o.indexOf(theme)+1)%3];localStorage.setItem('theme',theme);applyTheme();toast(L[lang].setTheme+': '+(theme==='auto'?L[lang].themeAuto:theme==='light'?L[lang].themeLight:L[lang].themeDark));};
+
+/* zmanim via KosherJava */
 function parseT(s){return (s&&s!=='N/A')?new Date(s):null;}
 function getZmanim(){
- if(!loc) return null;
- try{
-  if(window.KosherZmanim&&window.KosherZmanim.getZmanimJson){
+ if(!loc)return null;
+ try{if(window.KosherZmanim&&window.KosherZmanim.getZmanimJson){
    const j=window.KosherZmanim.getZmanimJson({date:new Date(),locationName:'',latitude:loc.lat,longitude:loc.lng,elevation:0,timeZoneId:TZID,complexZmanim:true});
-   const z=j.Zmanim;
-   const sr=parseT(z.Sunrise),ss=parseT(z.Sunset);
-   return {
-    alot:parseT(z.Alos72), misheyakir:parseT(z.Misheyakir11Point5Degrees)||parseT(z.Alos60)||(sr?new Date(+sr-50*60000):null), netz:sr,
-    sofShma:parseT(z.SofZmanShmaGRA), sofTfila:parseT(z.SofZmanTfilaGRA), chatzot:parseT(z.Chatzos),
-    minchaG:parseT(z.MinchaGedola), minchaK:parseT(z.MinchaKetana), plag:parseT(z.PlagHamincha),
-    shkia:ss, tzeit:parseT(z.Tzais)||parseT(z.Tzais72)
-   };
-  }
- }catch(e){}
- return noaaZmanim();
-}
-function noaaZmanim(){ // офлайн-фолбэк
- const base=new Date(),rad=Math.PI/180,deg=180/Math.PI;
- function ev(elev,morning){const start=Date.UTC(base.getUTCFullYear(),0,0);const n=(Date.UTC(base.getUTCFullYear(),base.getUTCMonth(),base.getUTCDate())-start)/86400000;const g=2*Math.PI/365*(n-1);const eq=229.18*(0.000075+0.001868*Math.cos(g)-0.032077*Math.sin(g)-0.014615*Math.cos(2*g)-0.040849*Math.sin(2*g));const dec=0.006918-0.399912*Math.cos(g)+0.070257*Math.sin(g)-0.006758*Math.cos(2*g)+0.000907*Math.sin(2*g)-0.002697*Math.cos(3*g)+0.00148*Math.sin(3*g);const la=loc.lat*rad,zen=(90-elev)*rad;let c=(Math.cos(zen)-Math.sin(la)*Math.sin(dec))/(Math.cos(la)*Math.cos(dec));if(c>1||c<-1)return null;const ha=Math.acos(c)*deg;const m=720-4*loc.lng-eq+4*(morning?-ha:ha);const d=new Date(Date.UTC(base.getUTCFullYear(),base.getUTCMonth(),base.getUTCDate()));d.setUTCMinutes(d.getUTCMinutes()+m);return d;}
- const sr=ev(-0.833,true),ss=ev(-0.833,false);if(!sr||!ss)return null;const shaa=(ss-sr)/12,noon=new Date((+sr+ +ss)/2);
- return {alot:ev(-16.1,true)||new Date(+sr-72*6e4),misheyakir:ev(-11.5,true)||new Date(+sr-50*6e4),netz:sr,sofShma:new Date(+sr+3*shaa),sofTfila:new Date(+sr+4*shaa),chatzot:noon,minchaG:new Date(+sr+6.5*shaa),minchaK:new Date(+sr+9.5*shaa),plag:new Date(+sr+10.75*shaa),shkia:ss,tzeit:ev(-8.5,false)||new Date(+ss+50*6e4)};
+   const z=j.Zmanim,sr=parseT(z.Sunrise),ss=parseT(z.Sunset);
+   return {alot:parseT(z.Alos72),misheyakir:parseT(z.Misheyakir11Point5Degrees)||(sr?new Date(+sr-50*6e4):null),netz:sr,sofShma:parseT(z.SofZmanShmaGRA),sofTfila:parseT(z.SofZmanTfilaGRA),chatzot:parseT(z.Chatzos),minchaG:parseT(z.MinchaGedola),minchaK:parseT(z.MinchaKetana),plag:parseT(z.PlagHamincha),shkia:ss,tzeit:parseT(z.Tzais)||parseT(z.Tzais72)};
+ }}catch(e){}
+ return null;
 }
 function fmt(d){if(!d)return '—';return d.toLocaleTimeString(L[lang].locale,{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:TZID})}
-function gapTxt(ms){const m=Math.round(ms/6e4),h=Math.floor(m/60),mm=m%60;const H=lang==='he'?'שע׳':lang==='en'?'h':'ч',M=lang==='he'?'דק׳':lang==='en'?'min':'мин';return h>0?`${h} ${H} ${mm} ${M}`:`${mm} ${M}`}
-
-/* geometry */
+function gapTxt(ms){const m=Math.round(ms/6e4),h=Math.floor(m/60),mm=m%60,H=lang==='he'?'שע׳':lang==='en'?'h':'ч',M=lang==='he'?'דק׳':lang==='en'?'min':'мин';return h>0?`${h} ${H} ${mm} ${M}`:`${mm} ${M}`}
 function bearing(a,b){const r=Math.PI/180,dL=(b.lng-a.lng)*r,y=Math.sin(dL)*Math.cos(b.lat*r),x=Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos(dL);return (Math.atan2(y,x)*180/Math.PI+360)%360}
 function distKm(a,b){const r=Math.PI/180,R=6371,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r,h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
-
-/* dates */
-function hebParts(){try{const p=new Intl.DateTimeFormat('en-u-ca-hebrew',{day:'numeric'}).formatToParts(new Date());let day=1;p.forEach(x=>{if(x.type==='day')day=parseInt(x.value)});return day}catch(e){return new Date().getDate()}}
-function hebDate(){try{const s=new Intl.DateTimeFormat(L[lang].locale+'-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric'}).format(new Date());return s.replace(/\s*(AM|anno mundi|לבריאת העולם|לבריאה)\s*$/i,'').trim()}catch(e){return ''}}
+function hebDay(){try{const p=new Intl.DateTimeFormat('en-u-ca-hebrew',{day:'numeric'}).formatToParts(new Date());let day=1;p.forEach(x=>{if(x.type==='day')day=parseInt(x.value)});return day}catch(e){return new Date().getDate()}}
+function hebDate(){try{return new Intl.DateTimeFormat(L[lang].locale+'-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric'}).format(new Date()).replace(/\s*(AM|anno mundi|לבריאת העולם|לבריאה)\s*$/i,'').trim()}catch(e){return ''}}
 function gregDate(){return new Intl.DateTimeFormat(L[lang].locale,{weekday:'short',day:'numeric',month:'long'}).format(new Date())}
 
-/* prayer hero */
 function prayerState(z){
  const now=new Date(),d=L[lang];
- const items=[{n:d.sh,start:z.netz,end:z.chatzot,w:[[d.shma,z.sofShma],[d.amida,z.sofTfila]]},
-   {n:d.mi,start:z.minchaG,end:z.shkia,w:[[d.mgedola,z.minchaG],[d.shkia,z.shkia]]},
-   {n:d.ma,start:z.tzeit,end:null,w:[[d.tzeit,z.tzeit]]}];
- let c=0; if(z.chatzot&&now<z.chatzot)c=0; else if(z.shkia&&now<z.shkia)c=1; else c=2;
- if(pidx===null)pidx=c;
- const p=items[pidx]; let count;
+ const items=[{n:d.sh,start:z.netz,end:z.chatzot,w:[[d.shma,z.sofShma],[d.amida,z.sofTfila]]},{n:d.mi,start:z.minchaG,end:z.shkia,w:[[d.mgedola,z.minchaG],[d.shkia,z.shkia]]},{n:d.ma,start:z.tzeit,end:null,w:[[d.tzeit,z.tzeit]]}];
+ let c=0;if(z.chatzot&&now<z.chatzot)c=0;else if(z.shkia&&now<z.shkia)c=1;else c=2;
+ if(pidx===null)pidx=c;const p=items[pidx];let count;
  if(p.start&&p.end&&now>=p.start&&now<p.end)count=`${d.now} · ${d.until} ${fmt(p.end)}`;
  else if(p.start&&now<p.start)count=`${d.into} ${gapTxt(p.start-now)} · ${fmt(p.start)}`;
  else count=p.start?fmt(p.start):'—';
  return {p,count};
 }
 
-/* helpers */
 function lbl(t){return `<div class="lbl">${t}<span class="ln"></span></div>`}
-function backBtn(){return `<button class="back" onclick="back()">${svg('chevL')}${L[lang].back||(lang==='he'?'חזרה':lang==='en'?'Back':'Назад')}</button>`}
-function row(ic,nm,he,o){o=o||{};return `<div class="row" onclick="${o.fn||''}">${ic?`<span class="ricon">${svg(ic)}</span>`:''}<div class="rt"><div class="nm">${nm}</div>${o.sub?`<div class="sub">${o.sub}</div>`:''}</div>${o.fav?`<span class="star">${svg('bookmark')}</span>`:''}${he&&lang!=='he'?`<span class="he">${he}</span>`:''}${o.time?`<span class="time">${o.time}</span>`:''}${o.soon?`<span class="soon">${o.soon}</span>`:''}<span class="ch">›</span></div>`}
+function backBtn(){return `<button class="back" onclick="back()">${svg('chevL')}${L[lang].back}</button>`}
+function row(ic,nm,he,o){o=o||{};return `<div class="row" onclick="${o.fn||''}">${ic?`<span class="ricon">${svg(ic)}</span>`:''}<div class="rt"><div class="nm">${nm}</div>${o.sub?`<div class="sub">${o.sub}</div>`:''}</div>${o.fav?`<span class="ricon" style="background:none"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" style="width:18px;height:18px;stroke:var(--gold)">${ICON.bookmark}</svg></span>`:''}${he&&lang!=='he'?`<span class="he">${he}</span>`:''}${o.time?`<span class="time">${o.time}</span>`:''}${o.soon?`<span class="soon">${o.soon}</span>`:''}<span class="ch">›</span></div>`}
 function tool(ic,l,fn){return `<button class="tool" onclick="${fn}"><span class="tc">${svg(ic)}</span><span class="tl">${l}</span></button>`}
 
-/* compass */
 function compassSVG(){
- let ticks='';for(let i=0;i<72;i++){const a=i*5*Math.PI/180,maj=i%9===0,r2=maj?92:99,x1=130+114*Math.sin(a),y1=130-114*Math.cos(a),x2=130+r2*Math.sin(a),y2=130-r2*Math.cos(a);ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${maj?'#BFA46F':'#E3DFD8'}" stroke-width="${maj?2:1}"/>`}
+ let ticks='';for(let i=0;i<72;i++){const a=i*5*Math.PI/180,maj=i%9===0,r2=maj?92:99,x1=130+114*Math.sin(a),y1=130-114*Math.cos(a),x2=130+r2*Math.sin(a),y2=130-r2*Math.cos(a);ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${maj?'var(--goldL)':'var(--line)'}" stroke-width="${maj?2:1}"/>`}
  const lbls=lang==='he'?['צ','מז','ד','מע']:['N','E','S','W'];
- const card=[[lbls[0],0],[lbls[1],90],[lbls[2],180],[lbls[3],270]].map(([k,dg])=>{const a=dg*Math.PI/180,x=130+78*Math.sin(a),y=130-78*Math.cos(a);return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-family="Jost" font-size="14" fill="${dg===0?'#A16207':'#A8A29E'}">${k}</text>`}).join('');
- const rose=heading!==null?-heading:0;
- const b=loc?bearing(loc,KOTEL):0;
- const arrow=heading!==null?(b-heading):b;
- return `<svg viewBox="0 0 260 260" width="100%" style="max-width:268px;display:block">
-   <circle cx="130" cy="130" r="126" fill="#fff" stroke="#E3DFD8"/><circle cx="130" cy="130" r="118" fill="none" stroke="#F1EFEA"/>
-   <g id="rose" transform="rotate(${rose.toFixed(1)} 130 130)" style="transition:transform .2s linear">${ticks}${card}</g>
-   <g id="arrow" transform="rotate(${arrow.toFixed(1)} 130 130)" style="transition:transform .2s linear">
-     <path d="M130 30 L142 130 L130 142 L118 130 Z" fill="#A16207"/>
-     <path d="M130 226 L118 130 L130 142 L142 130 Z" fill="#E3DFD8"/>
-     <circle cx="130" cy="44" r="13" fill="#FAF6EC" stroke="#A16207"/>
-     <text x="130" y="49" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="15" fill="#A16207">✡</text>
+ const card=[[lbls[0],0],[lbls[1],90],[lbls[2],180],[lbls[3],270]].map(([k,dg])=>{const a=dg*Math.PI/180,x=130+78*Math.sin(a),y=130-78*Math.cos(a);return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-family="Jost" font-size="14" fill="${dg===0?'var(--gold)':'var(--faint)'}">${k}</text>`}).join('');
+ const rose=heading!==null?-heading:0;const b=loc?bearing(loc,KOTEL):0;const arrow=heading!==null?(b-heading):b;
+ return `<svg viewBox="0 0 260 260" width="100%" style="display:block">
+   <circle cx="130" cy="130" r="126" fill="var(--card)" stroke="var(--line)"/><circle cx="130" cy="130" r="118" fill="none" stroke="var(--cream)"/>
+   <g id="rose" transform="rotate(${rose.toFixed(1)} 130 130)" style="transition:transform .15s linear">${ticks}${card}</g>
+   <g id="arrow" transform="rotate(${arrow.toFixed(1)} 130 130)" style="transition:transform .15s linear">
+     <path d="M130 30 L142 130 L130 142 L118 130 Z" fill="var(--gold)"/><path d="M130 226 L118 130 L130 142 L142 130 Z" fill="var(--line)"/>
+     <circle cx="130" cy="44" r="13" fill="var(--cream)" stroke="var(--gold)"/><text x="130" y="49" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="15" fill="var(--gold)">✡</text>
    </g>
-   <circle cx="130" cy="130" r="7" fill="#1C1917"/><circle cx="130" cy="130" r="3" fill="#BFA46F"/>
+   <circle cx="130" cy="130" r="7" fill="var(--ink)"/><circle cx="130" cy="130" r="3" fill="var(--goldL)"/>
  </svg>`;
 }
-function alignedNow(){if(heading===null||!loc)return false;const b=bearing(loc,KOTEL);const diff=Math.abs(((b-heading+540)%360)-180);return diff<5;}
+function alignedNow(){if(heading===null||!loc)return false;const b=bearing(loc,KOTEL);return Math.abs(((b-heading+540)%360)-180)<5;}
 
-/* ---------- screens ---------- */
+/* GOST Р 56042 payment QR string (compact, чтобы влезло в QR) */
+function gostQR(){return `ST00012|Name=Еврейская религиозная община|PersonalAcc=${REQ.acc}|BankName=Банк Санкт-Петербург|BIC=${REQ.bik}|CorrespAcc=${REQ.cor}|Purpose=Цдака`;}
+
 function screens(){
- const d=L[lang];
- const z=getZmanim();
- const hero=z?prayerState(z):null;
+ const d=L[lang];const z=getZmanim();const hero=z?prayerState(z):null;
  const dist=loc?Math.round(distKm(loc,KOTEL)).toLocaleString(d.locale):'—';
  const bear=loc?Math.round(bearing(loc,KOTEL)):'—';
- const tehDay=hebParts();const tehDayN=tehDay>30?30:tehDay;
- const nus=nusach?NUSACH[nusach][lang]:'';
+ const td=hebDay();const tdN=td>30?30:td;const nus=nusach?NUSACH[nusach][lang]:'';
  return {
- today:`<div class="lbl" style="margin-top:10px">${d.today}<span class="ln"></span></div>
-   <div class="date">${hebDate()}</div><div class="greg">${gregDate()}${loc?'':' · '+d.locating}</div>
+ today:`<div class="date" style="margin-top:6px">${hebDate()}</div><div class="greg">${gregDate()}</div>
    <div class="card hero" style="margin-top:16px">
      <div class="lbl" style="margin:0 0 12px;justify-content:center">${d.nearest}</div>
      <div class="hrow"><button class="chev" onclick="prev()">‹</button><div class="pname">${hero?hero.p.n:'—'}</div><button class="chev" onclick="nextP()">›</button></div>
@@ -377,158 +384,173 @@ function screens(){
      <button class="bt light" onclick="go('prayers',true)">${svg('book')}<div><div class="bn">${d.prayers}</div><div class="bh">תְּפִלּוֹת</div></div></button>
      <button class="bt dark" onclick="go('brachot',true)">${svg('grape')}<div><div class="bn">${d.brachot}</div><div class="bh">בְּרָכוֹת</div></div></button>
    </div>
-   <div class="tehil" onclick="go('tehillim')"><div class="tn">ת</div><div class="tt"><div class="a">${d.tehTitle} · ${d.tehDay} ${tehDayN}</div><div class="b">${d.tehChap} ${TEHILLIM[tehDayN]}</div></div>${svg('chevL')}</div>
+   <div class="tehil" onclick="openTehillim()"><div class="tn">ת</div><div class="tt"><div class="a">${d.tehTitle} · ${d.tehDay} ${tdN}</div><div class="b">${d.tehChap} ${TEHILLIM[tdN]} · ${d.tehOpen}</div></div>${svg('chevL')}</div>
    ${lbl(d.tools)}
    <div class="tools">${tool('compass',d.t_mizrah,"go('mizrah')")}${tool('clock',d.t_zmanim,"go('zmanim',true)")}${tool('calendar',d.t_cal,"go('calendar')")}${tool('coin',d.t_tzedaka,"go('tzedaka')")}</div>
    ${lbl(d.prayToday)}
    <div class="group">${row('sun',d.sh,'שַׁחֲרִית',{time:z?fmt(z.netz):''})}${row('clock',d.mi,'מִנְחָה',{time:z?fmt(z.minchaG):''})}${row('book',d.ma,'מַעֲרִיב',{time:z?fmt(z.tzeit):''})}</div>`,
 
- zmanim:`${lbl(d.zmanim)}
-   <div class="group">${z?d.z.map((nm,i)=>{const key=['alot','misheyakir','netz','sofShma','sofTfila','chatzot','minchaG','minchaK','plag','shkia','tzeit'][i];return row('',nm,d.zh[i],{time:fmt(z[key])})}).join(''):`<div style="padding:24px;text-align:center;color:var(--faint)">${d.locating}</div>`}</div>
-   <div class="note" style="margin-top:12px">${lang==='ru'?'Расчёт по библиотеке KosherJava для ваших координат. На высоких широтах (белые ночи) для алот/цет применяются фиксированные интервалы.':lang==='en'?'Computed by the KosherJava library for your coordinates. At high latitudes fixed intervals are used for alot/tzeit.':'מחושב לפי ספריית KosherJava לפי הקואורדינטות שלך.'}</div>`,
+ zmanim:`${backBtn()}${lbl(d.zmanim)}
+   <div class="group">${z?d.z.map((nm,i)=>{const key=['alot','misheyakir','netz','sofShma','sofTfila','chatzot','minchaG','minchaK','plag','shkia','tzeit'][i];return row('',nm,d.zh[i],{time:fmt(z[key])})}).join(''):`<div class="loading">${d.locating}</div>`}</div>
+   <div class="note" style="margin-top:12px">${lang==='ru'?'Расчёт по библиотеке KosherJava для ваших координат. На высоких широтах (белые ночи) для алот/цет применяются фиксированные интервалы (72 мин).':lang==='en'?'Computed by the KosherJava library for your coordinates.':'מחושב לפי ספריית KosherJava.'}</div>`,
 
- prayers:`${lbl(d.prayers)}
-   <div class="tz">
-     <div class="tzt">${svg('coin')}${d.tzedakaTitle}</div>
-     <p>${d.tzedakaText}</p>
-     <div class="acc"><div style="color:#bfa46f;font-size:11px;letter-spacing:1px;text-transform:uppercase">${d.tzedakaAcc}</div>
-       <div class="accrow"><span>СПб · община</span><b>[укажите реквизиты]</b></div>
-       <div class="accrow"><span>Сбербанк</span><b>0000 0000 0000 0000</b></div>
-     </div>
-     <button class="cbtn" style="margin:14px 0 0;width:100%" onclick="go('tzedaka')">${d.tzedakaGive}</button>
-   </div>
+ prayers:`${backBtn()}${lbl(d.prayers)}
+   <div class="tzc" onclick="go('tzedaka')"><span class="ic">${svg('coin')}</span><div class="tt"><div class="a">${d.tzcTitle}</div><div class="b">${d.tzcSub}</div></div><svg class="cv" viewBox="0 0 24 24" fill="none" stroke-width="1.6">${ICON.chevL}</svg></div>
    ${lbl(d.daily)}<div class="group">${row('sun',d.sh,'שַׁחֲרִית',{sub:nus})}${row('clock',d.mi,'מִנְחָה',{sub:nus})}${row('book',d.ma,'מַעֲרִיב',{sub:nus})}</div>
    ${lbl(d.personal)}<div class="group">${row('compass',d.road,'תְּפִלַּת הַדֶּרֶךְ',{})}${row('book',d.shmaY,'שְׁמַע',{})}${row('hands',d.asher,'אֲשֶׁר יָצַר',{})}${row('candle',d.bed,'קְרִיאַת שְׁמַע',{})}${row('sparkle',d.hagomel,'הַגּוֹמֵל',{})}</div>`,
 
- brachot:`${lbl(d.often)}
-   <div class="tools" style="margin-bottom:4px">${tool('bread',d.bread,'')}${tool('wine',d.wine,'')}${tool('drop',d.shehakol,'')}${tool('hands',d.asher,'')}</div>
-   ${lbl(d.bf)}<div class="group">${row('bread',d.breadF,'הַמּוֹצִיא',{})}${row('wine',d.wineF,'הַגֶּפֶן',{})}${row('apple',d.fruitF,'הָעֵץ',{})}${row('leaf',d.veg,'הָאֲדָמָה',{})}</div>
-   ${lbl(d.af)}<div class="group">${row('bread',d.birkat,'בִּרְכַּת הַמָּזוֹן',{})}${row('apple',d.meein,'מֵעֵין שָׁלוֹשׁ',{})}${row('drop',d.boreh,'בּוֹרֵא נְפָשׁוֹת',{})}</div>
+ brachot:`${backBtn()}${lbl(d.often)}
+   <div class="tools" style="margin-bottom:4px">${tool('bread',d.bread,"openBracha('hamotzi')")}${tool('wine',d.wine,"openBracha('hagefen')")}${tool('drop',d.shehakol,"openBracha('shehakol')")}${tool('hands',d.asher,"openBracha('asher')")}</div>
+   ${lbl(d.bf)}<div class="group">${row('bread',d.breadF,'הַמּוֹצִיא',{fn:"openBracha('hamotzi')"})}${row('wine',d.wineF,'הַגֶּפֶן',{fn:"openBracha('hagefen')"})}${row('apple',d.fruitF,'הָעֵץ',{fn:"openBracha('haetz')"})}${row('leaf',d.veg,'הָאֲדָמָה',{fn:"openBracha('haadama')"})}</div>
+   ${lbl(d.af)}<div class="group">${row('bread',d.birkat,'בִּרְכַּת הַמָּזוֹן',{})}${row('apple',d.meein,'מֵעֵין שָׁלוֹשׁ',{})}${row('drop',d.boreh,'בּוֹרֵא נְפָשׁוֹת',{fn:"openBracha('boreh')"})}</div>
    <div class="lbl" style="margin-top:22px"><span class="ln"></span></div>
-   <div class="group">${row('sparkle',d.addBr,'',{fn:"go('brachot2')",sub:lang==='ru'?'природа, запахи, заповеди, события':lang==='en'?'nature, fragrance, mitzvot, events':'טבע, בשמים, מצוות, אירועים'})}</div>`,
+   <div class="group">${row('sparkle',d.addBr,'',{fn:"go('brachot2')",sub:lang==='ru'?'природа, запахи, заповеди, луна':lang==='en'?'nature, fragrance, mitzvot, moon':'טבע, בשמים, מצוות, לבנה'})}</div>`,
 
- brachot2:`${backBtn()}<div class="h1" style="margin:4px 0 2px">${d.addBr}</div>
+ brachot2:`${backBtn()}<div class="h1" style="margin:2px 0 2px">${d.addBr}</div>
    ${lbl(d.cat_nature)}<div class="group">${row('bolt',d.thunder,'רַעַם',{})}${row('bolt',d.lightning,'בָּרָק',{})}${row('rainbow',d.rainbow,'קֶשֶׁת',{})}${row('wave',d.sea,'',{})}${row('mountain',d.mountains,'',{})}</div>
-   ${lbl(d.cat_smell)}<div class="group">${row('leaf',d.smell_tree,'',{})}${row('leaf',d.smell_grass,'',{})}${row('drop',d.smell_oil,'',{})}</div>
+   ${lbl(d.cat_special)}<div class="group">${row('moon',d.levana,'קִדּוּשׁ לְבָנָה',{})}${row('leaf',d.besamim,'בְּשָׂמִים',{})}</div>
    ${lbl(d.cat_mitzvot)}<div class="group">${row('tallit',d.tzitzit,'צִיצִית',{})}${row('book',d.tefillin,'תְּפִלִּין',{})}${row('mezuzah',d.mezuzah,'מְזוּזָה',{})}${row('candle',d.candles,'נֵרוֹת שַׁבָּת',{})}</div>
-   ${lbl(d.cat_events)}<div class="group">${row('sparkle',d.gomel,'הַגּוֹמֵל',{})}${row('sparkle',d.shehecheyanu,'שֶׁהֶחֱיָנוּ',{})}${row('sparkle',d.good,'הַטּוֹב וְהַמֵּטִיב',{})}</div>
-   ${lbl(d.cat_see)}<div class="group">${row('book',d.see_sage,'',{})}${row('book',d.see_king,'',{})}${row('mountain',d.see_wonder,'',{})}</div>`,
+   ${lbl(d.cat_events)}<div class="group">${row('sparkle',d.gomel,'הַגּוֹמֵל',{})}${row('sparkle',d.shehecheyanu,'שֶׁהֶחֱיָנוּ',{})}${row('star',d.good,'הַטּוֹב וְהַמֵּטִיב',{})}</div>`,
 
- tehillim:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.tehTitle}</div>
-   <div class="note" style="margin-bottom:12px">${lang==='ru'?'Седер чтения Теилим на месяц — по дню еврейского месяца. Сегодня выделено.':lang==='en'?'Monthly Tehillim cycle by the Hebrew day of month. Today is highlighted.':'סדר אמירת תהילים לחודש לפי יום החודש. היום מודגש.'}</div>
-   <div class="group">${TEHILLIM.slice(1).map((rng,i)=>{const day=i+1,on=day===tehDayN;return `<div class="row" style="${on?'background:var(--cream)':''}"><span class="ricon" style="${on?'background:#A16207':''}"><span style="font-family:Bodoni Moda;color:${on?'#fff':'#A16207'};font-size:15px">${day}</span></span><div class="rt"><div class="nm">${d.tehDay} ${day}</div></div><span class="time">${d.tehChap} ${rng}</span></div>`}).join('')}</div>`,
+ tehillim:`${backBtn()}<div class="h1" style="margin:2px 0 8px">${d.t_teh}</div>
+   <div class="group" style="margin-bottom:14px"><div class="row" onclick="openTehillim()"><span class="ricon">${svg('book')}</span><div class="rt"><div class="nm">${d.tehTitle} · ${d.tehDay} ${tdN}</div><div class="sub">${d.tehChap} ${TEHILLIM[tdN]}</div></div><span class="ch">›</span></div></div>
+   ${lbl(d.tehAll)}
+   <div class="group">${TEHILLIM.slice(1).map((rng,i)=>{const day=i+1,on=day===tdN;return `<div class="row" style="${on?'background:var(--cream)':''}" onclick="readTehillim(${day})"><span class="ricon" style="${on?'background:var(--gold)':''}"><span style="font-family:Bodoni Moda;color:${on?'#fff':'var(--gold)'};font-size:15px">${day}</span></span><div class="rt"><div class="nm">${d.tehDay} ${day}</div></div><span class="time">${rng}</span></div>`}).join('')}</div>`,
 
  mizrah:`${backBtn()}<div class="cwrap">
-   <div class="h1" style="font-family:'Frank Ruhl Libre';margin-bottom:2px">${d.mizrahHe}</div>
+   <div class="h1" style="text-align:center">${d.t_mizrah}</div>
+   <div style="font-family:'Frank Ruhl Libre';color:var(--gold);font-size:18px;margin-bottom:4px">${d.mizrahHe}</div>
    <div class="cmpbox"><div class="cmp-idx"><svg viewBox="0 0 24 24"><path d="M12 22 L4 6 H20 Z"/></svg></div>${compassSVG()}</div>
    <div class="mdist">${dist} ${d.km}</div><div class="mbear">${bear}${d.deg} · ${d.toJer}</div>
    <div class="aligned" id="alm">${alignedNow()?svg('check')+d.facing:''}</div>
-   ${compassOn?`<div class="note" style="text-align:center;margin-top:8px">${d.rotate}<br>${d.calib}</div>`:`<button class="cbtn" onclick="enableCompass()">${d.enableC}</button>`}
+   ${compassOn?`<div class="note" style="text-align:center;margin-top:8px">${d.rotate}<br>${d.calib}</div>`:`<button class="cbtn" onclick="enableCompass()">${d.enableC}</button>`}</div>`,
+
+ calendar:`${backBtn()}<div class="h1" style="margin:2px 0 8px">${d.t_cal}</div>
+   <div class="card"><div class="date" style="font-size:25px">${hebDate()}</div><div class="greg">${gregDate()}</div></div>
+   <div class="note">${lang==='ru'?'Праздники, посты, Рош Ходеш, парашат недели и счёт Омера появятся здесь в следующем обновлении.':lang==='en'?'Holidays, fasts, parsha and Omer will appear here soon.':'חגים, צומות, פרשה וספירת העומר בקרוב.'}</div>`,
+
+ tzedaka:`${backBtn()}<div class="h1" style="margin:2px 0 8px">${d.t_tzedaka}</div>
+   <div class="card" style="padding:18px"><div style="display:flex;align-items:center;gap:9px;font-family:'Bodoni Moda';font-size:18px"><span style="color:var(--gold);display:flex">${svg('coin')}</span>${d.tzedakaTitle}</div>
+     <div class="note" style="margin-top:8px">${d.tzedakaText}</div>
+     <div class="qrbox"><div id="qr"></div></div>
+     <div class="lbl" style="margin:18px 0 8px">${d.payTitle}<span class="ln"></span></div>
+     <div class="req">
+       <div class="reqrow"><span class="k">${d.rq_name}</span><span class="v">${REQ.name}</span></div>
+       <div class="reqrow"><span class="k">${d.rq_acc}</span><span class="v">${REQ.acc}<button class="copy" onclick="copyTxt('${REQ.acc}')">${svg('copy')}</button></span></div>
+       <div class="reqrow"><span class="k">${d.rq_bank}</span><span class="v">${REQ.bank}</span></div>
+       <div class="reqrow"><span class="k">${d.rq_bik}</span><span class="v">${REQ.bik}<button class="copy" onclick="copyTxt('${REQ.bik}')">${svg('copy')}</button></span></div>
+       <div class="reqrow"><span class="k">${d.rq_cor}</span><span class="v">${REQ.cor}<button class="copy" onclick="copyTxt('${REQ.cor}')">${svg('copy')}</button></span></div>
+     </div>
    </div>`,
 
- calendar:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.t_cal}</div>
-   <div class="card"><div class="date" style="font-size:26px">${hebDate()}</div><div class="greg">${gregDate()}</div></div>
-   <div class="note">${lang==='ru'?'Праздники, посты, Рош Ходеш, парашат недели и счёт Омера появятся здесь в следующем обновлении.':lang==='en'?'Holidays, fasts, Rosh Chodesh, weekly parsha and the Omer count will appear here soon.':'חגים, צומות, ראש חודש, פרשת השבוע וספירת העומר יופיעו כאן בקרוב.'}</div>`,
+ segulot:`${backBtn()}<div class="h1" style="margin:2px 0 6px">${d.t_seg}</div>
+   <div class="note" style="margin-bottom:10px">${d.segIntro}</div>
+   ${SEGULOT.map(s=>`<div class="seg-card"><div class="sn">${s.need[lang]}<span class="sc">${s.ch}</span></div><div class="sd">${s.d[lang]}</div></div>`).join('')}`,
 
- tzedaka:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.t_tzedaka}</div>
-   <div class="tz"><div class="tzt">${svg('coin')}${d.tzedakaTitle}</div><p>${d.tzedakaText}</p>
-     <div class="acc"><div style="color:#bfa46f;font-size:11px;letter-spacing:1px;text-transform:uppercase">${d.tzedakaAcc}</div>
-       <div class="accrow"><span>СПб · община</span><b>[укажите реквизиты]</b></div>
-       <div class="accrow"><span>Сбербанк</span><b>0000 0000 0000 0000</b></div>
-       <div class="accrow"><span>Назначение</span><b>Цдака</b></div>
-     </div></div>
-   <div class="note">${lang==='ru'?'Здесь будет реальный счёт вашей общины и кнопка быстрого перевода. Пришлите реквизиты — подставлю.':lang==='en'?'Your community account and a quick-transfer button will be here.':'כאן יופיעו פרטי הקהילה וכפתור העברה מהירה.'}</div>`,
+ halachot:`${backBtn()}<div class="h1" style="margin:2px 0 8px">${d.t_hal}</div>
+   <div class="group">${row('scales',d.t_hal,'',{soon:lang==='ru'?'скоро':lang==='en'?'soon':'בקרוב'})}</div>
+   <div class="note" style="margin-top:12px">${d.halIntro}</div>`,
 
- chumash:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.chumash}</div>
-   <div class="group">${row('scroll',d.chumashSub,'',{soon:d.soon})}</div>
-   <div class="note" style="margin-top:12px">${lang==='ru'?'Текст недельной главы с переводом и комментарием — в разработке.':lang==='en'?'Weekly Torah portion with translation and commentary — in progress.':'פרשת השבוע עם תרגום ופירוש — בפיתוח.'}</div>`,
- segulot:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.segulot}</div>
-   <div class="group">${row('sparkle',d.segulotSub,'',{soon:d.soon})}</div>
-   <div class="note" style="margin-top:12px">${lang==='ru'?'Подборка проверенных сгулот и обычаев — скоро.':lang==='en'?'A curated set of segulot and customs — soon.':'אוסף סגולות ומנהגים — בקרוב.'}</div>`,
- halachot:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.halachot}</div>
-   <div class="group">${row('scales',d.halachotSub,'',{soon:d.soon})}</div>
-   <div class="note" style="margin-top:12px">${lang==='ru'?'Короткая алаха на каждый день — скоро.':lang==='en'?'A short daily halacha — soon.':'הלכה יומית קצרה — בקרוב.'}</div>`,
-
- fav:`${backBtn()}<div class="h1" style="margin:4px 0 2px">${d.t_fav}</div>
-   <div class="note" style="margin:4px 2px 8px">${d.favHint}</div>
+ fav:`${backBtn()}<div class="h1" style="margin:2px 0 2px">${d.t_fav}</div>
+   <div class="note" style="margin:4px 2px 8px">${lang==='ru'?'Закреплённые тексты — всегда под рукой и офлайн':lang==='en'?'Pinned texts — always at hand':'טקסטים שמורים — תמיד בהישג יד'}</div>
    <div class="group">${d.favList.map(f=>row('bookmark',f[0],'',{sub:f[1],fav:true})).join('')}</div>`,
 
- more:`${lbl(d.moreTitle)}
-   <div class="group">${row('scroll',d.chumash,'',{sub:d.chumashSub,fn:"go('chumash')"})}${row('sparkle',d.segulot,'',{sub:d.segulotSub,fn:"go('segulot')"})}${row('scales',d.halachot,'',{sub:d.halachotSub,fn:"go('halachot')"})}</div>
+ more:`${backBtn()}${lbl(d.moreLearn)}
+   <div class="group">${row('book',d.t_teh,'',{fn:"go('tehillim')"})}${row('sparkle',d.t_seg,'',{fn:"go('segulot')"})}${row('scales',d.t_hal,'',{fn:"go('halachot')"})}</div>
    ${lbl(d.moreTools)}
-   <div class="group">${row('compass',d.dir,'',{fn:"go('mizrah')"})}${row('calendar',d.t_cal,'',{fn:"go('calendar')"})}${row('coin',d.t_tzedaka,'',{fn:"go('tzedaka')"})}</div>
+   <div class="group">${row('compass',d.t_mizrah,'',{fn:"go('mizrah')"})}${row('calendar',d.t_cal,'',{fn:"go('calendar')"})}${row('coin',d.t_tzedaka,'',{fn:"go('tzedaka')"})}</div>
    ${lbl(d.personal2)}
    <div class="group">${row('bookmark',d.t_fav,'',{fn:"go('fav')"})}${row('bell',d.remind,'',{})}${row('gear',d.settings,'',{fn:"go('settings')"})}</div>
    <div class="note" style="text-align:center;margin-top:26px;color:var(--faint)">Shevet Achim · пробная версия</div>`,
 
- settings:`${backBtn()}<div class="h1" style="margin:4px 0 8px">${d.settings}</div>
-   ${lbl(d.setLang)}
-   <div class="set-seg">${['ru','en','he'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${L[l].lc==='RU'?'Русский':L[l].lc==='EN'?'English':'עברית'}</button>`).join('')}<button onclick="autoLang()">${d.auto}</button></div>
-   ${lbl(d.setNus)}
-   <div class="set-seg">${Object.keys(NUSACH).map(k=>`<button class="${nusach===k?'on':''}" onclick="setNusach('${k}')">${NUSACH[k][lang]}</button>`).join('')}</div>
-   ${lbl(d.setLoc)}
-   <div class="group">${row('pin',loc?`${loc.lat.toFixed(3)}, ${loc.lng.toFixed(3)}`:d.locating,'',{})}${row('compass',d.setLocBtn,'',{fn:'requestLocation()'})}</div>`
+ settings:`${backBtn()}<div class="h1" style="margin:2px 0 8px">${d.settings}</div>
+   ${lbl(d.setTheme)}<div class="set-seg">${[['auto',d.themeAuto],['light',d.themeLight],['dark',d.themeDark]].map(([k,t])=>`<button class="${theme===k?'on':''}" onclick="setTheme('${k}')">${t}</button>`).join('')}</div>
+   ${lbl(d.setLang)}<div class="set-seg">${['ru','en','he'].map(l=>`<button class="${lang===l?'on':''}" onclick="setLang('${l}')">${l==='ru'?'Русский':l==='en'?'English':'עברית'}</button>`).join('')}<button onclick="autoLang()">${d.auto}</button></div>
+   ${lbl(d.setNus)}<div class="set-seg">${Object.keys(NUSACH).map(k=>`<button class="${nusach===k?'on':''}" onclick="setNusach('${k}')">${NUSACH[k][lang]}</button>`).join('')}</div>
+   ${lbl(d.setLoc)}<div class="group">${row('pin',loc?`${loc.lat.toFixed(3)}, ${loc.lng.toFixed(3)}`:d.locating,'',{})}${row('compass',d.setLocBtn,'',{fn:'requestLocation()'})}</div>`
  };
 }
 
-const ROOTS=['today','prayers','brachot','zmanim','more'];
-function render(){
- const d=L[lang];
- document.documentElement.lang=lang;
- scr.className='scr'+(lang==='he'?' rtl':'');
+/* readers (async text) */
+const tehCache={};
+async function fetchPsalm(n){if(tehCache[n])return tehCache[n];const r=await fetch('https://www.sefaria.org/api/texts/Psalms.'+n+'?context=0');const j=await r.json();const clean=a=>(Array.isArray(a)?a:[]).map(s=>String(s).replace(/<[^>]+>/g,'').replace(/&[a-z]+;/g,' '));tehCache[n]={he:clean(j.he),en:clean(j.text)};return tehCache[n];}
+function chaptersForDay(day){const rng=TEHILLIM[day];if(!rng)return[];if(rng.indexOf('–')<0)return[parseInt(rng)];const[a,b]=rng.split('–').map(s=>parseInt(s));const out=[];for(let i=a;i<=b;i++)out.push(i);return out;}
+let tehDayCur=1, tehTextLang='he';
+window.openTehillim=function(){readTehillim(hebDay()>30?30:hebDay());};
+window.readTehillim=async function(day){
+ const d=L[lang];if(cur!=='tehread'){hist.push(cur);}cur='tehread';tehDayCur=day;
+ const chs=chaptersForDay(day);
+ scr.className='scr'+(tehTextLang==='he'?' rtl':'');scr.dir=tehTextLang==='he'?'rtl':'ltr';
+ scr.innerHTML=`${backBtn()}<div class="h1" style="margin:2px 0 4px">${d.t_teh} · ${d.tehDay} ${day}</div>
+   <div class="langseg">${[['he','עברית'],['en','English']].map(([k,t])=>`<button class="${tehTextLang===k?'on':''}" onclick="setTehLang('${k}')">${t}</button>`).join('')}</div>
+   <div id="tehbody"><div class="loading">…</div></div>`;
+ scr.scrollTop=0;renderNav();
+ let html='';
+ for(const n of chs){try{const p=await fetchPsalm(n);html+=`<div class="lbl">${d.psalm} ${n}<span class="ln"></span></div>`;const arr=tehTextLang==='he'?p.he:p.en;for(let i=0;i<arr.length;i++){if(tehTextLang==='he'){html+=`<div class="verse"><div class="vhe"><span class="vnum">${i+1}</span>${p.he[i]||''}</div></div>`;}else{html+=`<div class="verse"><div class="vtr"><span class="vnum">${i+1}</span>${p.en[i]||''}</div></div>`;}}}catch(e){html+=`<div class="note">${d.psalm} ${n}: ${lang==='ru'?'не удалось загрузить (нужна сеть при первом открытии)':lang==='en'?'failed to load (needs network first time)':'טעינה נכשלה'}</div>`;}}
+ if(document.getElementById('tehbody'))document.getElementById('tehbody').innerHTML=html;
+};
+function prevForRead(){return ROOTS.includes(cur)?cur:'today';}
+window.setTehLang=function(l){tehTextLang=l;readTehillim(tehDayCur);};
+
+const BRACHA={hamotzi:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, הַמּוֹצִיא לֶחֶם מִן הָאָרֶץ.',tr_ru:'Барух ата Адо-най Эло-эйну мэлэх а-олам, а-моци лэхэм мин а-арэц.',tr_en:'Baruch ata A-donai Elo-heinu melech ha’olam, hamotzi lechem min ha’aretz.',ru:'Благословен Ты, Г-сподь, Б-г наш, Царь вселенной, извлекающий хлеб из земли.',en:'Blessed are You, L-rd our G-d, King of the universe, who brings forth bread from the earth.'},
+ hagefen:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הַגָּפֶן.',tr_ru:'Барух ата Адо-най Эло-эйну мэлэх а-олам, борэ при а-гафен.',tr_en:'…borei pri hagafen.',ru:'…сотворивший плод виноградной лозы.',en:'…who creates the fruit of the vine.'},
+ haetz:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָעֵץ.',tr_ru:'…борэ при а-эц.',tr_en:'…borei pri ha’etz.',ru:'…сотворивший плод дерева.',en:'…who creates the fruit of the tree.'},
+ haadama:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא פְּרִי הָאֲדָמָה.',tr_ru:'…борэ при а-адама.',tr_en:'…borei pri ha’adama.',ru:'…сотворивший плод земли.',en:'…who creates the fruit of the ground.'},
+ shehakol:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהַכֹּל נִהְיֶה בִּדְבָרוֹ.',tr_ru:'…шеаколь ниье бидваро.',tr_en:'…shehakol nihye bidvaro.',ru:'…по слову Которого возникло всё.',en:'…by whose word all things came to be.'},
+ boreh:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא נְפָשׁוֹת רַבּוֹת וְחֶסְרוֹנָן…',tr_ru:'…борэ нефашот работ ве-хэсронан…',tr_en:'…borei nefashot rabot ve’chesronan…',ru:'…сотворивший множество душ и то, в чём они нуждаются…',en:'…who creates many living beings and their needs…'},
+ asher:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר יָצַר אֶת הָאָדָם בְּחָכְמָה…',tr_ru:'…ашер яцар эт а-адам бе-хохма…',tr_en:'…asher yatzar et ha’adam bechochma…',ru:'…Который сотворил человека мудро…',en:'…who formed man with wisdom…'}};
+window.openBracha=function(id){const b=BRACHA[id];if(!b){toast('скоро');return;}cur='bread_'+id;hist.push(prevForRead());const d=L[lang];
  scr.dir=lang==='he'?'rtl':'ltr';
- scr.innerHTML=(screens()[cur]||screens().today);
+ const render2=()=>{const tl=textLang;const main=tl==='he'?b.he:(tl==='en'?b.tr_en:b.tr_ru);const tr=tl==='he'?'':(tl==='en'?b.en:b.ru);
+  scr.innerHTML=`${backBtn()}<div class="langseg">${[['he','עברית'],['ru','РУС'],['en','EN']].map(([k,t])=>`<button class="${tl===k?'on':''}" onclick="setBLang('${id}','${k}')">${t}</button>`).join('')}</div>
+   <div class="card"><div class="${tl==='he'?'vhe':'vtr'}" style="${tl==='he'?'':'font-size:19px'}">${main}</div>${tr?`<div class="note" style="margin-top:14px">${tr}</div>`:''}</div>`;};
+ render2();renderNav();scr.scrollTop=0;
+};
+window.setBLang=function(id,l){textLang=l;openBracha2(id);};
+function openBracha2(id){hist.pop();openBracha(id);} // re-render keeping stack
+
+/* nav + routing */
+const ROOTS=['today','prayers','brachot','zmanim','more'];
+function renderNav(){const d=L[lang];const activeRoot=ROOTS.includes(cur)?cur:(hist.length?hist.find(h=>ROOTS.includes(h))||'today':'today');
  const tabs=[['today','sun'],['prayers','book'],['brachot','C'],['zmanim','clock'],['more','dots']];
- const activeRoot=ROOTS.includes(cur)?cur:(hist.length?hist[0]:'today');
- nav.innerHTML=tabs.map(([k,ic])=>{
-   if(ic==='C')return `<div class="navc" onclick="go('brachot',true)"><span class="circ">${svg('grape')}</span><span class="n">${d.brachot}</span></div>`;
-   return `<button class="${activeRoot===k?'on':''}" onclick="go('${k}',true)">${svg(ic)}<span class="n">${d[k]}</span></button>`}).join('');
- document.getElementById('lc').textContent=d.lc;
+ nav.innerHTML=tabs.map(([k,ic])=>{if(ic==='C')return `<div class="navc" onclick="go('brachot',true)"><span class="circ">${svg('grape')}</span><span class="n">${d.brachot}</span></div>`;return `<button class="${activeRoot===k?'on':''}" onclick="go('${k}',true)">${svg(ic)}<span class="n">${d[k]}</span></button>`}).join('');
 }
-window.go=function(s,isTab){if(isTab){hist=[];cur=s;}else{if(s!==cur){hist.push(cur);cur=s;}}render();scr.scrollTop=0};
+function render(){const d=L[lang];document.documentElement.lang=lang;scr.className='scr'+(lang==='he'?' rtl':'');scr.dir=lang==='he'?'rtl':'ltr';
+ const fn=screens()[cur];scr.innerHTML=fn||screens().today;renderNav();
+ document.getElementById('loctext').textContent=loc?(loc.name||`${loc.lat.toFixed(2)}, ${loc.lng.toFixed(2)}`):d.locating;
+ applyTheme();
+ if(cur==='tzedaka')drawQR();
+}
+function drawQR(){const el=document.getElementById('qr');if(!el)return;el.innerHTML='';if(window.QRCode){try{new QRCode(el,{text:gostQR(),width:160,height:160,colorDark:'#1C1917',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.L});}catch(e){el.innerHTML='<div class="note" style="max-width:150px">QR недоступен — используйте реквизиты ниже</div>';}}else{setTimeout(drawQR,300);}}
+window.go=function(s,isTab){textLang=lang;if(isTab){hist=[];cur=s;}else{if(s!==cur){hist.push(cur);cur=s;}}render();scr.scrollTop=0};
 window.back=function(){if(hist.length){cur=hist.pop();}else{cur='today';}render();scr.scrollTop=0};
 window.nextP=function(){pidx=((pidx||0)+1)%3;render()};
 window.prev=function(){pidx=((pidx||0)+2)%3;render()};
 window.cycleLang=function(){const o=['ru','en','he'];setLang(o[(o.indexOf(lang)+1)%3])};
-window.setLang=function(l){lang=l;localStorage.setItem('lang',l);render()};
-window.autoLang=function(){localStorage.removeItem('lang');lang=detectLang();render()};
+window.setLang=function(l){lang=l;textLang=l;localStorage.setItem('lang',l);render()};
+window.autoLang=function(){localStorage.removeItem('lang');lang=detectLang();textLang=lang;render()};
 window.setNusach=function(n){nusach=n;localStorage.setItem('nusach',n);render()};
+window.setTheme=function(t){theme=t;localStorage.setItem('theme',t);applyTheme();render()};
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1800);}
+window.copyTxt=function(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast(L[lang].copied);};
 
 /* sensors */
-window.requestLocation=function(){
- if(!navigator.geolocation){loc={lat:31.7683,lng:35.2137};render();return;}
- navigator.geolocation.getCurrentPosition(
-  p=>{loc={lat:p.coords.latitude,lng:p.coords.longitude};pidx=null;render()},
-  ()=>{if(!loc){loc={lat:31.7683,lng:35.2137};render();}},
-  {enableHighAccuracy:false,timeout:9000,maximumAge:600000});
-};
-window.enableCompass=function(){
- const start=()=>{compassOn=true;window.addEventListener('deviceorientation',e=>{
-   let h=e.webkitCompassHeading!=null?e.webkitCompassHeading:(e.absolute&&e.alpha!=null?360-e.alpha:null);
-   if(h==null)return;heading=h;
-   if(cur==='mizrah'&&loc){const b=bearing(loc,KOTEL);const rg=document.getElementById('rose');const ar=document.getElementById('arrow');if(rg)rg.setAttribute('transform',`rotate(${(-heading).toFixed(1)} 130 130)`);if(ar)ar.setAttribute('transform',`rotate(${(b-heading).toFixed(1)} 130 130)`);const alm=document.getElementById('alm');if(alm)alm.innerHTML=alignedNow()?(svg('check')+L[lang].facing):'';}
- },true);render()};
- if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){
-   DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')start()}).catch(()=>{});
- } else start();
-};
+window.requestLocation=function(){if(!navigator.geolocation){loc={lat:31.7683,lng:30.2137,name:'Jerusalem'};render();return;}
+ navigator.geolocation.getCurrentPosition(p=>{loc={lat:p.coords.latitude,lng:p.coords.longitude};pidx=null;reverseGeo();render();},()=>{if(!loc){loc={lat:31.7683,lng:35.2137,name:'Jerusalem'};render();}},{enableHighAccuracy:false,timeout:9000,maximumAge:600000});};
+function reverseGeo(){try{fetch(`https://nominatim.openstreetmap.org/reverse?format=json&zoom=10&lat=${loc.lat}&lon=${loc.lng}`,{headers:{'Accept':'application/json'}}).then(r=>r.json()).then(j=>{const a=j.address||{};loc.name=a.city||a.town||a.state||a.county||'';render();}).catch(()=>{});}catch(e){}}
+window.enableCompass=function(){const start=()=>{compassOn=true;window.addEventListener('deviceorientation',e=>{let h=e.webkitCompassHeading!=null?e.webkitCompassHeading:(e.absolute&&e.alpha!=null?360-e.alpha:null);if(h==null)return;heading=h;if(cur==='mizrah'&&loc){const b=bearing(loc,KOTEL);const rg=document.getElementById('rose'),ar=document.getElementById('arrow');if(rg)rg.setAttribute('transform',`rotate(${(-heading).toFixed(1)} 130 130)`);if(ar)ar.setAttribute('transform',`rotate(${(b-heading).toFixed(1)} 130 130)`);const alm=document.getElementById('alm');if(alm)alm.innerHTML=alignedNow()?(svg('check')+L[lang].facing):'';}},true);render()};
+ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')start()}).catch(()=>{});}else start();};
 
-/* onboarding: язык авто, выбор нусаха */
-function showOnboarding(){
- const d=L[lang];
- ob.innerHTML=`<div class="obhe">שבת אחים גם יחד</div><h1>${d.onbTitle}</h1><p>${d.onbSub}</p>
-   <div class="opts">${Object.keys(NUSACH).map(k=>`<button onclick="pickNusach('${k}')">${NUSACH[k][lang]} <span>${NUSACH[k].he}</span></button>`).join('')}</div>
-   <small>${d.onbHint}</small>`;
- ob.classList.remove('hidden');
-}
+/* onboarding */
+function showOnboarding(){const d=L[lang];ob.innerHTML=`<div class="obhe">שבת אחים גם יחד</div><h1>${d.onbTitle}</h1><p>${d.onbSub}</p><div class="opts">${Object.keys(NUSACH).map(k=>`<button onclick="pickNusach('${k}')">${NUSACH[k][lang]} <span>${NUSACH[k].he}</span></button>`).join('')}</div><small>${d.onbHint}</small>`;ob.classList.remove('hidden');}
 window.pickNusach=function(k){nusach=k;localStorage.setItem('nusach',k);ob.classList.add('hidden');render()};
 
 /* init */
-window.__zReady=function(){zlibReady=true;if(nusach)render()};
-requestLocation();
-if(!nusach){showOnboarding();} else {render();}
+window.__zReady=function(){if(nusach){applyTheme();render();}};
+applyTheme();requestLocation();
+if(!nusach)showOnboarding();
 render();
-setInterval(()=>{if(cur==='today'||cur==='zmanim')render()},60000);
+setInterval(()=>{if(cur==='today'||cur==='zmanim'){applyTheme();render();}},60000);
 if(location.search.indexOf('nosw')<0&&'serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 </script>
 </body>

@@ -1,4 +1,4 @@
-const CACHE = 'shevet-achim-v2';
+const CACHE = 'shevet-achim-v3';
 const SHELL = [
   './',
   './index.html',
@@ -20,16 +20,33 @@ self.addEventListener('activate', e => {
   );
 });
 
-// Cache-first for app shell + Google Fonts; network fallback fills the cache.
+// Network-first for the app HTML (always get the latest when online),
+// cache-first for everything else (fonts, library, icons) for speed + offline.
 self.addEventListener('fetch', e => {
   const { request } = e;
   if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+  const isHTML = request.mode === 'navigate' ||
+    (request.destination === 'document') ||
+    (url.origin === location.origin && url.pathname.replace(/\/$/, '').endsWith('index.html')) ||
+    (url.origin === location.origin && (url.pathname === '/' || url.pathname.endsWith('/')));
+
+  if (isHTML) {
+    e.respondWith(
+      fetch(request).then(res => {
+        const copy = res.clone();
+        caches.open(CACHE).then(c => c.put(request, copy));
+        return res;
+      }).catch(() => caches.match(request).then(h => h || caches.match('./index.html')))
+    );
+    return;
+  }
+
   e.respondWith(
     caches.match(request).then(hit => {
       if (hit) return hit;
       return fetch(request).then(res => {
-        const url = new URL(request.url);
-        if (res.ok && (url.origin === location.origin || url.host.includes('gstatic') || url.host.includes('googleapis') || url.host.includes('jsdelivr') || url.host.includes('unpkg'))) {
+        if (res.ok && (url.origin === location.origin || url.host.includes('gstatic') || url.host.includes('googleapis') || url.host.includes('jsdelivr') || url.host.includes('unpkg') || url.host.includes('cloudflare'))) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(request, copy));
         }
