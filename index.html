@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>Shevet Achim</title>
+<title>Сидур</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Shevet Achim">
+<meta name="apple-mobile-web-app-title" content="Сидур">
 <meta name="theme-color" content="#FAFAF9">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -27,18 +27,12 @@ body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);-web
 .locpill svg{width:15px;height:15px;stroke:var(--gold);flex:none}
 .locpill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .topr{display:flex;align-items:center;gap:8px;flex:none}
-.chip{display:flex;align-items:center;gap:8px;cursor:pointer;background:var(--card);border:1px solid var(--line);padding:6px 12px 6px 10px;border-radius:30px;font-family:'Jost';min-height:38px;transition:border-color .2s,box-shadow .2s}
-.chip:active{transform:scale(.98)}
-.chip svg{width:16px;height:16px;stroke:var(--gold);flex:none}
-.chip-ic{width:28px;height:28px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;flex:none}
-.chip-txt{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15;gap:1px}
-.chip-txt small{font-size:9px;letter-spacing:.6px;text-transform:uppercase;color:var(--faint);font-weight:500}
-.chip-txt b{font-size:12.5px;color:var(--ink);font-weight:600}
-.chip-lang .chip-flag{font-family:'Bodoni Moda',serif;font-size:13px;font-weight:700;color:var(--gold);background:var(--cream);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;letter-spacing:-.3px}
-.chip-theme[data-mode="auto"] .chip-ic{background:linear-gradient(135deg,var(--cream) 50%,var(--ink) 50%)}
-.chip-theme[data-mode="light"] .chip-ic{background:linear-gradient(160deg,#FDE68A,#F59E0B)}
-.chip-theme[data-mode="dark"] .chip-ic{background:linear-gradient(160deg,#374151,#111827)}
-.chip-theme[data-mode="dark"] .chip-ic svg,.chip-theme[data-mode="light"] .chip-ic svg{stroke:#fff}
+/* compact top chips */
+.ctop-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;transition:border-color .2s,box-shadow .2s,transform .15s}
+.ctop-btn:active{transform:scale(.9)}
+.ctop-btn svg{width:17px;height:17px;stroke:var(--soft)}
+.ctop-lang{height:34px;padding:0 13px;border-radius:17px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-family:'Jost';font-size:11.5px;font-weight:700;color:var(--gold);letter-spacing:.8px;flex:none;transition:border-color .2s,transform .15s}
+.ctop-lang:active{transform:scale(.95)}
 .scr{flex:1;overflow-y:auto;padding:6px 20px 124px;-webkit-overflow-scrolling:touch}
 .scr::-webkit-scrollbar{display:none}
 .back{display:inline-flex;align-items:center;gap:5px;color:var(--soft);font-size:14px;cursor:pointer;margin:4px 0 6px;border:none;background:none;padding:6px 2px}
@@ -192,6 +186,114 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
 #ob small{display:block;margin-top:18px;color:var(--faint);font-size:12px;line-height:1.5}
 #toast{position:absolute;bottom:120px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:30px;font-size:13px;z-index:60;opacity:0;transition:opacity .25s;pointer-events:none}
 #toast.show{opacity:1}
+/* prayer card */
+.prayer-card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin:14px 0 14px}
+.pc-label{font-size:9px;font-weight:500;letter-spacing:2.5px;color:var(--faint);text-transform:uppercase;padding:14px 20px 0}
+.pc-body{display:flex;align-items:center;padding:8px 2px 2px}
+.pc-nav{width:40px;height:44px;border:none;background:none;cursor:pointer;color:var(--faint);font-size:20px;flex:none;display:flex;align-items:center;justify-content:center}
+.pc-main{flex:1;text-align:center;padding:2px 0}
+.pc-name{font-family:'Bodoni Moda',serif;font-size:25px;font-weight:600;color:var(--ink);line-height:1.05}
+.pc-count{font-size:12.5px;color:var(--gold);margin-top:4px;font-weight:500;min-height:16px}
+.pc-wins{display:flex;justify-content:center;gap:14px;margin-top:8px;flex-wrap:wrap}
+.pc-w{font-size:12px;color:var(--soft);display:flex;align-items:center;gap:5px}
+.pc-w b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.pc-wdot{width:4px;height:4px;border-radius:50%;background:var(--goldL);flex:none}
+.pc-tabs{display:flex;border-top:1px solid var(--line);margin-top:10px}
+.pc-tab{flex:1;border:none;background:transparent;padding:10px 4px;cursor:pointer;font-family:'Jost';font-size:11px;color:var(--faint);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:2px;transition:background .15s,color .15s}
+.pc-tab:last-child{border-right:none}
+.pc-tab.on{background:var(--cream);color:var(--ink)}
+.pc-tab .pt-time{font-size:12px;font-variant-numeric:tabular-nums;font-weight:500;color:var(--gold)}
+/* bookmarks */
+.bm-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:14px}
+.bm-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 13px;cursor:pointer;display:flex;flex-direction:column;gap:5px;flex:1 1 120px;max-width:calc(50% - 4px);transition:border-color .2s,box-shadow .2s,opacity .2s,transform .15s;-webkit-user-select:none;user-select:none}
+.bm-card:active{transform:scale(.96)}
+.bm-card.bm-drag-over{border-color:var(--gold);box-shadow:0 0 0 2px rgba(161,98,7,.18)}
+.bm-card.bm-dragging{opacity:.4;transform:scale(.97)}
+.bm-ic{width:30px;height:30px;border-radius:9px;background:var(--cream);display:flex;align-items:center;justify-content:center;margin-bottom:1px}
+.bm-ic svg{width:16px;height:16px;stroke:var(--gold)}
+.bm-nm{font-size:13px;font-weight:500;color:var(--ink);line-height:1.2}
+.bm-sub{font-size:10.5px;color:var(--faint)}
+/* nav pills for prayers/brachot */
+.nav-pill{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;cursor:pointer;padding:5px 0;border:none;background:transparent}
+.nav-pill .np-ic{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.nav-pill .np-ic svg{width:20px;height:20px}
+.nav-pill .n{font-size:9px;font-weight:600;letter-spacing:.3px}
+.nav-pill.prayers:not(.on){color:var(--faint)}.nav-pill.prayers:not(.on) svg{stroke:var(--faint)}
+.nav-pill.prayers.on{color:var(--ink)}.nav-pill.prayers.on .np-ic{background:var(--ink)}.nav-pill.prayers.on svg{stroke:var(--paper)}
+.nav-pill.brachot:not(.on){color:var(--faint)}.nav-pill.brachot:not(.on) svg{stroke:var(--faint)}
+.nav-pill.brachot.on{color:var(--gold)}.nav-pill.brachot.on .np-ic{background:var(--gold)}.nav-pill.brachot.on svg{stroke:#fff}
+/* tehillim center fab */
+.navc.tehillim .circ{background:linear-gradient(145deg,var(--gold),var(--goldL));box-shadow:0 4px 18px rgba(161,98,7,.38)}
+.navc.tehillim:not(.on) .circ{background:linear-gradient(145deg,var(--cream),var(--card));box-shadow:none;border:1.5px solid var(--line)}
+.navc.tehillim:not(.on) .circ svg{stroke:var(--faint)}
+.navc.tehillim:not(.on) .n{color:var(--faint)}
+.navc.tehillim.on .circ svg{stroke:#fff}
+.navc.tehillim.on .n{color:var(--gold);font-weight:700}
+/* zmanim categories */
+.zcat{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-bottom:10px;overflow:hidden}
+.zcat-head{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer}
+.zcat-ic{width:36px;height:36px;border-radius:11px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex:none}
+.zcat-ic svg{width:19px;height:19px;stroke:var(--gold)}
+.zcat-t{flex:1}.zcat-t .a{font-size:14.5px;font-weight:500;color:var(--ink)}.zcat-t .b{font-size:11.5px;color:var(--faint);margin-top:1px}
+.zcat-chev{width:18px;height:18px;stroke:var(--faint);transition:transform .25s;flex:none}
+.zcat.open .zcat-chev{transform:rotate(90deg)}
+.zcat-body{display:none;padding:0 18px 6px}
+.zcat.open .zcat-body{display:block}
+.zrow{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.zrow .zn{flex:1;font-size:13.5px;color:var(--soft)}
+.zrow .zh{font-family:'Frank Ruhl Libre',serif;font-size:14px;color:var(--faint);direction:rtl}
+.zrow .zt{font-size:14px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums;flex:none}
+.zrow.miss .zt{color:var(--faint)}
+.znow{background:var(--cream);margin:0 -18px;padding-left:18px;padding-right:18px;border-radius:10px}
+.znow .zt{color:var(--gold)}
+/* full-screen reader */
+#rdr{position:absolute;inset:0;z-index:8;display:none;flex-direction:column}
+#rdr.show{display:flex}
+.rdr-top{display:flex;align-items:center;gap:6px;padding:calc(env(safe-area-inset-top) + 8px) 14px 8px;flex:none;background:linear-gradient(to bottom,var(--rdr-top) 70%,transparent)}
+.rdr-ic{width:38px;height:38px;border-radius:50%;border:none;background:var(--rdr-btn);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+.rdr-ic svg{width:19px;height:19px;stroke:var(--rdr-fg)}
+.rdr-title{flex:1;text-align:center;font-family:'Bodoni Moda',serif;font-size:17px;font-weight:600;color:var(--rdr-fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px}
+.rdr-body{flex:1;overflow-y:auto;padding:8px 26px 130px;-webkit-overflow-scrolling:touch}
+.rdr-body::-webkit-scrollbar{display:none}
+.rdr-body.rtl{direction:rtl;text-align:right}
+.rdr-body{line-height:1.95}
+.rdr-body .pn{font-family:'Bodoni Moda',serif;font-weight:600;color:var(--gold);text-align:center;margin:18px 0 16px;letter-spacing:.5px;font-size:.92em}
+.rdr-body .vn{color:var(--gold);font-size:.6em;vertical-align:.2em;margin-inline-end:6px;font-family:'Bodoni Moda';opacity:.8}
+.rdr-body .v{margin-bottom:.55em}
+.rdr-body .rdesc{font-size:.72em;opacity:.7;text-align:center;margin-bottom:18px;line-height:1.6;font-family:'Jost',sans-serif}
+.rdr-sheet-bd{position:absolute;inset:0;z-index:45;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+.rdr-sheet-bd.show{opacity:1;pointer-events:auto}
+.rdr-sheet{position:absolute;left:0;right:0;bottom:0;z-index:46;background:var(--card);border-radius:26px 26px 0 0;padding:10px 22px calc(env(safe-area-inset-bottom) + 24px);transform:translateY(105%);transition:transform .32s cubic-bezier(.32,.72,0,1);box-shadow:0 -8px 40px rgba(0,0,0,.2)}
+.rdr-sheet.show{transform:translateY(0)}
+.rdr-grab{width:38px;height:4px;border-radius:3px;background:var(--line);margin:4px auto 14px}
+.rdr-sheet h4{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);font-weight:500;margin:16px 2px 9px;font-family:'Jost'}
+.rdr-sheet h4:first-of-type{margin-top:2px}
+.sz-row{display:flex;align-items:center;gap:14px}
+.sz-btn{width:50px;height:46px;border:1px solid var(--line);background:var(--cream);border-radius:14px;cursor:pointer;color:var(--ink);font-family:'Bodoni Moda',serif;font-weight:600;display:flex;align-items:center;justify-content:center}
+.sz-btn.s{font-size:15px}.sz-btn.l{font-size:23px}
+.sz-val{flex:1;text-align:center;font-size:15px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums}
+.opt-row{display:flex;gap:8px}
+.opt{flex:1;border:1px solid var(--line);background:var(--cream);border-radius:14px;padding:12px 6px;cursor:pointer;text-align:center;color:var(--soft);font-size:13px;transition:all .15s}
+.opt.on{border-color:var(--gold);color:var(--ink);background:var(--card);box-shadow:0 0 0 1.5px var(--gold) inset}
+.opt .opt-aa{font-size:19px;display:block;margin-bottom:3px;color:var(--ink)}
+.bg-row{display:flex;gap:10px;margin-bottom:22px}
+.bg-sw{flex:1;aspect-ratio:1.3;border-radius:14px;cursor:pointer;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Frank Ruhl Libre',serif;font-size:18px;position:relative}
+.bg-sw.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.bg-sw .bg-nm{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:9.5px;color:var(--faint)}
+/* feedback */
+.fb-field{margin-bottom:16px}
+.fb-field label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);font-weight:500;margin:0 2px 8px}
+.fb-cats{display:flex;gap:8px;flex-wrap:wrap}
+.fb-cat{border:1px solid var(--line);background:var(--card);border-radius:30px;padding:9px 15px;font-family:'Jost';font-size:13px;cursor:pointer;color:var(--soft)}
+.fb-cat.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.fb-input,.fb-textarea{width:100%;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:13px 15px;font-family:'Jost';font-size:14px;color:var(--ink);resize:none}
+.fb-input:focus,.fb-textarea:focus{outline:none;border-color:var(--gold)}
+.fb-textarea{min-height:120px;line-height:1.5}
+.fb-send{width:100%;background:var(--ink);color:var(--paper);border:none;border-radius:16px;padding:15px;font-family:'Jost';font-size:15px;font-weight:500;cursor:pointer;margin-top:4px}
+.fb-send:active{transform:scale(.99)}
+.fb-stars{display:flex;gap:8px;justify-content:center;margin:2px 0}
+.fb-star{font-size:30px;cursor:pointer;color:var(--line);transition:color .15s}
+.fb-star.on{color:var(--gold)}
 </style>
 </head>
 <body>
@@ -199,12 +301,22 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
   <div class="top">
     <div class="locpill" onclick="go('settings')"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10zM12 11a2 2 0 1 0 .01 0"/></svg><span id="loctext">…</span></div>
     <div class="topr">
-      <button class="chip chip-theme" id="themechip" onclick="cycleTheme()"></button>
-      <button class="chip chip-lang" id="langchip" onclick="cycleLang()"></button>
+      <button class="ctop-btn" id="themechip" onclick="cycleTheme()"></button>
+      <button class="ctop-lang" id="langchip" onclick="cycleLang()"></button>
     </div>
   </div>
   <div class="scr" id="scr"></div>
+  <div id="rdr">
+    <div class="rdr-top">
+      <button class="rdr-ic" onclick="back()" aria-label="back"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="rdr-title" id="rdrTitle"></div>
+      <button class="rdr-ic" onclick="openRdrSheet()" aria-label="settings"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M5 8h10M5 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0M19 8h-2M9 16h10M19 16a2 2 0 1 0-4 0 2 2 0 0 0 4 0M5 16h2"/></svg></button>
+    </div>
+    <div class="rdr-body" id="rdrBody"></div>
+  </div>
   <div class="navwrap"><div class="navbar" id="nav"></div></div>
+  <div class="rdr-sheet-bd" id="rdrBd" onclick="closeRdrSheet()"></div>
+  <div class="rdr-sheet" id="rdrSheet"></div>
   <div id="ob" class="hidden"></div>
   <div id="toast"></div>
 </div>
@@ -227,6 +339,7 @@ const ICON={
  drop:'<path d="M12 3.5c1.8 2.3 6 6.3 6 10a6 6 0 0 1-12 0c0-3.7 4.2-7.7 6-10z"/>',
  hands:'<path d="M7 11.5V6.6a1.4 1.4 0 0 1 2.8 0v3.9M9.8 10.5V5a1.4 1.4 0 0 1 2.8 0v5M12.6 10.6V6.4a1.4 1.4 0 0 1 2.8 0v6.6c0 3-2.1 5.8-5.2 5.8-2.4 0-3.9-1.3-4.9-3.3l-1.3-2.6a1.4 1.4 0 0 1 2.4-1.4L7 11.6"/>',
  bolt:'<path d="M13.5 2.5 5 13.5h6l-1 8 8.5-11.5H13z"/>',
+ chat:'<path d="M4.5 6.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3.5V15.5H6.5a2 2 0 0 1-2-2z"/><path d="M8.5 9.5h7M8.5 12.5h4"/>',
  rainbow:'<path d="M3.5 18a8.5 8.5 0 0 1 17 0M6.5 18a5.5 5.5 0 0 1 11 0M9.5 18a2.5 2.5 0 0 1 5 0"/>',
  wave:'<path d="M2.5 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2.5 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
  candle:'<path d="M9.5 20.5h5M9.8 11.5h4.4v9H9.8zM12 11.5V8.8M12 8.8c0-1.4-1.4-1.9-1.4-3.3A1.4 1.4 0 0 1 12 4.2a1.4 1.4 0 0 1 1.4 1.3c0 1.4-1.4 1.9-1.4 3.3z"/>',
@@ -282,7 +395,12 @@ const L={
    moreLearn:'Учение',moreTools:'Инструменты',personal2:'Личное',remind:'Напоминания',settings:'Настройки',
    setTheme:'Оформление',themeAuto:'Авто',themeLight:'День',themeDark:'Ночь',
    setLang:'Язык приложения',setNus:'Нусах молитвы',setLoc:'Местоположение',setLocBtn:'Обновить по GPS',
-   fSize:'Размер',fFont:'Шрифт',fBg:'Фон',
+   fSize:'Размер',fFont:'Шрифт',fBg:'Фон',rdrText:'Текст',rdrSize:'Размер шрифта',rdrFont:'Шрифт',rdrBg:'Фон',
+   feedback:'Обратная связь',fbIntro:'Помогите сделать приложение лучше — что улучшить или что не так?',fbRate:'Оцените приложение',fbCatL:'Тема',fbMsgL:'Сообщение',fbContactL:'Email для ответа (необязательно)',fbMsgPh:'Опишите идею, проблему или пожелание…',fbSend:'Отправить',fbSent:'Спасибо за отзыв!',fbEmpty:'Напишите сообщение',
+   fbBug:'Ошибка',fbIdea:'Идея',fbContent:'Тексты',fbOther:'Другое',
+   zIntro:'Полный расчёт по KosherJava для ваших координат. Нажмите на категорию, чтобы раскрыть все варианты.',zNow:'сейчас',zDur:'продолжит.',
+   zc_dawn:'Рассвет и заря',zc_shma:'Кр. Шма и молитва',zc_mid:'Полдень и Минха',zc_dusk:'Закат и сумерки',zc_night:'Выход звёзд',zc_hour:'Временной час',
+   zc_dawn_h:'Алот, мишеякир, восход',zc_shma_h:'Соф зман Шма / Тфила',zc_mid_h:'Хацот, Минха, Плаг',zc_dusk_h:'Шкия, бейн-hашмашот',zc_night_h:'Цет hа-кохавим',zc_hour_h:'Шаа зманит',
    z:['Алот а-Шахар','Мишеякир','Нец','Соф зман Шма','Соф зман Тфила','Хацот','Минха гдола','Минха ктана','Плаг а-Минха','Шкия','Цет а-кохавим'],
    zh:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
    onbTitle:'Выберите нусах молитвы',onbSub:'Влияет на тексты и порядок молитв. Можно изменить в настройках.',onbHint:'Язык приложения — иврит или русский, определён автоматически.',
@@ -313,7 +431,12 @@ const L={
    moreLearn:'לימוד',moreTools:'כלים',personal2:'אישי',remind:'תזכורות',settings:'הגדרות',
    setTheme:'מראה',themeAuto:'אוטומטי',themeLight:'יום',themeDark:'לילה',
    setLang:'שפת האפליקציה',setNus:'נוסח התפילה',setLoc:'מיקום',setLocBtn:'רענון לפי GPS',
-   fSize:'גודל',fFont:'גופן',fBg:'רקע',
+   fSize:'גודל',fFont:'גופן',fBg:'רקע',rdrText:'טקסט',rdrSize:'גודל גופן',rdrFont:'גופן',rdrBg:'רקע',
+   feedback:'משוב',fbIntro:'עזרו לנו לשפר את האפליקציה — מה לשפר או מה לא תקין?',fbRate:'דרגו את האפליקציה',fbCatL:'נושא',fbMsgL:'הודעה',fbContactL:'אימייל למענה (לא חובה)',fbMsgPh:'תארו רעיון, תקלה או בקשה…',fbSend:'שליחה',fbSent:'תודה על המשוב!',fbEmpty:'כתבו הודעה',
+   fbBug:'תקלה',fbIdea:'רעיון',fbContent:'טקסטים',fbOther:'אחר',
+   zIntro:'חישוב מלא לפי KosherJava עבור הקואורדינטות שלכם. הקישו על קטגוריה כדי לפתוח את כל האפשרויות.',zNow:'עכשיו',zDur:'משך',
+   zc_dawn:'עלות השחר וזריחה',zc_shma:'ק״ש ותפילה',zc_mid:'חצות ומנחה',zc_dusk:'שקיעה ובין השמשות',zc_night:'צאת הכוכבים',zc_hour:'שעה זמנית',
+   zc_dawn_h:'עלות, משיכיר, נץ',zc_shma_h:'סוף זמן ק״ש / תפילה',zc_mid_h:'חצות, מנחה, פלג',zc_dusk_h:'שקיעה, בין השמשות',zc_night_h:'צאת הכוכבים',zc_hour_h:'שעה זמנית',
    z:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
    zh:['','','','','','','','','','',''],
    onbTitle:'בחרו נוסח תפילה',onbSub:'משפיע על נוסח וסדר התפילות.',onbHint:'שפת האפליקציה זוהתה אוטומטית.',
@@ -338,14 +461,29 @@ const READER_FAM_NAME={he:{ru:'Франк-Рул',he:'Frank Ruhl'},david:{ru:'Д
 const READER_BG_NAME={paper:{ru:'Бумага',he:'נייר'},cream:{ru:'Крем',he:'קרם'},white:{ru:'Белый',he:'לבן'},sepia:{ru:'Сепия',he:'ספיה'},night:{ru:'Ночь',he:'לילה'}};
 function saveReader(){localStorage.setItem('reader',JSON.stringify(reader));}
 function saveTextLang(){localStorage.setItem('textLang',textLang);tehLang=bLang=textLang;}
-function readerStyle(){const bg=READER_BG[reader.bg]||READER_BG.paper;return `style="background:${bg[0]};color:${bg[1]};font-family:${READER_FAM[reader.family]};font-size:${reader.size}px"`;}
-function readerBar(){const d=L[lang];const bgn=(READER_BG_NAME[reader.bg]||READER_BG_NAME.paper)[lang];const fn=(READER_FAM_NAME[reader.family]||READER_FAM_NAME.he)[lang];return `<div class="rbar"><button onclick="rSize(-1)" aria-label="A−">A−</button><button onclick="rSize(1)" aria-label="A+">A＋</button><button onclick="rFam()">${svg('type')}${fn}</button><button onclick="rBg()">${svg('sky')}${bgn}</button></div>`;}
+function hexA(h,a){const n=String(h).replace('#','');const r=parseInt(n.slice(0,2),16),g=parseInt(n.slice(2,4),16),b=parseInt(n.slice(4,6),16);return `rgba(${r},${g},${b},${a})`;}
+function applyReaderStyle(){const bg=READER_BG[reader.bg]||READER_BG.paper;const rdr=document.getElementById('rdr'),body=document.getElementById('rdrBody');
+ if(rdr){rdr.style.background=bg[0];rdr.style.setProperty('--rdr-top',bg[0]);rdr.style.setProperty('--rdr-fg',bg[1]);rdr.style.setProperty('--rdr-btn',hexA(bg[1],0.07));}
+ if(body){body.style.color=bg[1];body.style.fontFamily=READER_FAM[reader.family];body.style.fontSize=reader.size+'px';}}
+function renderRdrSheet(){const d=L[lang],sheet=document.getElementById('rdrSheet');if(!sheet)return;
+ const fams=[['he','א',READER_FAM_NAME.he[lang]],['david','דָּוִד',READER_FAM_NAME.david[lang]],['sans','Aa',READER_FAM_NAME.sans[lang]]];
+ const bgs=['paper','cream','white','sepia','night'];
+ sheet.innerHTML=`<div class="rdr-grab"></div>
+  <h4>${d.rdrText}</h4><div class="langseg">${[['he',d.he_],['translit',d.translit],['ru',d.ru_]].map(([k,t])=>`<button class="${textLang===k?'on':''}" onclick="setRdrLang('${k}')">${t}</button>`).join('')}</div>
+  <h4>${d.rdrSize}</h4><div class="sz-row"><button class="sz-btn s" onclick="rSize(-1)">A</button><span class="sz-val">${reader.size} px</span><button class="sz-btn l" onclick="rSize(1)">A</button></div>
+  <h4>${d.rdrFont}</h4><div class="opt-row">${fams.map(([k,ch,nm])=>`<button class="opt${reader.family===k?' on':''}" onclick="rFam('${k}')"><span class="opt-aa" style="font-family:${READER_FAM[k]}">${ch}</span>${nm}</button>`).join('')}</div>
+  <h4>${d.rdrBg}</h4><div class="bg-row">${bgs.map(k=>{const c=READER_BG[k],nm=(READER_BG_NAME[k]||{})[lang]||k;return `<button class="bg-sw${reader.bg===k?' on':''}" style="background:${c[0]};color:${c[1]}" onclick="rBg('${k}')">א<span class="bg-nm">${nm}</span></button>`;}).join('')}</div>`;}
+window.openRdrSheet=function(){renderRdrSheet();document.getElementById('rdrSheet').classList.add('show');document.getElementById('rdrBd').classList.add('show');};
+window.closeRdrSheet=function(){const s=document.getElementById('rdrSheet'),b=document.getElementById('rdrBd');if(s)s.classList.remove('show');if(b)b.classList.remove('show');};
+function showReader(){document.getElementById('rdr').classList.add('show');}
+function hideReader(){const r=document.getElementById('rdr');if(r)r.classList.remove('show');closeRdrSheet();}
 function langSeg(active,fnName,fnArg){const d=L[lang];return `<div class="langseg">${[['he',d.he_],['translit',d.translit],['ru',d.ru_]].map(([k,t])=>`<button class="${active===k?'on':''}" onclick="${fnArg!=null?`${fnName}('${fnArg}','${k}')`:`${fnName}('${k}')`}">${t}</button>`).join('')}</div>`;}
 function toTranslit(s){const fin={'\u05da':'k','\u05dd':'m','\u05df':'n','\u05e3':'f','\u05e5':'tz'};const b={'\u05d0':'','\u05d1':'b','\u05d2':'g','\u05d3':'d','\u05d4':'h','\u05d5':'v','\u05d6':'z','\u05d7':'ch','\u05d8':'t','\u05d9':'y','\u05db':'k','\u05dc':'l','\u05de':'m','\u05e0':'n','\u05e1':'s','\u05e2':'','\u05e4':'p','\u05e6':'tz','\u05e7':'k','\u05e8':'r','\u05e9':'sh','\u05ea':'t','\u05f3':"'",'\u05f4':'"','\u05be':'-'};return String(s).replace(/[\u0591-\u05C7]/g,'').split('').map(c=>fin[c]||b[c]||c).join('').replace(/\s+/g,' ').trim();}
 let __rerender=null;
-window.rSize=function(s){reader.size=Math.max(15,Math.min(34,reader.size+s));saveReader();__rerender&&__rerender();};
-window.rFam=function(){const o=['he','david','sans'];reader.family=o[(o.indexOf(reader.family)+1)%3];saveReader();__rerender&&__rerender();};
-window.rBg=function(){const o=['paper','cream','white','sepia','night'];reader.bg=o[(o.indexOf(reader.bg)+1)%o.length];saveReader();__rerender&&__rerender();};
+window.rSize=function(s){reader.size=Math.max(15,Math.min(40,reader.size+s));saveReader();applyReaderStyle();renderRdrSheet();};
+window.rFam=function(f){reader.family=f;saveReader();applyReaderStyle();renderRdrSheet();};
+window.rBg=function(b){reader.bg=b;saveReader();applyReaderStyle();renderRdrSheet();};
+window.setRdrLang=function(l){textLang=tehLang=bLang=l;saveTextLang();if(cur==='tehread')renderTehread();else if(cur.startsWith('bread_'))renderBracha(cur.slice(6));renderRdrSheet();};
 
 /* theme */
 function isNight(){const z=getZmanim();const now=new Date();if(z&&z.tzeit&&z.alot)return now>=z.tzeit||now<z.alot;const h=now.getHours();return h>=19||h<6;}
@@ -354,8 +492,48 @@ window.cycleTheme=function(){const o=['auto','light','dark'];theme=o[(o.indexOf(
 
 /* zmanim */
 function parseT(s){return (s&&s!=='N/A')?new Date(s):null;}
-function getZmanim(){if(!loc)return null;try{if(window.KosherZmanim&&window.KosherZmanim.getZmanimJson){const j=window.KosherZmanim.getZmanimJson({date:new Date(),locationName:'',latitude:loc.lat,longitude:loc.lng,elevation:0,timeZoneId:TZID,complexZmanim:true});const z=j.Zmanim,sr=parseT(z.Sunrise),ss=parseT(z.Sunset);return {alot:parseT(z.Alos72),misheyakir:parseT(z.Misheyakir11Point5Degrees)||(sr?new Date(+sr-50*6e4):null),netz:sr,sofShma:parseT(z.SofZmanShmaGRA),sofTfila:parseT(z.SofZmanTfilaGRA),chatzot:parseT(z.Chatzos),minchaG:parseT(z.MinchaGedola),minchaK:parseT(z.MinchaKetana),plag:parseT(z.PlagHamincha),shkia:ss,tzeit:parseT(z.Tzais)||parseT(z.Tzais72)};}}catch(e){}return null;}
+function getZmanim(){if(!loc)return null;try{if(window.KosherZmanim&&window.KosherZmanim.getZmanimJson){const j=window.KosherZmanim.getZmanimJson({date:new Date(),locationName:'',latitude:loc.lat,longitude:loc.lng,elevation:0,timeZoneId:TZID,complexZmanim:true});const z=Object.assign({},j.BasicZmanim||{},j.Zmanim||{});const sr=parseT(z.Sunrise),ss=parseT(z.Sunset);return {alot:parseT(z.Alos72),misheyakir:parseT(z.Misheyakir11Point5Degrees)||(sr?new Date(+sr-50*6e4):null),netz:sr,sofShma:parseT(z.SofZmanShmaGRA),sofTfila:parseT(z.SofZmanTfilaGRA),chatzot:parseT(z.Chatzos),minchaG:parseT(z.MinchaGedola),minchaK:parseT(z.MinchaKetana),plag:parseT(z.PlagHamincha),shkia:ss,tzeit:parseT(z.Tzais)||parseT(z.Tzais72),_raw:z};}}catch(e){}return null;}
 function fmt(d){if(!d)return '—';return d.toLocaleTimeString(L[lang].locale,{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:TZID})}
+function fmtDur(ms){if(ms==null||isNaN(ms))return '—';const m=Math.round(ms/6e4),h=Math.floor(m/60),mm=m%60;const H=lang==='he'?'שע׳':'ч',M=lang==='he'?'דק׳':'мин';return `${h} ${H} ${String(mm).padStart(2,'0')} ${M}`;}
+const ZMANIM_DEFS=[
+ {cat:'zc_dawn',ic:'sky',items:[
+  {k:'Alos72',ru:'Алот 72 мин',he:'עֲלוֹת 72'},{k:'Alos72Zmanis',ru:'Алот 72 зм.',he:'עֲלוֹת 72 זמ׳'},{k:'Alos60',ru:'Алот 60 мин',he:'עֲלוֹת 60'},
+  {k:'Alos90',ru:'Алот 90 мин',he:'עֲלוֹת 90'},{k:'Alos120',ru:'Алот 120 мин',he:'עֲלוֹת 120'},
+  {k:'Alos16Point1Degrees',ru:'Алот 16.1°',he:'עֲלוֹת 16.1°'},{k:'Alos18Degrees',ru:'Алот 18°',he:'עֲלוֹת 18°'},{k:'Alos19Point8Degrees',ru:'Алот 19.8°',he:'עֲלוֹת 19.8°'},
+  {k:'Misheyakir10Point2Degrees',ru:'Мишеякир 10.2°',he:'מִשֶּׁיַּכִּיר 10.2°'},{k:'Misheyakir11Degrees',ru:'Мишеякир 11°',he:'מִשֶּׁיַּכִּיר 11°'},{k:'Misheyakir11Point5Degrees',ru:'Мишеякир 11.5°',he:'מִשֶּׁיַּכִּיר 11.5°'},
+  {k:'Sunrise',ru:'Восход · hа-Нец',he:'הָנֵץ הַחַמָּה'},{k:'SeaLevelSunrise',ru:'Восход (ур. моря)',he:'נֵץ מישורי'}]},
+ {cat:'zc_shma',ic:'book',items:[
+  {k:'SofZmanShmaMGA72Minutes',ru:'Шма · МА 72 мин',he:'ק״ש מג״א 72'},{k:'SofZmanShmaMGA',ru:'Шма · Маген Авраам',he:'ק״ש מג״א'},{k:'SofZmanShmaMGA16Point1Degrees',ru:'Шма · МА 16.1°',he:'ק״ש מג״א 16.1°'},
+  {k:'SofZmanShmaGRA',ru:'Шма · Гра',he:'ק״ש גר״א'},{k:'SofZmanShmaFixedLocal',ru:'Шма · фиксир.',he:'ק״ש קבוע'},
+  {k:'SofZmanTfilaMGA72Minutes',ru:'Тфила · МА 72 мин',he:'תְּפִלָּה מג״א 72'},{k:'SofZmanTfilaMGA',ru:'Тфила · Маген Авраам',he:'תְּפִלָּה מג״א'},{k:'SofZmanTfilaGRA',ru:'Тфила · Гра',he:'תְּפִלָּה גר״א'}]},
+ {cat:'zc_mid',ic:'sun',items:[
+  {k:'Chatzos',ru:'Хацот · полдень',he:'חֲצוֹת הַיּוֹם'},{k:'MinchaGedola',ru:'Минха гдола',he:'מִנְחָה גְּדוֹלָה'},{k:'MinchaGedola30Minutes',ru:'Минха гдола +30',he:'מנחה גדולה 30'},
+  {k:'MinchaGedola16Point1Degrees',ru:'Минха гдола 16.1°',he:'מנחה גדולה 16.1°'},{k:'MinchaKetana',ru:'Минха ктана',he:'מִנְחָה קְטַנָּה'},{k:'MinchaKetana16Point1Degrees',ru:'Минха ктана 16.1°',he:'מנחה קטנה 16.1°'},
+  {k:'PlagHamincha',ru:'Плаг hа-Минха',he:'פְּלַג הַמִּנְחָה'},{k:'PlagHamincha16Point1Degrees',ru:'Плаг 16.1°',he:'פלג 16.1°'},{k:'PlagHamincha72Minutes',ru:'Плаг 72 мин',he:'פלג 72'}]},
+ {cat:'zc_dusk',ic:'sky',items:[
+  {k:'CandleLighting',ru:'Зажигание свечей',he:'הַדְלָקַת נֵרוֹת'},{k:'SeaLevelSunset',ru:'Закат (ур. моря)',he:'שקיעה מישורית'},{k:'Sunset',ru:'Шкия · закат',he:'שְׁקִיעָה'},
+  {k:'BainHasmashosRT13Point24Degrees',ru:'Бейн hашмашот 13.24°',he:'בין השמשות 13.24°'},{k:'BainHasmashosRT58Point5Minutes',ru:'Бейн hашмашот 58.5 мин',he:'בין השמשות 58.5'}]},
+ {cat:'zc_night',ic:'moon',items:[
+  {k:'Tzais',ru:'Цет · 8.5°',he:'צֵאת 8.5°'},{k:'TzaisGeonim7Point083Degrees',ru:'Цет Геоним 7.08°',he:'צאת גאונים 7.08°'},{k:'TzaisGeonim8Point5Degrees',ru:'Цет Геоним 8.5°',he:'צאת גאונים 8.5°'},
+  {k:'Tzais72',ru:'Цет 72 мин · РТ',he:'צאת 72 רבנו תם'},{k:'Tzais72Zmanis',ru:'Цет 72 зм.',he:'צאת 72 זמ׳'},{k:'Tzais16Point1Degrees',ru:'Цет 16.1°',he:'צאת 16.1°'},
+  {k:'Tzais18Degrees',ru:'Цет 18°',he:'צאת 18°'},{k:'Tzais90',ru:'Цет 90 мин',he:'צאת 90'},{k:'SolarMidnight',ru:'Хацот ночи',he:'חֲצוֹת הַלַּיְלָה'}]},
+ {cat:'zc_hour',ic:'clock',dur:true,items:[
+  {k:'ShaahZmanisGra',ru:'Шаа зманит · Гра',he:'שעה זמנית גר״א'},{k:'ShaahZmanisMGA',ru:'Шаа зманит · МА',he:'שעה זמנית מג״א'},{k:'ShaahZmanis16Point1Degrees',ru:'Шаа зм. 16.1°',he:'שעה זמנית 16.1°'},
+  {k:'ShaahZmanis72Minutes',ru:'Шаа зм. 72 мин',he:'שעה זמנית 72'},{k:'ShaahZmanis90Minutes',ru:'Шаа зм. 90 мин',he:'שעה זמנית 90'}]}
+];
+let zOpen={0:true};
+window.toggleZcat=function(i){zOpen[i]=!zOpen[i];render();};
+function zmanimScreen(){const d=L[lang],z=getZmanim();
+ if(!z)return `${backBtn()}${lbl(d.zmanim)}<div class="loading">${d.locating}</div>`;
+ const raw=z._raw||{};
+ const cats=ZMANIM_DEFS.map((c,i)=>{
+  const rows=c.items.map(it=>{const nm=lang==='he'?it.he:it.ru;const hh=lang!=='he'?`<span class="zh">${it.he}</span>`:'';
+   let val,miss;if(c.dur){const ms=raw[it.k];val=fmtDur(typeof ms==='number'?ms:(ms&&!isNaN(+ms)?+ms:NaN));miss=(ms==null);}else{const t=parseT(raw[it.k]);val=fmt(t);miss=!t;}
+   return `<div class="zrow${miss?' miss':''}"><span class="zn">${nm}</span>${hh}<span class="zt">${val}</span></div>`;}).join('');
+  return `<div class="zcat${zOpen[i]?' open':''}"><div class="zcat-head" onclick="toggleZcat(${i})"><span class="zcat-ic">${svg(c.ic)}</span><div class="zcat-t"><div class="a">${d[c.cat]}</div><div class="b">${d[c.cat+'_h']}</div></div><svg class="zcat-chev" viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></div><div class="zcat-body">${rows}</div></div>`;
+ }).join('');
+ return `${backBtn()}<div class="h1" style="margin:2px 0 6px">${d.t_zmanim}</div><div class="note" style="margin-bottom:12px">${d.zIntro}</div>${cats}<div class="note" style="margin-top:6px;text-align:center;font-size:11px">KosherJava · ${loc.name||`${loc.lat.toFixed(3)}, ${loc.lng.toFixed(3)}`}</div>`;
+}
 function gapTxt(ms){const m=Math.round(ms/6e4),h=Math.floor(m/60),mm=m%60,H=lang==='he'?'שע׳':'ч',M=lang==='he'?'דק׳':'мин';return h>0?`${h} ${H} ${mm} ${M}`:`${mm} ${M}`}
 function bearing(a,b){const r=Math.PI/180,dL=(b.lng-a.lng)*r,y=Math.sin(dL)*Math.cos(b.lat*r),x=Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos(dL);return (Math.atan2(y,x)*180/Math.PI+360)%360}
 function distKm(a,b){const r=Math.PI/180,R=6371,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r,h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
@@ -370,20 +548,23 @@ function backBtn(){return `<button class="back" onclick="back()">${svg('chevL')}
 function row(ic,nm,he,o){o=o||{};return `<div class="row" onclick="${o.fn||''}">${ic?`<span class="ricon">${svg(ic)}</span>`:''}<div class="rt"><div class="nm">${nm}</div>${o.sub?`<div class="sub">${o.sub}</div>`:''}</div>${he&&lang!=='he'?`<span class="he">${he}</span>`:''}${o.time?`<span class="time">${o.time}</span>`:''}${o.soon?`<span class="soon">${o.soon}</span>`:''}<span class="ch">›</span></div>`}
 function tool(ic,l,fn){return `<button class="tool" onclick="${fn}"><span class="tc">${svg(ic)}</span><span class="tl">${l}</span></button>`}
 
-function compassSVG(){let ticks='';for(let i=0;i<72;i++){const a=i*5*Math.PI/180,maj=i%9===0,r2=maj?92:99,x1=130+114*Math.sin(a),y1=130-114*Math.cos(a),x2=130+r2*Math.sin(a),y2=130-r2*Math.cos(a);ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${maj?'var(--goldL)':'var(--line)'}" stroke-width="${maj?2:1}"/>`}const lbls=lang==='he'?['צ','מז','ד','מע']:['С','В','Ю','З'];const card=[[lbls[0],0],[lbls[1],90],[lbls[2],180],[lbls[3],270]].map(([k,dg])=>{const a=dg*Math.PI/180,x=130+78*Math.sin(a),y=130-78*Math.cos(a);return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-family="Jost" font-size="14" fill="${dg===0?'var(--gold)':'var(--faint)'}">${k}</text>`}).join('');const rose=heading!==null?-heading:0;const b=loc?bearing(loc,KOTEL):0;const arrow=heading!==null?(b-heading):b;return `<svg viewBox="0 0 260 260" width="100%" style="display:block"><circle cx="130" cy="130" r="126" fill="var(--card)" stroke="var(--line)"/><circle cx="130" cy="130" r="118" fill="none" stroke="var(--cream)"/><g id="rose" transform="rotate(${rose.toFixed(1)} 130 130)" style="transition:transform .15s linear">${ticks}${card}</g><g id="arrow" transform="rotate(${arrow.toFixed(1)} 130 130)" style="transition:transform .15s linear"><path d="M130 30 L142 130 L130 142 L118 130 Z" fill="var(--gold)"/><path d="M130 226 L118 130 L130 142 L142 130 Z" fill="var(--line)"/><circle cx="130" cy="44" r="13" fill="var(--cream)" stroke="var(--gold)"/><text x="130" y="49" text-anchor="middle" font-family="Frank Ruhl Libre" font-size="15" fill="var(--gold)">✡</text></g><circle cx="130" cy="130" r="7" fill="var(--ink)"/><circle cx="130" cy="130" r="3" fill="var(--goldL)"/></svg>`;}
+function compassSVG(){let ticks='';for(let i=0;i<72;i++){const a=i*5*Math.PI/180,maj=i%9===0,r2=maj?92:99,x1=130+114*Math.sin(a),y1=130-114*Math.cos(a),x2=130+r2*Math.sin(a),y2=130-r2*Math.cos(a);ticks+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${maj?'var(--goldL)':'var(--line)'}" stroke-width="${maj?2:1}"/>`}const lbls=lang==='he'?['צ','מז','ד','מע']:['С','В','Ю','З'];const card=[[lbls[0],0],[lbls[1],90],[lbls[2],180],[lbls[3],270]].map(([k,dg])=>{const a=dg*Math.PI/180,x=130+78*Math.sin(a),y=130-78*Math.cos(a);return `<text x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle" font-family="Jost" font-size="14" fill="${dg===0?'var(--gold)':'var(--faint)'}">${k}</text>`}).join('');const rose=heading!==null?-heading:0;const b=loc?bearing(loc,KOTEL):0;const arrow=heading!==null?(b-heading):b;
+/* Magen David at tip of arrow (translated to arrow-local coords, tip at y=30 from center=130) */
+const md=`<g transform="translate(130,38)"><polygon points="0,-13 11.3,6.5 -11.3,6.5" fill="var(--gold)"/><polygon points="0,13 11.3,-6.5 -11.3,-6.5" fill="var(--gold)"/><polygon points="0,-13 11.3,6.5 -11.3,6.5" fill="none" stroke="var(--paper)" stroke-width="1.2" stroke-linejoin="round"/><polygon points="0,13 11.3,-6.5 -11.3,-6.5" fill="none" stroke="var(--paper)" stroke-width="1.2" stroke-linejoin="round"/></g>`;
+return `<svg viewBox="0 0 260 260" width="100%" style="display:block"><circle cx="130" cy="130" r="126" fill="var(--card)" stroke="var(--line)"/><circle cx="130" cy="130" r="118" fill="none" stroke="var(--cream)"/><g id="rose" transform="rotate(${rose.toFixed(1)} 130 130)" style="transition:transform .15s linear">${ticks}${card}</g><g id="arrow" transform="rotate(${arrow.toFixed(1)} 130 130)" style="transition:transform .15s linear"><path d="M130 30 L143 130 L130 144 L117 130 Z" fill="var(--gold)" stroke="var(--paper)" stroke-width=".5"/><path d="M130 232 L117 130 L130 144 L143 130 Z" fill="var(--cream)" stroke="var(--paper)" stroke-width=".5"/>${md}</g><circle cx="130" cy="130" r="7" fill="var(--ink)"/><circle cx="130" cy="130" r="3" fill="var(--goldL)"/></svg>`;}
 function alignedNow(){if(heading===null||!loc)return false;return Math.abs(((bearing(loc,KOTEL)-heading+540)%360)-180)<5;}
 function gostQR(){return `ST00012|Name=Еврейская религиозная община|PersonalAcc=${REQ.acc}|BankName=Банк Санкт-Петербург|BIC=${REQ.bik}|CorrespAcc=${REQ.cor}|Purpose=Цдака`;}
 
 function screens(){const d=L[lang];const z=getZmanim();const hero=z?prayerState(z):null;const dist=loc?Math.round(distKm(loc,KOTEL)).toLocaleString(d.locale):'—';const bear=loc?Math.round(bearing(loc,KOTEL)):'—';const td=hebDay();const tdN=td>30?30:td;const nus=nusach?NUSACH[nusach][lang]:'';
  return {
  today:`<div class="date" style="margin-top:6px">${hebDate()}</div><div class="greg">${gregDate()}</div>
-   <div class="card hero" style="margin-top:16px"><div class="lbl" style="margin:0 0 12px;justify-content:center">${d.nearest}</div><div class="hrow"><button class="chev" onclick="prev()">‹</button><div class="pname">${hero?hero.p.n:'—'}</div><button class="chev" onclick="nextP()">›</button></div><div class="count">${hero?hero.count:d.locating}</div><div class="win">${hero?hero.p.w.map(x=>`<div class="wrow"><span class="dot"></span>${x[0]} <b>${fmt(x[1])}</b></div>`).join(''):''}</div></div>
-   <div class="bigtiles" style="margin-bottom:14px"><button class="bt bt-prayers" onclick="go('prayers',true)"><span class="bi">${svg('book')}</span><div><div class="bn">${d.prayers}</div><div class="bh">תְּפִלּוֹת</div></div></button><button class="bt bt-brachot" onclick="go('brachot',true)"><span class="bi">${svg('grape')}</span><div><div class="bn">${d.brachot}</div><div class="bh">בְּרָכוֹת</div></div></button></div>
+   <div class="prayer-card"><div class="pc-label">${d.nearest}</div><div class="pc-body"><button class="pc-nav" onclick="prev()">‹</button><div class="pc-main"><div class="pc-name">${hero?hero.p.n:'—'}</div><div class="pc-count">${hero?hero.count:d.locating}</div><div class="pc-wins">${hero?hero.p.w.map(x=>`<span class="pc-w"><span class="pc-wdot"></span>${x[0]} <b>${fmt(x[1])}</b></span>`).join(''):''}</div></div><button class="pc-nav" onclick="nextP()">›</button></div><div class="pc-tabs">${[{n:d.sh,k:'netz'},{n:d.mi,k:'minchaG'},{n:d.ma,k:'tzeit'}].map((p,i)=>`<button class="pc-tab${(pidx===null?0:pidx)===i?' on':''}" onclick="pidx=${i};render()">${p.n}<span class="pt-time">${z?fmt(z[p.k]):'—'}</span></button>`).join('')}</div></div>
+   <div class="bigtiles" style="margin:14px 0 14px"><button class="bt bt-prayers" onclick="go('prayers',true)"><span class="bi">${svg('book')}</span><div><div class="bn">${d.prayers}</div><div class="bh">תְּפִלּוֹת</div></div></button><button class="bt bt-brachot" onclick="go('brachot',true)"><span class="bi">${svg('grape')}</span><div><div class="bn">${d.brachot}</div><div class="bh">בְּרָכוֹת</div></div></button></div>
    <div class="tehil" onclick="openTehillim()"><div class="tn">${tdN}</div><div class="tt"><div class="a">${d.tehTitle} · ${d.tehChap} ${TEHILLIM[tdN]}</div><div class="b">${d.tehOpen}</div></div>${svg('chevL')}</div>
-   ${lbl(d.tools)}<div class="tools">${tool('compass',d.t_mizrah,"go('mizrah')")}${tool('clock',d.t_zmanim,"go('zmanim',true)")}${tool('calendar',d.t_cal,"go('calendar')")}${tool('coin',d.t_tzedaka,"go('tzedaka')")}</div>
-   ${lbl(d.prayToday)}<div class="group">${row('sun',d.sh,'שַׁחֲרִית',{time:z?fmt(z.netz):''})}${row('clock',d.mi,'מִנְחָה',{time:z?fmt(z.minchaG):''})}${row('book',d.ma,'מַעֲרִיב',{time:z?fmt(z.tzeit):''})}</div>`,
+   ${lbl(d.t_fav)}<div class="bm-grid" id="bmgrid">${bmCardsHtml()}</div>
+   ${lbl(d.tools)}<div class="tools">${tool('compass',d.t_mizrah,"go('mizrah')")}${tool('clock',d.t_zmanim,"go('zmanim')")}${tool('calendar',d.t_cal,"go('calendar')")}${tool('coin',d.t_tzedaka,"go('tzedaka')")}</div>`,
 
- zmanim:`${backBtn()}${lbl(d.zmanim)}<div class="group">${z?d.z.map((nm,i)=>{const key=['alot','misheyakir','netz','sofShma','sofTfila','chatzot','minchaG','minchaK','plag','shkia','tzeit'][i];return row('',nm,d.zh[i],{time:fmt(z[key])})}).join(''):`<div class="loading">${d.locating}</div>`}</div><div class="note" style="margin-top:12px">${lang==='ru'?'Расчёт по библиотеке KosherJava для ваших координат.':'מחושב לפי ספריית KosherJava.'}</div>`,
+ zmanim:zmanimScreen(),
 
  prayers:`${backBtn()}${lbl(d.prayers)}<div class="tzc" onclick="go('tzedaka')"><span class="ic">${svg('coin')}</span><div class="tt"><div class="a">${d.tzcTitle}</div><div class="b">${d.tzcSub}</div></div><svg class="cv" viewBox="0 0 24 24" fill="none" stroke-width="1.6">${ICON.chevL}</svg></div>
    ${lbl(d.daily)}<div class="group">${row('sun',d.sh,'שַׁחֲרִית',{sub:nus})}${row('clock',d.mi,'מִנְחָה',{sub:nus})}${row('book',d.ma,'מַעֲרִיב',{sub:nus})}</div>
@@ -414,10 +595,17 @@ function screens(){const d=L[lang];const z=getZmanim();const hero=z?prayerState(
 
  fav:`${backBtn()}<div class="h1" style="margin:2px 0 2px">${d.t_fav}</div><div class="note" style="margin:4px 2px 8px">${lang==='ru'?'Закреплённые тексты — всегда под рукой и офлайн':'טקסטים שמורים — תמיד בהישג יד'}</div><div class="group">${d.favList.map(f=>row('bookmark',f[0],'',{sub:f[1]})).join('')}</div>`,
 
- more:`${backBtn()}${lbl(d.moreLearn)}<div class="group">${row('book',d.t_teh,'',{fn:"go('tehillim')"})}${row('sparkle',d.t_seg,'',{fn:"go('segulot')"})}${row('calendar',d.t_cal,'',{fn:"go('calendar')"})}</div>
-   ${lbl(d.moreTools)}<div class="group">${row('compass',d.t_mizrah,'',{fn:"go('mizrah')"})}${row('coin',d.t_tzedaka,'',{fn:"go('tzedaka')"})}${row('bookmark',d.t_fav,'',{fn:"go('fav')"})}</div>
-   ${lbl(d.personal2)}<div class="group">${row('bell',d.remind,'',{})}${row('gear',d.settings,'',{fn:"go('settings')"})}</div>
-   <div class="note" style="text-align:center;margin-top:26px;color:var(--faint)">Shevet Achim · пробная версия</div>`,
+ more:`${backBtn()}${lbl(d.moreLearn)}<div class="group">${row('book',d.t_teh,'',{fn:"go('tehillim',true)"})}${row('sparkle',d.t_seg,'',{fn:"go('segulot')"})}${row('calendar',d.t_cal,'',{fn:"go('calendar')"})}</div>
+   ${lbl(d.moreTools)}<div class="group">${row('clock',d.t_zmanim,'',{fn:"go('zmanim')"})}${row('compass',d.t_mizrah,'',{fn:"go('mizrah')"})}${row('coin',d.t_tzedaka,'',{fn:"go('tzedaka')"})}${row('bookmark',d.t_fav,'',{fn:"go('fav')"})}</div>
+   ${lbl(d.personal2)}<div class="group">${row('chat',d.feedback,'',{fn:"go('feedback')"})}${row('bell',d.remind,'',{})}${row('gear',d.settings,'',{fn:"go('settings')"})}</div>
+   <div class="note" style="text-align:center;margin-top:26px;color:var(--faint)">Сидур · пробная версия</div>`,
+
+ feedback:`${backBtn()}<div class="h1" style="margin:2px 0 6px">${d.feedback}</div><div class="note" style="margin-bottom:18px">${d.fbIntro}</div>
+   <div class="fb-field"><label>${d.fbRate}</label><div class="fb-stars">${[1,2,3,4,5].map(n=>`<span class="fb-star${n<=fbRating?' on':''}" data-n="${n}" onclick="setFbRating(${n})">★</span>`).join('')}</div></div>
+   <div class="fb-field"><label>${d.fbCatL}</label><div class="fb-cats">${[['idea',d.fbIdea],['bug',d.fbBug],['content',d.fbContent],['other',d.fbOther]].map(([k,t])=>`<button class="fb-cat${fbCat===k?' on':''}" data-k="${k}" onclick="setFbCat('${k}')">${t}</button>`).join('')}</div></div>
+   <div class="fb-field"><label>${d.fbMsgL}</label><textarea class="fb-textarea" id="fbMsg" placeholder="${d.fbMsgPh}"></textarea></div>
+   <div class="fb-field"><label>${d.fbContactL}</label><input class="fb-input" id="fbContact" type="email" placeholder="you@email.com"></div>
+   <button class="fb-send" onclick="sendFeedback()">${d.fbSend}</button>`,
 
  settings:`${backBtn()}<div class="h1" style="margin:2px 0 8px">${d.settings}</div>
    ${lbl(d.setTheme)}<div class="set-seg">${[['auto',d.themeAuto],['light',d.themeLight],['dark',d.themeDark]].map(([k,t])=>`<button class="${theme===k?'on':''}" onclick="setTheme('${k}')">${t}</button>`).join('')}</div>
@@ -440,17 +628,19 @@ window.setTehMode=function(m){tehMode=m;render();};
 window.openTehillim=function(){readDay(hebDay()>30?30:hebDay());};
 window.readDay=function(day){segulaDesc='';tehTitleCur=L[lang].tehDay+' '+day;tehChapters=chaptersForDay(day);if(cur!=='tehread')hist.push(cur);cur='tehread';renderTehread();};
 window.readPsalm=function(n){segulaDesc='';tehTitleCur=L[lang].psalm+' '+n;tehChapters=[n];if(cur!=='tehread')hist.push(cur);cur='tehread';renderTehread();};
-async function renderTehread(){const d=L[lang];__rerender=renderTehread;scr.className='scr'+(lang==='he'?' rtl':'');scr.dir=lang==='he'?'rtl':'ltr';
- scr.innerHTML=`${backBtn()}<div class="h1" style="margin:2px 0 6px">${d.t_teh} · ${tehTitleCur}</div>${segulaDesc?`<div class="note" style="margin-bottom:10px">${segulaDesc}</div>`:''}${readerBar()}${langSeg(tehLang,'setTehLang')}<div id="tehbody" class="reader ${tehLang==='he'?'rtl':''}" ${readerStyle()}><div class="loading">…</div></div>`;
- renderNav();updateTopChips();scr.scrollTop=0;
- const body=document.getElementById('tehbody');let html='';
- for(const n of tehChapters){try{const p=await fetchPsalm(n);const lines=psalmLines(p,tehLang);if(!lines.length){html+=`<div class="note">${d.psalm} ${n}: ${lang==='ru'?'нет текста':'אין טקסט'}</div>`;continue;}
+async function renderTehread(){const d=L[lang];__rerender=renderTehread;const rtl=(tehLang==='he');
+ document.getElementById('rdrTitle').textContent=tehTitleCur||d.t_teh;
+ const body=document.getElementById('rdrBody');body.className='rdr-body'+(rtl?' rtl':'');body.dir=rtl?'rtl':'ltr';
+ applyReaderStyle();showReader();renderNav();body.scrollTop=0;
+ body.innerHTML=`${segulaDesc?`<div class="rdesc">${segulaDesc}</div>`:''}<div class="loading">…</div>`;
+ let html=segulaDesc?`<div class="rdesc">${segulaDesc}</div>`:'';
+ for(const n of tehChapters){try{const p=await fetchPsalm(n);const lines=psalmLines(p,tehLang);if(!lines.length){html+=`<div class="rdesc">${d.psalm} ${n}: ${lang==='ru'?'нет текста':'אין טקסט'}</div>`;continue;}
   html+=`<div class="pn">${d.psalm} ${n}</div>`;for(let i=0;i<lines.length;i++)html+=`<div class="v"><span class="vn">${i+1}</span>${lines[i]||''}</div>`;
-  if(tehLang==='ru'&&(!p.ru||!p.ru.length))html+=`<div class="note" style="margin-top:6px;font-size:12px">${lang==='ru'?'Русский перевод недоступен — показана транслитерация.':'תרגום רוסי לא זמין.'}</div>`;
- }catch(e){html+=`<div class="note">${d.psalm} ${n}: ${lang==='ru'?'нужна сеть при первом открытии':'דרושה רשת'}</div>`;}}
- if(document.getElementById('tehbody'))document.getElementById('tehbody').innerHTML=html||`<div class="note">${d.soonTxt}</div>`;
+  if(tehLang==='ru'&&(!p.ru||!p.ru.length))html+=`<div class="rdesc" style="margin-top:6px">${lang==='ru'?'Русский перевод недоступен — показана транслитерация.':'תרגום רוסי לא זמין.'}</div>`;
+ }catch(e){html+=`<div class="rdesc">${d.psalm} ${n}: ${lang==='ru'?'нужна сеть при первом открытии':'דרושה רשת'}</div>`;}}
+ if(cur==='tehread'&&document.getElementById('rdrBody'))document.getElementById('rdrBody').innerHTML=html||`<div class="rdesc">${d.soonTxt}</div>`;
 }
-window.setTehLang=function(l){textLang=tehLang=bLang=l;saveTextLang();renderTehread();};
+window.setTehLang=function(l){setRdrLang(l);};
 
 /* segula */
 window.openSegula=function(id){const s=SEGULOT.find(x=>x.id===id);if(!s)return;tehTitleCur=s.need[lang];tehChapters=s.psalms.slice();segulaDesc=s.d[lang]+' · '+L[lang].tehChap+': '+s.psalms.join(' · ');if(cur!=='tehread')hist.push(cur);cur='tehread';renderTehread();};
@@ -463,13 +653,16 @@ const BRACHA={hamotzi:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינו
  shehakol:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, שֶׁהַכֹּל נִהְיֶה בִּדְבָרוֹ.',translit:'Барух ата Адо-най Эло-эйну мэлэх а-олам, шеаколь ниье бидваро.',ru:'Благословен Ты, Г-сподь, Б-г наш, Царь вселенной, по слову Которого возникло всё.'},
  boreh:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, בּוֹרֵא נְפָשׁוֹת רַבּוֹת וְחֶסְרוֹנָן…',translit:'Барух ата Адо-най Эло-эйну мэлэх а-олам, борэ нефашот работ ве-хэсронан…',ru:'Благословен Ты, Г-сподь, Б-г наш, Царь вселенной, сотворивший множество душ и то, в чём они нуждаются…'},
  asher:{he:'בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם, אֲשֶׁר יָצַר אֶת הָאָדָם בְּחָכְמָה…',translit:'Барух ата Адо-най Эло-эйну мэлэх а-олам, ашер яцар эт а-адам бе-хохма…',ru:'Благословен Ты, Г-сподь, Б-г наш, Царь вселенной, Который сотворил человека мудро…'}};
-function renderBracha(id){const b=BRACHA[id];if(!b){toast(L[lang].soonTxt);return;}const d=L[lang];__rerender=()=>renderBracha(id);const main=bLang==='he'?b.he:(bLang==='translit'?b.translit:b.ru);
- scr.className='scr'+(lang==='he'?' rtl':'');scr.dir=lang==='he'?'rtl':'ltr';
- scr.innerHTML=`${backBtn()}${readerBar()}${langSeg(bLang,'setBLang',id)}<div class="reader ${bLang==='he'?'rtl':''}" ${readerStyle()}>${main}</div>`;
- renderNav();updateTopChips();scr.scrollTop=0;
+const BRACHA_NAME={hamotzi:'breadF',hagefen:'wineF',haetz:'fruitF',haadama:'veg',shehakol:'shehakol',boreh:'boreh',asher:'asher'};
+function brachaTitle(id){const k=BRACHA_NAME[id];return (k&&L[lang][k])?L[lang][k]:L[lang].brachot;}
+function renderBracha(id){const b=BRACHA[id];if(!b){toast(L[lang].soonTxt);return;}const d=L[lang];__rerender=()=>renderBracha(id);const main=bLang==='he'?b.he:(bLang==='translit'?b.translit:b.ru);const rtl=(bLang==='he');
+ document.getElementById('rdrTitle').textContent=brachaTitle(id);
+ const body=document.getElementById('rdrBody');body.className='rdr-body'+(rtl?' rtl':'');body.dir=rtl?'rtl':'ltr';
+ applyReaderStyle();showReader();renderNav();body.scrollTop=0;
+ body.innerHTML=`<div style="text-align:center;padding-top:28px">${main}</div>`;
 }
 window.openBracha=function(id){const b=BRACHA[id];if(!b){toast(L[lang].soonTxt);return;}if(cur.indexOf('bread_')<0)hist.push(cur);cur='bread_'+id;renderBracha(id);};
-window.setBLang=function(id,l){textLang=bLang=tehLang=l;saveTextLang();renderBracha(id);};
+window.setBLang=function(id,l){setRdrLang(l);};
 
 /* calendar — Hebcal API (publicapi.dev/hebrew-calendar-api) */
 function calYmd(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
@@ -500,28 +693,29 @@ async function renderCalendar(){const d=L[lang];__rerender=renderCalendar;const 
 }
 
 /* nav + routing */
-const ROOTS=['today','prayers','brachot','zmanim','more'];
+const ROOTS=['today','prayers','tehillim','brachot','more'];
 function updateTopChips(){const d=L[lang];document.getElementById('loctext').textContent=loc?(loc.name||`${loc.lat.toFixed(2)}, ${loc.lng.toFixed(2)}`):d.locating;
- const eff=theme==='auto'?(isNight()?'dark':'light'):theme;
- const tm=theme==='auto'?d.themeAuto:theme==='light'?d.themeLight:d.themeDark;
- const th=document.getElementById('themechip');th.dataset.mode=theme;
- th.innerHTML=`<span class="chip-ic">${svg(theme==='dark'?'moon':theme==='light'?'sun':'globe')}</span><span class="chip-txt"><small>${d.setTheme}</small><b>${tm}</b></span>`;
+ const th=document.getElementById('themechip');
+ th.innerHTML=svg(theme==='dark'?'moon':theme==='light'?'sun':'globe');
  const lh=document.getElementById('langchip');
- lh.innerHTML=`<span class="chip-flag">${d.lc}</span><span class="chip-txt"><small>${d.setLang}</small><b>${lang==='ru'?'Русский':'עברית'}</b></span>`;
+ lh.textContent=d.lc;
  applyTheme();}
 function renderNav(){const d=L[lang];let activeRoot=ROOTS.includes(cur)?cur:'';if(!activeRoot){for(let i=hist.length-1;i>=0;i--){if(ROOTS.includes(hist[i])){activeRoot=hist[i];break;}}}if(!activeRoot)activeRoot='today';
- const pOn=activeRoot==='prayers',bOn=activeRoot==='brachot';
- nav.innerHTML=`<button class="${activeRoot==='today'?'on':''}" onclick="go('today',true)">${svg('sun')}<span class="n">${d.today}</span></button>`+
-  `<div class="navc prayers ${pOn?'on fill':''}" onclick="go('prayers',true)"><span class="circ">${svg('book')}</span><span class="n">${d.prayers}</span></div>`+
-  `<div class="navc brachot ${bOn?'on fill':''}" onclick="go('brachot',true)"><span class="circ">${svg('grape')}</span><span class="n">${d.brachot}</span></div>`+
-  `<button class="${activeRoot==='zmanim'?'on':''}" onclick="go('zmanim',true)">${svg('clock')}<span class="n">${d.zmanim}</span></button>`+
+ const pOn=activeRoot==='prayers',bOn=activeRoot==='brachot',tOn=activeRoot==='tehillim';
+ const magenSVG=`<svg viewBox="0 0 24 24" fill="none" width="23" height="23"><polygon points="12,3 20.4,18 3.6,18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><polygon points="12,21 3.6,6 20.4,6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+ nav.innerHTML=
+  `<button class="${activeRoot==='today'?'on':''}" onclick="go('today',true)">${svg('sun')}<span class="n">${d.today}</span></button>`+
+  `<button class="nav-pill prayers ${pOn?'on':''}" onclick="go('prayers',true)"><span class="np-ic">${svg('book')}</span><span class="n">${d.prayers}</span></button>`+
+  `<div class="navc tehillim ${tOn?'on fill':''}" onclick="go('tehillim',true)"><span class="circ">${magenSVG}</span><span class="n">${d.t_teh}</span></div>`+
+  `<button class="nav-pill brachot ${bOn?'on':''}" onclick="go('brachot',true)"><span class="np-ic">${svg('grape')}</span><span class="n">${d.brachot}</span></button>`+
   `<button class="${activeRoot==='more'?'on':''}" onclick="go('more',true)">${svg('dots')}<span class="n">${d.more}</span></button>`;
 }
 function render(){document.documentElement.lang=lang;
  if(cur==='tehread'){renderTehread();return;}
  if(cur.startsWith('bread_')){renderBracha(cur.slice(6));return;}
- const d=L[lang];__rerender=null;scr.className='scr'+(lang==='he'?' rtl':'');scr.dir=lang==='he'?'rtl':'ltr';
+ hideReader();const d=L[lang];__rerender=null;scr.className='scr'+(lang==='he'?' rtl':'');scr.dir=lang==='he'?'rtl':'ltr';
  scr.innerHTML=screens()[cur]||screens().today;renderNav();updateTopChips();
+ if(cur==='today')bmDragSetup();
  if(cur==='tzedaka')drawQR();
  if(cur==='calendar')renderCalendar();
 }
@@ -536,10 +730,51 @@ window.setTheme=function(t){theme=t;localStorage.setItem('theme',t);applyTheme()
 function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),1700);}
 window.copyTxt=function(t){navigator.clipboard&&navigator.clipboard.writeText(t);toast(L[lang].copied);};
 
+/* feedback */
+let fbCat='idea',fbRating=0;
+window.setFbCat=function(k){fbCat=k;document.querySelectorAll('.fb-cat').forEach(b=>b.classList.toggle('on',b.dataset.k===k));};
+window.setFbRating=function(n){fbRating=n;document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',+s.dataset.n<=n));};
+window.sendFeedback=function(){const d=L[lang];const msg=(document.getElementById('fbMsg')||{}).value||'';if(!msg.trim()){toast(d.fbEmpty);return;}
+ const contact=(document.getElementById('fbContact')||{}).value||'';const catName=d['fb'+fbCat.charAt(0).toUpperCase()+fbCat.slice(1)]||fbCat;
+ const subj=encodeURIComponent('Сидур · '+catName+(fbRating?` · ${fbRating}★`:''));
+ const body=encodeURIComponent(msg+'\n\n'+(contact?'Контакт: '+contact+'\n':'')+'— '+(navigator.userAgent||''));
+ try{location.href='mailto:?subject='+subj+'&body='+body;}catch(e){}
+ fbRating=0;toast(d.fbSent);};
+
 /* sensors */
 window.requestLocation=function(){if(!navigator.geolocation){loc={lat:31.7683,lng:35.2137,name:'Jerusalem'};render();return;}navigator.geolocation.getCurrentPosition(p=>{loc={lat:p.coords.latitude,lng:p.coords.longitude};pidx=null;reverseGeo();render();},()=>{if(!loc){loc={lat:31.7683,lng:35.2137,name:'Jerusalem'};render();}},{enableHighAccuracy:false,timeout:9000,maximumAge:600000});};
 function reverseGeo(){try{fetch(`https://nominatim.openstreetmap.org/reverse?format=json&zoom=10&accept-language=${lang}&lat=${loc.lat}&lon=${loc.lng}`,{headers:{'User-Agent':'ShevetAchim/1.0'}}).then(r=>r.json()).then(j=>{const a=j.address||{};loc.name=a.city||a.town||a.state||a.county||'';if(cur==='tehread')renderTehread();else if(cur.startsWith('bread_'))renderBracha(cur.slice(6));else render();}).catch(()=>{});}catch(e){}}
-window.enableCompass=function(){const start=()=>{compassOn=true;window.addEventListener('deviceorientation',e=>{let h=e.webkitCompassHeading!=null?e.webkitCompassHeading:(e.absolute&&e.alpha!=null?360-e.alpha:null);if(h==null)return;heading=h;if(cur==='mizrah'&&loc){const b=bearing(loc,KOTEL);const rg=document.getElementById('rose'),ar=document.getElementById('arrow');if(rg)rg.setAttribute('transform',`rotate(${(-heading).toFixed(1)} 130 130)`);if(ar)ar.setAttribute('transform',`rotate(${(b-heading).toFixed(1)} 130 130)`);const alm=document.getElementById('alm');if(alm)alm.innerHTML=alignedNow()?(svg('check')+L[lang].facing):'';}},true);render()};if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')start()}).catch(()=>{});}else start();};
+window.enableCompass=function(){
+ function onHeading(h){if(h==null)return;heading=h;if(cur==='mizrah'&&loc){const b=bearing(loc,KOTEL);const rg=document.getElementById('rose'),ar=document.getElementById('arrow');if(rg)rg.setAttribute('transform',`rotate(${(-h).toFixed(1)} 130 130)`);if(ar)ar.setAttribute('transform',`rotate(${(b-h).toFixed(1)} 130 130)`);const alm=document.getElementById('alm');if(alm)alm.innerHTML=alignedNow()?(svg('check')+L[lang].facing):'';}}
+ const start=()=>{compassOn=true;const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent);
+  if(isIOS){window.addEventListener('deviceorientation',e=>{if(e.webkitCompassHeading!=null)onHeading(e.webkitCompassHeading);},true);}
+  else{let absOk=false;window.addEventListener('deviceorientationabsolute',e=>{if(e.alpha!=null){absOk=true;onHeading((360-e.alpha+360)%360);}},true);setTimeout(()=>{if(!absOk)window.addEventListener('deviceorientation',e=>{if(e.webkitCompassHeading!=null)onHeading(e.webkitCompassHeading);else if(e.absolute&&e.alpha!=null)onHeading((360-e.alpha+360)%360);},true);},600);}
+  render();};
+ if(typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission==='function'){DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted')start();}).catch(()=>{});}else start();
+};
+
+/* bookmarks */
+const BM_DEFS=[
+ {id:'road',ic:'compass',ru:['Дорожная молитва','Молитвы'],he:['תפילת הדרך','תפילות'],fn:"go('prayers',true)"},
+ {id:'hamotzi',ic:'bread',ru:['а-Моци','Брахот'],he:['הַמּוֹצִיא','ברכות'],fn:"openBracha('hamotzi')"},
+ {id:'mincha',ic:'clock',ru:['Минха','Молитвы'],he:['מִנְחָה','תפילות'],fn:"go('prayers',true)"},
+ {id:'shachrit',ic:'sun',ru:['Шахарит','Молитвы'],he:['שַׁחֲרִית','תפילות'],fn:"go('prayers',true)"},
+ {id:'tehillim',ic:'star',ru:['Теилим','Псалмы дня'],he:['תְּהִלִּים','יומי'],fn:"openTehillim()"},
+ {id:'mizrah',ic:'compass',ru:['Направление','Компас'],he:['כיוון','מזרח'],fn:"go('mizrah')"},
+ {id:'tzedaka',ic:'coin',ru:['Цдака','Пожертвование'],he:['צדקה','תרומה'],fn:"go('tzedaka')"},
+];
+let bmOrder=JSON.parse(localStorage.getItem('bmOrder')||'["road","hamotzi","mincha"]');
+let _bmDrag=null,_bmDragOver=null;
+function bmSave(){localStorage.setItem('bmOrder',JSON.stringify(bmOrder));}
+function bmCardsHtml(){return bmOrder.map(id=>{const b=BM_DEFS.find(x=>x.id===id);if(!b)return '';const[nm,sub]=lang==='he'?b.he:b.ru;return `<div class="bm-card" draggable="true" data-bmid="${id}" onclick="${b.fn}"><span class="bm-ic">${svg(b.ic)}</span><span class="bm-nm">${nm}</span><span class="bm-sub">${sub}</span></div>`;}).join('');}
+function bmDragSetup(){const grid=document.getElementById('bmgrid');if(!grid)return;
+ grid.querySelectorAll('.bm-card').forEach(el=>{
+  el.addEventListener('dragstart',e=>{_bmDrag=el.dataset.bmid;el.classList.add('bm-dragging');e.dataTransfer.effectAllowed='move';});
+  el.addEventListener('dragend',()=>{el.classList.remove('bm-dragging');grid.querySelectorAll('.bm-drag-over').forEach(x=>x.classList.remove('bm-drag-over'));_bmDrag=null;});
+  el.addEventListener('dragover',e=>{e.preventDefault();if(el.dataset.bmid!==_bmDrag)el.classList.add('bm-drag-over');});
+  el.addEventListener('dragleave',()=>el.classList.remove('bm-drag-over'));
+  el.addEventListener('drop',e=>{e.preventDefault();el.classList.remove('bm-drag-over');if(!_bmDrag||_bmDrag===el.dataset.bmid)return;const fi=bmOrder.indexOf(_bmDrag),ti=bmOrder.indexOf(el.dataset.bmid);if(fi<0||ti<0)return;bmOrder.splice(fi,1);bmOrder.splice(ti,0,_bmDrag);_bmDrag=null;bmSave();const g=document.getElementById('bmgrid');if(g){g.innerHTML=bmCardsHtml();bmDragSetup();}});
+ });}
 
 /* onboarding */
 function showOnboarding(){const d=L[lang];ob.innerHTML=`<div class="obhe">שבת אחים גם יחד</div><h1>${d.onbTitle}</h1><p>${d.onbSub}</p><div class="opts">${Object.keys(NUSACH).map(k=>`<button onclick="pickNusach('${k}')">${NUSACH[k][lang]} <span>${NUSACH[k].he}</span></button>`).join('')}</div><small>${d.onbHint}</small>`;ob.classList.remove('hidden');}
