@@ -423,6 +423,51 @@ body.zenmode .navwrap{display:none}
 .nav-item.emph.on .ni-ic{background:linear-gradient(150deg,var(--gold),var(--goldL));box-shadow:0 4px 12px rgba(161,98,7,.34)}
 .nav-item.emph.on .ni-ic svg{stroke:#fff}
 html[data-theme="dark"] .nav-item.emph .ni-ic{box-shadow:inset 0 0 0 1.5px rgba(203,162,80,.3)}
+/* === v8 polish === */
+/* screen + reader transitions */
+@keyframes scrIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.scr.anim{animation:scrIn .34s cubic-bezier(.32,.72,0,1)}
+@keyframes rdrIn{from{opacity:0}to{opacity:1}}
+#rdr.show{animation:rdrIn .3s ease}
+/* welcome cover shows instantly (no backdrop fade-in over content) */
+#welcome{animation:none}
+/* consistent vertical rhythm on Today */
+.quickrow{margin:16px 0 0}
+.prayer-card{margin:16px 0}
+.bigtiles{margin:14px 0!important}
+.tehil{margin:0 0 14px}
+.fav-head{margin:24px 2px 14px}
+/* liquid-glass nav lens */
+.navbar{touch-action:none}
+.nav-ind{background:linear-gradient(160deg,rgba(255,255,255,.62),rgba(255,255,255,.12));border:1px solid rgba(255,255,255,.7);box-shadow:0 6px 16px rgba(0,0,0,.14),inset 0 1.6px 0 rgba(255,255,255,.9),inset 0 -2px 5px rgba(0,0,0,.06);backdrop-filter:blur(5px) saturate(170%);-webkit-backdrop-filter:blur(5px) saturate(170%);transition:transform .34s cubic-bezier(.32,.72,0,1)}
+html[data-theme="dark"] .nav-ind{background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.03));border-color:rgba(255,255,255,.2);box-shadow:0 6px 16px rgba(0,0,0,.32),inset 0 1.6px 0 rgba(255,255,255,.24)}
+.nav-item .ni-ic{transition:transform .24s cubic-bezier(.32,.72,0,1)}
+.nav-item.lensed{color:var(--gold)}
+.nav-item.lensed .ni-ic{transform:scale(1.2) translateY(-2px)}
+.nav-item.lensed .n{font-weight:700}
+/* emphasised prayers/brachot — premium gold pills */
+.nav-item.emph .ni-ic{width:36px;height:36px;margin-top:-3px}
+.nav-item.emph .ni-ic svg{width:21px;height:21px}
+.nav-item.emph:not(.on) .ni-ic{background:linear-gradient(160deg,var(--cream),var(--card));box-shadow:inset 0 0 0 1.6px rgba(161,98,7,.32),0 3px 8px rgba(161,98,7,.14)}
+.nav-item.emph.on .ni-ic{transform:scale(1.06) translateY(-2px)}
+.nav-item.emph.lensed .ni-ic{transform:scale(1.14) translateY(-3px)}
+.nav-item.emph .n{letter-spacing:.2px}
+/* compact prayer card */
+.prayer-card .pc-name{font-size:23px}
+.pc-body{cursor:pointer;padding:10px 18px 12px;gap:8px}
+.pc-main{flex:1}
+.pc-count{font-family:'Bodoni Moda',serif;font-size:21px;font-weight:600;color:var(--gold);margin-top:3px;font-variant-numeric:tabular-nums}
+.pc-status{font-size:11px;color:var(--faint);margin-top:2px;letter-spacing:.3px}
+.pc-status.live{color:var(--gold)}
+.pc-cv{width:17px;height:17px;stroke:var(--faint);flex:none;transform:scaleX(-1)}
+.pc-tab{padding:11px 4px}
+/* bookmarks edit — drag whole card, clear affordances */
+.bm-grid.editing .bm-card{touch-action:none;cursor:grab;border-style:dashed;border-color:var(--goldL);box-shadow:0 0 0 1px rgba(161,98,7,.08)}
+.bm-grid.editing .bm-card:active{cursor:grabbing}
+.bm-grid.editing .bm-handle{color:var(--gold)}
+.bm-grid.editing .bm-handle svg{stroke:var(--gold)}
+/* reader bookmark button */
+#rdrBm svg{transition:fill .15s,stroke .15s}
 </style>
 </head>
 <body>
@@ -439,6 +484,7 @@ html[data-theme="dark"] .nav-item.emph .ni-ic{box-shadow:inset 0 0 0 1.5px rgba(
     <div class="rdr-top">
       <button class="rdr-ic" onclick="back()" aria-label="back"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="rdr-title" id="rdrTitle"></div>
+      <button class="rdr-ic hidden" id="rdrBm" onclick="toggleReaderFav()" aria-label="bookmark"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v15.4a.6.6 0 0 1-.9.5L12 17.6 6.4 20.4a.6.6 0 0 1-.9-.5V4.5a1 1 0 0 1 1-1z"/></svg></button>
       <button class="rdr-ic hidden" id="rdrHeart" onclick="toggleRdrFav()" aria-label="favorite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 20.5C5.5 16 3.5 12 3.5 8.8 3.5 6.2 5.5 4.5 7.8 4.5c1.7 0 3.2 1 4.2 2.4 1-1.4 2.5-2.4 4.2-2.4 2.3 0 4.3 1.7 4.3 4.3 0 3.2-2 7.2-8.5 11.7z"/></svg></button>
       <button class="rdr-ic" onclick="toggleZen()" aria-label="prayer mode"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M8 3.5H4.5V7M16 3.5h3.5V7M8 20.5H4.5V17M16 20.5h3.5V17"/></svg></button>
       <button class="rdr-ic" onclick="openRdrSheet()" aria-label="settings"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M5 8h10M5 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0M19 8h-2M9 16h10M19 16a2 2 0 1 0-4 0 2 2 0 0 0 4 0M5 16h2"/></svg></button>
@@ -549,7 +595,7 @@ const L={
    zc_dawn_h:'Алот, мишеякир, восход',zc_shma_h:'Соф зман Шма / Тфила',zc_mid_h:'Хацот, Минха, Плаг',zc_dusk_h:'Шкия, бейн-hашмашот',zc_night_h:'Цет hа-кохавим',zc_hour_h:'Шаа зманит',
    zIntro2:'Основные времена дня. Нажмите на любое, чтобы увидеть все варианты расчёта и включить напоминание.',zVariants:'Все варианты',zRemind:'Напоминание',zRemindOn:'Напоминание включено',zRemindOff:'Напоминание выключено',zRemindBefore:'За сколько до',zRemindWhich:'Время для напоминания',zRemindHint:'Уведомления приходят, пока приложение запущено. Полные пуш-уведомления — в следующей версии.',zRemindBlocked:'Разрешите уведомления в настройках телефона',min5:'5 мин',min10:'10 мин',min15:'15 мин',min0:'Вовремя',
    edit:'Изменить',done:'Готово',favAdd:'Добавить',favEmpty:'Нет избранного — нажмите «Изменить», чтобы добавить',
-   resumeTitle:'Продолжить чтение',resume:'Продолжить',navDir:'Направление',navCal:'Календарь',navTz:'Цдака',tehFavTitle:'Избранные',
+   resumeTitle:'Продолжить чтение',resume:'Продолжить',navDir:'Направление',navCal:'Календарь',navTz:'Цдака',tehFavTitle:'Избранные',favAdded:'Добавлено в избранное',favRemoved:'Убрано из избранного',
    greetM:'Доброе утро',greetD:'Добрый день',greetE:'Добрый вечер',greetN:'Доброй ночи',welPray:'Лёгкой и наполненной молитвы',welStart:'Войти',welHe:'בָּרוּךְ הַבָּא',
    bookHdr:['Книга первая','Книга вторая','Книга третья','Книга четвёртая','Книга пятая'],
    z:['Алот а-Шахар','Мишеякир','Нец','Соф зман Шма','Соф зман Тфила','Хацот','Минха гдола','Минха ктана','Плаг а-Минха','Шкия','Цет а-кохавим'],
@@ -590,7 +636,7 @@ const L={
    zc_dawn_h:'עלות, משיכיר, נץ',zc_shma_h:'סוף זמן ק״ש / תפילה',zc_mid_h:'חצות, מנחה, פלג',zc_dusk_h:'שקיעה, בין השמשות',zc_night_h:'צאת הכוכבים',zc_hour_h:'שעה זמנית',
    zIntro2:'זמני היום העיקריים. הקישו על כל אחד כדי לראות את כל החישובים ולהפעיל תזכורת.',zVariants:'כל החישובים',zRemind:'תזכורת',zRemindOn:'התזכורת הופעלה',zRemindOff:'התזכורת בוטלה',zRemindBefore:'כמה זמן לפני',zRemindWhich:'זמן לתזכורת',zRemindHint:'התזכורות מגיעות כל עוד האפליקציה פעילה. פוש מלא — בגרסה הבאה.',zRemindBlocked:'אשרו התראות בהגדרות הטלפון',min5:'5 דק׳',min10:'10 דק׳',min15:'15 דק׳',min0:'בזמן',
    edit:'עריכה',done:'סיום',favAdd:'הוספה',favEmpty:'אין שמורים — הקישו «עריכה» כדי להוסיף',
-   resumeTitle:'המשך קריאה',resume:'המשך',navDir:'כיוון',navCal:'לוח',navTz:'צדקה',tehFavTitle:'מועדפים',
+   resumeTitle:'המשך קריאה',resume:'המשך',navDir:'כיוון',navCal:'לוח',navTz:'צדקה',tehFavTitle:'מועדפים',favAdded:'נוסף למועדפים',favRemoved:'הוסר מהמועדפים',
    greetM:'בוקר טוב',greetD:'צהריים טובים',greetE:'ערב טוב',greetN:'לילה טוב',welPray:'תפילה קלה ומלאת כוונה',welStart:'כניסה',welHe:'בָּרוּךְ הַבָּא',
    bookHdr:['ספר ראשון','ספר שני','ספר שלישי','ספר רביעי','ספר חמישי'],
    z:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
@@ -632,7 +678,7 @@ function renderRdrSheet(){const d=L[lang],sheet=document.getElementById('rdrShee
 window.openRdrSheet=function(){renderRdrSheet();document.getElementById('rdrSheet').classList.add('show');document.getElementById('rdrBd').classList.add('show');};
 window.closeRdrSheet=function(){const s=document.getElementById('rdrSheet'),b=document.getElementById('rdrBd');if(s)s.classList.remove('show');if(b)b.classList.remove('show');};
 let zenOn=false;
-function showReader(){document.getElementById('rdr').classList.add('show');if(!showReader._sl){const b=document.getElementById('rdrBody');if(b){b.addEventListener('scroll',()=>{clearTimeout(showReader._t);showReader._t=setTimeout(saveReadScroll,250);});showReader._sl=1;}}}
+function showReader(){document.getElementById('rdr').classList.add('show');if(!showReader._sl){const b=document.getElementById('rdrBody');if(b){b.addEventListener('scroll',()=>{clearTimeout(showReader._t);showReader._t=setTimeout(saveReadScroll,250);});b.addEventListener('click',ev=>{if(ev.target.closest('a,button'))return;if(window.getSelection&&String(window.getSelection()).length>0)return;toggleZen();});showReader._sl=1;}}}
 function hideReader(){const r=document.getElementById('rdr');if(r){r.classList.remove('show');r.classList.remove('zen');}document.body.classList.remove('zenmode');zenOn=false;closeRdrSheet();}
 window.toggleZen=function(){zenOn=!zenOn;const r=document.getElementById('rdr');r.classList.toggle('zen',zenOn);document.body.classList.toggle('zenmode',zenOn);};
 function langSeg(active,fnName,fnArg){const d=L[lang];return `<div class="langseg">${[['he',d.he_],['translit',d.translit],['ru',d.ru_]].map(([k,t])=>`<button class="${active===k?'on':''}" onclick="${fnArg!=null?`${fnName}('${fnArg}','${k}')`:`${fnName}('${k}')`}">${t}</button>`).join('')}</div>`;}
@@ -709,7 +755,7 @@ function hebDay(){try{const p=new Intl.DateTimeFormat('en-u-ca-hebrew',{day:'num
 function hebDate(){try{return new Intl.DateTimeFormat(L[lang].locale+'-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric'}).format(new Date()).replace(/\s*(AM|anno mundi|לבריאת העולם|לבריאה)\s*$/i,'').trim()}catch(e){return ''}}
 function gregDate(){return new Intl.DateTimeFormat(L[lang].locale,{weekday:'short',day:'numeric',month:'long'}).format(new Date())}
 
-function prayerState(z){const now=new Date(),d=L[lang];const items=[{n:d.sh,start:z.netz,end:z.chatzot,w:[[d.shma,z.sofShma],[d.amida,z.sofTfila]]},{n:d.mi,start:z.minchaG,end:z.shkia,w:[[d.mgedola,z.minchaG],[d.shkia,z.shkia]]},{n:d.ma,start:z.tzeit,end:null,w:[[d.tzeit,z.tzeit]]}];let c=0;if(z.chatzot&&now<z.chatzot)c=0;else if(z.shkia&&now<z.shkia)c=1;else c=2;if(pidx===null)pidx=c;const p=items[pidx];let count;if(p.start&&p.end&&now>=p.start&&now<p.end)count=`${d.now} · ${d.until} ${fmt(p.end)}`;else if(p.start&&now<p.start)count=`${d.into} ${gapTxt(p.start-now)} · ${fmt(p.start)}`;else count=p.start?fmt(p.start):'—';return {p,count};}
+function prayerState(z){const now=new Date(),d=L[lang];const items=[{n:d.sh,start:z.netz,end:z.chatzot},{n:d.mi,start:z.minchaG,end:z.shkia},{n:d.ma,start:z.tzeit,end:null}];let c=0;if(z.chatzot&&now<z.chatzot)c=0;else if(z.shkia&&now<z.shkia)c=1;else c=2;if(pidx===null)pidx=c;const p=items[pidx];const startTxt=p.start?fmt(p.start):'—';let status='',live=false;if(p.start&&p.end&&now>=p.start&&now<p.end){status=d.now;live=true;}return {p,startTxt,status,live};}
 
 function lbl(t){return `<div class="lbl">${t}<span class="ln"></span></div>`}
 function backBtn(){return `<button class="back" onclick="back()">${svg('chevL')}${L[lang].back}</button>`}
@@ -728,7 +774,7 @@ function screens(){const d=L[lang];const z=getZmanim();const hero=z?prayerState(
  today:`<div class="date" style="margin-top:6px">${hebDate()}</div><div class="greg">${gregDate()}</div>
    <div class="quickrow"><button class="qa" onclick="go('mizrah')"><span class="qa-ic">${svg('compass')}</span><span class="qa-l">${d.navDir}</span></button><button class="qa" onclick="go('calendar')"><span class="qa-ic">${svg('calendar')}</span><span class="qa-l">${d.navCal}</span></button><button class="qa" onclick="go('tzedaka')"><span class="qa-ic">${svg('coin')}</span><span class="qa-l">${d.navTz}</span></button></div>
    ${resumeBannerHtml()}
-   <div class="prayer-card" style="margin-top:14px"><div class="pc-label">${d.nearest}</div><div class="pc-body"><button class="pc-nav" onclick="prev()">‹</button><div class="pc-main"><div class="pc-name">${hero?hero.p.n:'—'}</div><div class="pc-count">${hero?hero.count:d.locating}</div><div class="pc-wins">${hero?hero.p.w.map(x=>`<span class="pc-w"><span class="pc-wdot"></span>${x[0]} <b>${fmt(x[1])}</b></span>`).join(''):''}</div></div><button class="pc-nav" onclick="nextP()">›</button></div><div class="pc-tabs">${[{n:d.sh,k:'netz'},{n:d.mi,k:'minchaG'},{n:d.ma,k:'tzeit'}].map((p,i)=>`<button class="pc-tab${(pidx===null?0:pidx)===i?' on':''}" onclick="pidx=${i};render()">${p.n}<span class="pt-time">${z?fmt(z[p.k]):'—'}</span></button>`).join('')}</div></div>
+   <div class="prayer-card"><div class="pc-label">${d.nearest}</div><div class="pc-body" onclick="go('prayers',true)"><div class="pc-main"><div class="pc-name">${hero?hero.p.n:'—'}</div><div class="pc-count">${hero?hero.startTxt:d.locating}</div>${hero&&hero.status?`<div class="pc-status${hero.live?' live':''}">${hero.status}</div>`:''}</div><svg class="pc-cv" viewBox="0 0 24 24" fill="none" stroke-width="1.7">${ICON.chevL}</svg></div><div class="pc-tabs">${[d.sh,d.mi,d.ma].map((nm,i)=>`<button class="pc-tab${(pidx===null?0:pidx)===i?' on':''}" onclick="pidx=${i};render()">${nm}</button>`).join('')}</div></div>
    <div class="bigtiles" style="margin:14px 0 14px"><button class="bt bt-prayers" onclick="go('prayers',true)"><span class="bi">${svg('book')}</span><div class="btx"><div class="bn">${d.prayers}</div><div class="bh">תְּפִלּוֹת</div></div><svg class="bcv" viewBox="0 0 24 24" fill="none" stroke-width="1.7">${ICON.chevL}</svg></button><button class="bt bt-brachot" onclick="go('brachot',true)"><span class="bi">${svg('grape')}</span><div class="btx"><div class="bn">${d.brachot}</div><div class="bh">בְּרָכוֹת</div></div><svg class="bcv" viewBox="0 0 24 24" fill="none" stroke-width="1.7">${ICON.chevL}</svg></button></div>
    <div class="tehil" onclick="openTehillim()"><div class="tn">${tdN}</div><div class="tt"><div class="a">${d.tehTitle} · ${d.tehChap} ${TEHILLIM[tdN]}</div><div class="b">${d.tehOpen}</div></div>${svg('chevL')}</div>
    <div class="fav-head"><span class="fh-l">${d.t_fav}<span class="ln"></span></span><button class="fav-edit" onclick="toggleEditFav()">${editFav?d.done:d.edit}</button></div>
@@ -821,7 +867,7 @@ window.readPsalm=function(n){segulaDesc='';tehTitleCur=L[lang].psalm+' '+n;tehCh
 async function renderTehread(){const d=L[lang];__rerender=renderTehread;const rtl=(tehLang==='he');
  document.getElementById('rdrTitle').textContent=tehTitleCur||d.t_teh;
  const body=document.getElementById('rdrBody');body.className='rdr-body'+(rtl?' rtl':'');body.dir=rtl?'rtl':'ltr';
- applyReaderStyle();showReader();renderNav();updateRdrHeart();body.scrollTop=0;
+ applyReaderStyle();showReader();renderNav();updateRdrHeart();updateRdrBm();body.scrollTop=0;
  body.innerHTML=`${segulaDesc?`<div class="rdesc">${segulaDesc}</div>`:''}<div class="loading">…</div>`;
  let html=segulaDesc?`<div class="rdesc">${segulaDesc}</div>`:'';
  for(const n of tehChapters){try{const p=await fetchPsalm(n);const lines=psalmLines(p,tehLang);if(!lines.length){html+=`<div class="rdesc">${d.psalm} ${n}: ${lang==='ru'?'нет текста':'אין טקסט'}</div>`;continue;}
@@ -848,7 +894,7 @@ function brachaTitle(id){const k=BRACHA_NAME[id];return (k&&L[lang][k])?L[lang][
 function renderBracha(id){const b=BRACHA[id];if(!b){toast(L[lang].soonTxt);return;}const d=L[lang];__rerender=()=>renderBracha(id);const main=bLang==='he'?b.he:(bLang==='translit'?b.translit:b.ru);const rtl=(bLang==='he');
  document.getElementById('rdrTitle').textContent=brachaTitle(id);
  const body=document.getElementById('rdrBody');body.className='rdr-body'+(rtl?' rtl':'');body.dir=rtl?'rtl':'ltr';
- applyReaderStyle();showReader();renderNav();updateRdrHeart();body.scrollTop=0;
+ applyReaderStyle();showReader();renderNav();updateRdrHeart();updateRdrBm();body.scrollTop=0;
  body.innerHTML=`<div style="text-align:center;padding-top:28px">${main}</div>`;
  if(_restoreScroll){body.scrollTop=_restoreScroll;_restoreScroll=null;}
 }
@@ -901,14 +947,23 @@ function renderNav(){const d=L[lang];let activeRoot=ROOTS.includes(cur)?cur:'';i
   {r:'tehillim',ic:magen,n:d.t_teh},
   {r:'more',ic:svg('dots'),n:d.more}];
  const idx=Math.max(0,items.findIndex(x=>x.r===activeRoot));
- nav.innerHTML=`<div class="nav-ind" style="transform:translateX(${idx*100}%)"></div>`+items.map(it=>
-  `<button class="nav-item${it.emph?' emph':''}${it.r===activeRoot?' on':''}" onclick="go('${it.r}',true)"><span class="ni-ic">${it.ic}</span><span class="n">${it.n}</span></button>`).join('');
+ nav.innerHTML=`<div class="nav-ind" style="transform:translateX(${idx*100}%)"></div>`+items.map((it,i)=>
+  `<button class="nav-item${it.emph?' emph':''}${i===idx?' on lensed':''}" data-i="${i}"><span class="ni-ic">${it.ic}</span><span class="n">${it.n}</span></button>`).join('');
+ setupNavDrag();
 }
+/* draggable liquid-glass lens — slide between tabs without lifting the finger */
+function previewNav(i){const ind=nav.querySelector('.nav-ind');if(ind)ind.style.transform=`translateX(${i*100}%)`;nav.querySelectorAll('.nav-item').forEach((b,j)=>b.classList.toggle('lensed',j===i));}
+function setupNavDrag(){if(nav._dragSet)return;nav._dragSet=1;let dragging=false;const n=ROOTS.length;
+ const idxAt=x=>{const r=nav.getBoundingClientRect(),pad=6,w=(r.width-2*pad)/n;return Math.max(0,Math.min(n-1,Math.floor((x-r.left-pad)/w)));};
+ nav.addEventListener('pointerdown',e=>{dragging=true;try{nav.setPointerCapture(e.pointerId);}catch(_){}previewNav(idxAt(e.clientX));});
+ nav.addEventListener('pointermove',e=>{if(!dragging)return;previewNav(idxAt(e.clientX));});
+ const end=e=>{if(!dragging)return;dragging=false;try{nav.releasePointerCapture(e.pointerId);}catch(_){}go(ROOTS[idxAt(e.clientX)],true);};
+ nav.addEventListener('pointerup',end);nav.addEventListener('pointercancel',()=>{dragging=false;});}
 function render(){document.documentElement.lang=lang;
  if(cur==='tehread'){renderTehread();return;}
  if(cur.startsWith('bread_')){renderBracha(cur.slice(6));return;}
  hideReader();const d=L[lang];__rerender=null;scr.className='scr'+(lang==='he'?' rtl':'');scr.dir=lang==='he'?'rtl':'ltr';
- scr.innerHTML=cur.startsWith('zman:')?zmanDetail(cur.slice(5)):(screens()[cur]||screens().today);renderNav();updateTopChips();
+ scr.innerHTML=cur.startsWith('zman:')?zmanDetail(cur.slice(5)):(screens()[cur]||screens().today);void scr.offsetWidth;scr.classList.add('anim');renderNav();updateTopChips();
  if(cur==='today'){bmDragSetup();}
  if(cur==='tzedaka')drawQR();
  if(cur==='calendar')renderCalendar();
@@ -957,12 +1012,20 @@ const BM_DEFS=[
  {id:'mizrah',ic:'compass',ru:['Направление','Компас'],he:['כיוון','מזרח'],fn:"go('mizrah')"},
  {id:'tzedaka',ic:'coin',ru:['Цдака','Пожертвование'],he:['צדקה','תרומה'],fn:"go('tzedaka')"},
 ];
-let bmOrder=JSON.parse(localStorage.getItem('bmOrder')||'["road","hamotzi","mincha"]').filter(id=>BM_DEFS.some(b=>b.id===id));
+/* resolve any favorite id — static (BM_DEFS) or dynamic (bracha:/psalm:/day:/seg:) added from a section */
+function favMeta(id){if(!id)return null;const s=BM_DEFS.find(b=>b.id===id);if(s){const[nm,sub]=lang==='he'?s.he:s.ru;return{ic:s.ic,nm,sub,fn:s.fn};}
+ const d=L[lang];const c=id.indexOf(':');if(c<0)return null;const t=id.slice(0,c),r=id.slice(c+1);
+ if(t==='bracha'){if(!BRACHA[r])return null;return{ic:'grape',nm:brachaTitle(r),sub:d.brachot,fn:`openBracha('${r}')`};}
+ if(t==='psalm')return{ic:'star',nm:d.psalm+' '+r,sub:d.t_teh,fn:`readPsalm(${r})`};
+ if(t==='day')return{ic:'book',nm:d.tehDay+' '+r,sub:d.t_teh,fn:`readDay(${r})`};
+ if(t==='seg'){const sg=SEGULOT.find(x=>x.id===r);return{ic:'sparkle',nm:sg?sg.need[lang]:r,sub:d.t_seg,fn:`openSegula('${r}')`};}
+ return null;}
+let bmOrder=JSON.parse(localStorage.getItem('bmOrder')||'["road","hamotzi","mincha"]').filter(id=>!!favMeta(id));
 let editFav=false;
 function bmSave(){localStorage.setItem('bmOrder',JSON.stringify(bmOrder));}
 function bmRemaining(){return BM_DEFS.filter(b=>bmOrder.indexOf(b.id)<0);}
-function bmCardsHtml(){return bmOrder.map(id=>{const b=BM_DEFS.find(x=>x.id===id);if(!b)return '';const[nm,sub]=lang==='he'?b.he:b.ru;
- return `<div class="bm-card" data-bmid="${id}" ${editFav?'':`onclick="${b.fn}"`}>${editFav?`<span class="bm-rm" onclick="event.stopPropagation();removeFav('${id}')">${svg('close')}</span><span class="bm-handle" data-bmid="${id}">${svg('handle')}</span>`:''}<span class="bm-ic">${svg(b.ic)}</span><span class="bm-nm">${nm}</span><span class="bm-sub">${sub}</span></div>`;}).join('');}
+function bmCardsHtml(){return bmOrder.map(id=>{const b=favMeta(id);if(!b)return '';
+ return `<div class="bm-card" data-bmid="${id}" ${editFav?'':`onclick="${b.fn}"`}>${editFav?`<span class="bm-rm" onclick="event.stopPropagation();removeFav('${id}')">${svg('close')}</span><span class="bm-handle">${svg('handle')}</span>`:''}<span class="bm-ic">${svg(b.ic)}</span><span class="bm-nm">${b.nm}</span><span class="bm-sub">${b.sub}</span></div>`;}).join('');}
 window.toggleEditFav=function(){editFav=!editFav;render();};
 window.removeFav=function(id){const i=bmOrder.indexOf(id);if(i>=0){bmOrder.splice(i,1);bmSave();render();}};
 window.addFav=function(id){if(bmOrder.indexOf(id)<0){bmOrder.push(id);bmSave();}closeFavPicker();render();};
@@ -971,9 +1034,10 @@ window.openFavPicker=function(){const d=L[lang];const rem=bmRemaining();const sh
  sheet.classList.add('show');document.getElementById('favPickBd').classList.add('show');};
 window.closeFavPicker=function(){const s=document.getElementById('favPick'),b=document.getElementById('favPickBd');if(s)s.classList.remove('show');if(b)b.classList.remove('show');};
 let _bd=null;
-function bmDragSetup(){const grid=document.getElementById('bmgrid');if(!grid||!editFav)return;grid.querySelectorAll('.bm-handle').forEach(h=>h.addEventListener('pointerdown',e=>bmDragStart(e,h)));}
-function bmDragStart(e,handle){e.preventDefault();e.stopPropagation();const grid=document.getElementById('bmgrid');const card=handle.closest('.bm-card');if(!card)return;const r=card.getBoundingClientRect();
- try{handle.setPointerCapture(e.pointerId);}catch(_){}
+/* drag from anywhere on the card (touch-friendly); the X stays a tap target */
+function bmDragSetup(){const grid=document.getElementById('bmgrid');if(!grid||!editFav)return;grid.querySelectorAll('.bm-card').forEach(card=>card.addEventListener('pointerdown',e=>{if(e.target.closest('.bm-rm'))return;bmDragStart(e,card);}));}
+function bmDragStart(e,card){e.preventDefault();const grid=document.getElementById('bmgrid');const r=card.getBoundingClientRect();
+ try{card.setPointerCapture(e.pointerId);}catch(_){}
  const float=card.cloneNode(true);float.classList.add('bm-float');float.style.width=r.width+'px';float.style.height=r.height+'px';float.style.left=r.left+'px';float.style.top=r.top+'px';document.body.appendChild(float);
  card.classList.add('bm-ghost');_bd={card,float,offx:e.clientX-r.left,offy:e.clientY-r.top};
  const move=ev=>{ev.preventDefault();_bd.float.style.left=(ev.clientX-_bd.offx)+'px';_bd.float.style.top=(ev.clientY-_bd.offy)+'px';
@@ -982,9 +1046,13 @@ function bmDragStart(e,handle){e.preventDefault();e.stopPropagation();const grid
    if(ev.clientX>cr.left&&ev.clientX<cr.right&&ev.clientY>cr.top&&ev.clientY<cr.bottom){
     const after=(_bd.card.compareDocumentPosition(c)&Node.DOCUMENT_POSITION_FOLLOWING);
     grid.insertBefore(_bd.card,after?c.nextSibling:c);break;}}};
- const up=()=>{handle.removeEventListener('pointermove',move);handle.removeEventListener('pointerup',up);handle.removeEventListener('pointercancel',up);try{handle.releasePointerCapture(e.pointerId);}catch(_){}
+ const up=ev=>{card.removeEventListener('pointermove',move);card.removeEventListener('pointerup',up);card.removeEventListener('pointercancel',up);try{card.releasePointerCapture(ev.pointerId);}catch(_){}
   if(_bd&&_bd.float)_bd.float.remove();const grid2=document.getElementById('bmgrid');if(grid2){bmOrder=[...grid2.querySelectorAll('.bm-card')].map(c=>c.dataset.bmid);bmSave();}_bd=null;render();};
- handle.addEventListener('pointermove',move);handle.addEventListener('pointerup',up);handle.addEventListener('pointercancel',up);}
+ card.addEventListener('pointermove',move);card.addEventListener('pointerup',up);card.addEventListener('pointercancel',up);}
+/* add the open text (bracha / psalm / day / segula) to Today favorites */
+function curFavId(){if(!(cur==='tehread'||cur.startsWith('bread_'))||!lastRead)return null;const k=lastRead.kind,r=lastRead.ref;if(k==='bracha')return 'bracha:'+r;if(k==='psalm')return 'psalm:'+r;if(k==='day')return 'day:'+r;if(k==='segula')return 'seg:'+r;return null;}
+function updateRdrBm(){const el=document.getElementById('rdrBm');if(!el)return;const id=curFavId();if(!id){el.classList.add('hidden');return;}el.classList.remove('hidden');const on=bmOrder.indexOf(id)>=0;const s=el.querySelector('svg');if(s){s.setAttribute('fill',on?'var(--gold)':'none');s.style.stroke=on?'var(--gold)':'var(--rdr-fg)';}}
+window.toggleReaderFav=function(){const id=curFavId();if(!id)return;const i=bmOrder.indexOf(id);if(i>=0){bmOrder.splice(i,1);toast(L[lang].favRemoved);}else{bmOrder.push(id);toast(L[lang].favAdded);}bmSave();updateRdrBm();};
 
 /* onboarding */
 function showOnboarding(){const d=L[lang];ob.innerHTML=`<div class="obhe">שבת אחים גם יחד</div><h1>${d.onbTitle}</h1><p>${d.onbSub}</p><div class="opts">${Object.keys(NUSACH).map(k=>`<button onclick="pickNusach('${k}')">${NUSACH[k][lang]} <span>${NUSACH[k].he}</span></button>`).join('')}</div><small>${d.onbHint}</small>`;ob.classList.remove('hidden');}
@@ -1000,9 +1068,9 @@ function showWelcome(){const d=L[lang];const w=document.getElementById('welcome'
 window.closeWelcome=function(){const w=document.getElementById('welcome');if(w.classList.contains('hide')||w.classList.contains('hidden'))return;clearTimeout(w._t);w.classList.add('hide');setTimeout(()=>w.classList.add('hidden'),600);};
 
 /* swipe back (edge) */
-let _tsx=0,_tsy=0,_tst=0;
-document.addEventListener('touchstart',e=>{const t=e.touches[0];_tsx=t.clientX;_tsy=t.clientY;_tst=Date.now();},{passive:true});
-document.addEventListener('touchend',e=>{const t=e.changedTouches[0];const dx=t.clientX-_tsx,dy=t.clientY-_tsy,dt=Date.now()-_tst;
+let _tsx=0,_tsy=0,_tst=0,_navTouch=false;
+document.addEventListener('touchstart',e=>{const t=e.touches[0];_tsx=t.clientX;_tsy=t.clientY;_tst=Date.now();_navTouch=!!(e.target.closest&&e.target.closest('.navbar'));},{passive:true});
+document.addEventListener('touchend',e=>{if(_navTouch)return;const t=e.changedTouches[0];const dx=t.clientX-_tsx,dy=t.clientY-_tsy,dt=Date.now()-_tst;
  if(_tsx<=42&&dx>70&&Math.abs(dy)<55&&dt<650){if(document.getElementById('rdrSheet').classList.contains('show')||document.getElementById('favPick').classList.contains('show'))return;if(zenOn){toggleZen();return;}back();}},{passive:true});
 
 window.__zReady=function(){if(nusach){applyTheme();render();scheduleReminders();}};
