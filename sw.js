@@ -1,4 +1,4 @@
-const CACHE = 'shevet-achim-v6';
+const CACHE = 'shevet-achim-v7';
 const SHELL = [
   './',
   './index.html',

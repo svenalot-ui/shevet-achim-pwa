@@ -16,8 +16,8 @@
 <script src="https://cdn.jsdelivr.net/npm/kosher-zmanim@0.9.0/dist/kosher-zmanim.min.js" defer onload="window.__zReady&&window.__zReady()"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <style>
-:root{--paper:#FAFAF9;--card:#fff;--cream:#F1EFEA;--gold:#A16207;--goldL:#BFA46F;--ink:#1C1917;--soft:#57534E;--faint:#A8A29E;--line:#E3DFD8;--navbg:rgba(250,250,249,.46);--navbd:rgba(255,255,255,.6)}
-html[data-theme="dark"]{--paper:#13110E;--card:#1E1B16;--cream:#262119;--gold:#CBA250;--goldL:#9C8350;--ink:#F0EBE1;--soft:#A8A096;--faint:#6E6759;--line:#322C23;--navbg:rgba(28,24,18,.4);--navbd:rgba(255,255,255,.1)}
+:root{--paper:#FAFAF9;--card:#fff;--cream:#F1EFEA;--gold:#A16207;--goldL:#BFA46F;--ink:#1C1917;--soft:#57534E;--faint:#A8A29E;--line:#E3DFD8;--navbg:rgba(250,250,249,.3);--navbd:rgba(255,255,255,.55)}
+html[data-theme="dark"]{--paper:#13110E;--card:#1E1B16;--cream:#262119;--gold:#CBA250;--goldL:#9C8350;--ink:#F0EBE1;--soft:#A8A096;--faint:#6E6759;--line:#322C23;--navbg:rgba(28,24,18,.26);--navbd:rgba(255,255,255,.12)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
@@ -53,18 +53,17 @@ body{font-family:'Jost',sans-serif;background:var(--paper);color:var(--ink);-web
 .wrow b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
 .dot{width:5px;height:5px;border-radius:50%;background:var(--goldL)}
 .bigtiles{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.bt{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:12px;min-height:104px;justify-content:space-between;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
-.bt::before{content:'';position:absolute;inset-inline-start:0;top:0;bottom:0;width:3px;opacity:.45}
-.bt-prayers::before{background:var(--ink)}
-.bt-brachot::before{background:var(--gold)}
-.bt .bi{width:42px;height:42px;border-radius:13px;background:var(--cream);display:flex;align-items:center;justify-content:center}
-.bt-prayers .bi svg{stroke:var(--ink)}
-.bt-brachot .bi svg{stroke:var(--gold)}
-.bt .bi svg{width:24px;height:24px}
-.bt .bn{font-size:16px;font-weight:500;color:var(--ink)}
-.bt .bh{font-family:'Frank Ruhl Libre';font-size:13px;color:var(--soft);margin-top:-6px}
+.bt{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 15px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;transition:transform .12s,box-shadow .2s}
+.bt:active{transform:scale(.98)}
+.bt .bi{width:40px;height:40px;border-radius:12px;background:var(--cream);display:flex;align-items:center;justify-content:center;flex:none}
+.bt-prayers .bi{background:rgba(28,25,23,.06)}.bt-prayers .bi svg{stroke:var(--ink)}
+.bt-brachot .bi{background:rgba(161,98,7,.1)}.bt-brachot .bi svg{stroke:var(--gold)}
+.bt .bi svg{width:22px;height:22px}
+.bt .btx{flex:1;min-width:0}
+.bt .bn{font-size:15.5px;font-weight:500;color:var(--ink);line-height:1.1}
+.bt .bh{font-family:'Frank Ruhl Libre',serif;font-size:13px;color:var(--soft);margin-top:2px}
+.bt .bcv{width:16px;height:16px;stroke:var(--faint);flex:none;transform:scaleX(-1)}
 html[data-theme="dark"] .bt{box-shadow:0 2px 12px rgba(0,0,0,.18)}
-html[data-theme="dark"] .bt-prayers::before{opacity:.55}
 .tehil{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 18px;cursor:pointer;margin-bottom:14px}
 .tehil .tn{width:58px;height:58px;border-radius:16px;background:linear-gradient(145deg,var(--gold),var(--goldL));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bodoni Moda',serif;font-size:34px;font-weight:700;flex:none;line-height:1;box-shadow:0 4px 14px rgba(161,98,7,.28)}
 html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
@@ -246,6 +245,12 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
 .zrow.miss .zt{color:var(--faint)}
 .znow{background:var(--cream);margin:0 -18px;padding-left:18px;padding-right:18px;border-radius:10px}
 .znow .zt{color:var(--gold)}
+.zrow.zsel{cursor:pointer;gap:11px}
+.zradio{width:19px;height:19px;border-radius:50%;border:2px solid var(--line);flex:none;position:relative;align-self:center}
+.zradio.on{border-color:var(--gold)}
+.zradio.on::after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
+.zrow.zsel.on .zn{color:var(--ink);font-weight:500}
+.zrow.zsel.on .zt{color:var(--gold)}
 /* full-screen reader */
 #rdr{position:absolute;inset:0;z-index:8;display:none;flex-direction:column}
 #rdr.show{display:flex}
@@ -296,12 +301,12 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
 .fb-star.on{color:var(--gold)}
 /* === v6 === */
 /* quick actions (today top) */
-.quickrow{display:flex;gap:8px;margin:14px 0 2px}
-.qa{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 4px 11px;background:var(--card);border:1px solid var(--line);border-radius:16px;cursor:pointer;transition:transform .12s}
-.qa:active{transform:scale(.96)}
-.qa .qa-ic{width:34px;height:34px;border-radius:11px;background:var(--cream);display:flex;align-items:center;justify-content:center}
-.qa .qa-ic svg{width:19px;height:19px;stroke:var(--gold)}
-.qa .qa-l{font-size:11px;color:var(--soft)}
+.quickrow{display:flex;gap:7px;margin:14px 0 2px}
+.qa{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 6px;background:transparent;border:1px solid var(--line);border-radius:11px;cursor:pointer;transition:transform .12s,background .15s}
+.qa:active{transform:scale(.95);background:var(--cream)}
+.qa .qa-ic{display:flex;flex:none}
+.qa .qa-ic svg{width:15px;height:15px;stroke:var(--gold)}
+.qa .qa-l{font-size:11.5px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* resume reading banner */
 .resume{display:flex;align-items:center;gap:13px;background:linear-gradient(120deg,var(--cream),var(--card));border:1px solid var(--line);border-radius:18px;padding:13px 16px;margin:0 0 14px;cursor:pointer;transition:transform .12s}
 .resume:active{transform:scale(.99)}
@@ -311,12 +316,15 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
 .resume .r-t .a{font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1.4px;font-weight:500}
 .resume .r-t .b{font-size:15px;font-weight:500;color:var(--ink);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .resume .r-cv{width:18px;height:18px;stroke:var(--faint);flex:none;transform:scaleX(-1)}
+.resume .r-close{width:28px;height:28px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer}
+.resume .r-close svg{width:13px;height:13px;stroke:var(--soft)}
 /* favorites edit */
 .fav-head{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 12px;gap:9px}
 .fav-head .fh-l{font-size:10.5px;font-weight:500;letter-spacing:2px;color:var(--faint);text-transform:uppercase;display:flex;align-items:center;gap:9px;flex:1}
 .fav-head .fh-l .ln{flex:1;height:1px;background:var(--line)}
 .fav-edit{font-size:13px;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Jost';font-weight:600;flex:none;padding:2px 4px}
 .bm-grid.editing .bm-card{cursor:default}
+.bm-grid.editing .bm-handle{touch-action:none}
 .bm-card .bm-handle,.bm-card .bm-rm{display:none}
 .bm-grid.editing .bm-handle{display:flex;position:absolute;top:7px;inset-inline-end:7px;width:26px;height:26px;align-items:center;justify-content:center;cursor:grab;touch-action:none;color:var(--faint)}
 .bm-grid.editing .bm-handle svg{width:18px;height:18px;stroke:var(--faint)}
@@ -339,14 +347,18 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
 .pick-item .pi-t{flex:1}.pick-item .pi-t .a{font-size:14.5px;font-weight:500}.pick-item .pi-t .b{font-size:12px;color:var(--faint)}
 .pick-item .pi-add{width:26px;height:26px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;flex:none}.pick-item .pi-add svg{width:15px;height:15px;stroke:var(--gold)}
 /* tehillim books */
-.book-sec{margin-bottom:20px}
-.book-hdr{display:flex;align-items:baseline;gap:9px;margin:0 2px 9px}
+.book-sec{margin-bottom:24px}
+.book-hdr{display:flex;align-items:center;gap:10px;margin:0 2px 12px}
+.book-hdr .rn{font-family:'Bodoni Moda',serif;font-size:13px;font-weight:600;color:#fff;background:linear-gradient(145deg,var(--gold),var(--goldL));width:26px;height:26px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex:none;letter-spacing:-.5px}
 .book-hdr .a{font-family:'Bodoni Moda',serif;font-size:18px;font-weight:600;color:var(--ink)}
-.book-hdr .r{font-size:12px;color:var(--gold);font-family:'Jost'}
-.book-hdr .ln{flex:1;height:1px;background:var(--line);align-self:center}
-.book-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
-.bnum{aspect-ratio:1;border:1px solid var(--line);background:var(--card);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Bodoni Moda',serif;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:transform .1s}
-.bnum:active{transform:scale(.92)}
+.book-hdr .r{font-size:11.5px;color:var(--gold);font-family:'Jost';font-variant-numeric:tabular-nums}
+.book-hdr .ln{flex:1;height:1px;background:linear-gradient(to var(--dir,right),var(--line),transparent);align-self:center}
+.book-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.bnum{position:relative;aspect-ratio:1;border:1px solid var(--line);background:var(--card);border-radius:13px;display:flex;align-items:center;justify-content:center;font-family:'Bodoni Moda',serif;font-size:16px;font-weight:600;color:var(--ink);cursor:pointer;transition:transform .1s,box-shadow .15s}
+.bnum:active{transform:scale(.9)}
+html[data-theme="dark"] .bnum{box-shadow:0 1px 6px rgba(0,0,0,.2)}
+.bnum.fav{border-color:var(--gold);background:linear-gradient(160deg,var(--cream),var(--card))}
+.bnum .bdot{position:absolute;top:5px;inset-inline-end:6px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 .bnum.on{background:var(--gold);color:#fff;border-color:var(--gold)}
 /* zman main list + detail */
 .zmain{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:12px}
@@ -378,29 +390,25 @@ html[data-theme="dark"] .tehil .tn{box-shadow:0 4px 14px rgba(203,162,80,.22)}
 #rdr.zen .zen-exit{display:flex}
 #rdr.zen .rdr-body{padding-top:calc(env(safe-area-inset-top) + 30px);padding-bottom:40px}
 body.zenmode .navwrap{display:none}
-/* splash */
-#splash{position:absolute;inset:0;z-index:90;background:radial-gradient(circle at 50% 36%,#2c2218 0%,#16120c 68%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .7s ease}
-#splash.hide{opacity:0;pointer-events:none}
-.sp-star{position:relative;width:104px;height:104px;display:flex;align-items:center;justify-content:center;animation:spIn 1.1s cubic-bezier(.2,.7,.2,1) both}
-.sp-star svg{width:104px;height:104px;filter:drop-shadow(0 0 18px rgba(216,190,131,.5))}
-.sp-glow{position:absolute;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(216,190,131,.28),transparent 65%);animation:spPulse 2.6s ease-in-out infinite}
-.sp-he{font-family:'Frank Ruhl Libre',serif;font-size:29px;color:#D8BE83;direction:rtl;animation:spUp 1s .25s both}
-.sp-name{font-family:'Bodoni Moda',serif;font-size:15px;letter-spacing:6px;color:#C9BBA0;text-transform:uppercase;animation:spUp 1s .4s both}
-@keyframes spIn{from{opacity:0;transform:scale(.7) rotate(-12deg)}to{opacity:1;transform:none}}
-@keyframes spUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes spPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.12);opacity:1}}
-/* welcome */
-#welcome{position:absolute;inset:0;z-index:70;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px calc(env(safe-area-inset-bottom) + 40px);text-align:center;transition:opacity .45s ease}
+/* welcome — siddur cover */
+#welcome{position:absolute;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:30px;background:radial-gradient(circle at 50% 30%,var(--cream),var(--paper) 70%);transition:opacity .6s ease;animation:welIn .8s ease both}
 #welcome.hide{opacity:0;pointer-events:none}
-#welcome .wel-he{font-family:'Frank Ruhl Libre',serif;font-size:34px;color:var(--gold);direction:rtl}
-#welcome .wel-greet{font-family:'Bodoni Moda',serif;font-size:30px;font-weight:600;color:var(--ink);margin-top:16px}
-#welcome .wel-date{font-size:14px;color:var(--soft);margin-top:8px}
-#welcome .wel-pray{font-size:15px;color:var(--soft);margin-top:20px;max-width:290px;line-height:1.55}
-#welcome .wel-btn{margin-top:32px;background:var(--ink);color:var(--paper);border:none;border-radius:30px;padding:15px 44px;font-family:'Jost';font-size:15px;font-weight:500;cursor:pointer}
-#welcome .wel-divider{width:40px;height:1px;background:var(--line);margin:22px 0}
+@keyframes welIn{from{opacity:0}to{opacity:1}}
+.wel-card{position:relative;width:100%;max-width:340px;padding:48px 30px 44px;text-align:center;border:1px solid var(--goldL);border-radius:22px;background:linear-gradient(170deg,var(--card),var(--cream));box-shadow:0 24px 60px rgba(0,0,0,.14),inset 0 0 0 4px var(--card),inset 0 0 0 5px rgba(161,98,7,.18)}
+.wel-orn{display:flex;justify-content:center;margin-bottom:18px;animation:welUp .9s .15s both}
+.wel-orn svg{width:62px;height:62px;filter:drop-shadow(0 3px 8px rgba(161,98,7,.25))}
+.wel-he{font-family:'Frank Ruhl Libre',serif;font-size:30px;color:var(--gold);direction:rtl;animation:welUp .9s .25s both}
+.wel-greet{font-family:'Bodoni Moda',serif;font-size:29px;font-weight:600;color:var(--ink);margin-top:12px;animation:welUp .9s .35s both}
+.wel-date{font-size:14px;color:var(--soft);margin-top:10px;animation:welUp .9s .45s both}
+.wel-date2{font-size:12.5px;color:var(--faint);margin-top:2px;animation:welUp .9s .5s both}
+.wel-rule{display:flex;align-items:center;justify-content:center;gap:10px;margin:22px 0;color:var(--goldL);animation:welUp .9s .55s both}
+.wel-rule span{height:1px;width:46px;background:linear-gradient(to right,transparent,var(--goldL))}
+.wel-rule span:last-child{background:linear-gradient(to left,transparent,var(--goldL))}
+.wel-pray{font-family:'Frank Ruhl Libre',serif;font-size:17px;color:var(--soft);line-height:1.5;animation:welUp .9s .65s both}
+@keyframes welUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 /* liquid-glass nav v6 */
 .navbar{position:relative}
-.nav-ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/5);border-radius:22px;background:var(--navbd);box-shadow:0 2px 10px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .38s cubic-bezier(.32,.72,0,1);z-index:0;pointer-events:none}
+.nav-ind{position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/6);border-radius:20px;background:var(--navbd);box-shadow:0 2px 10px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .38s cubic-bezier(.32,.72,0,1);z-index:0;pointer-events:none}
 .nav-item{position:relative;z-index:1;flex:1;background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--faint);padding:6px 0}
 .nav-item .ni-ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .2s}
 .nav-item .ni-ic svg{width:22px;height:22px;stroke:currentColor}
@@ -408,13 +416,13 @@ body.zenmode .navwrap{display:none}
 .nav-item:active .ni-ic{transform:scale(1.22)}
 .nav-item.on{color:var(--gold)}
 .nav-item.on .n{font-weight:700}
-.nav-item.emph .ni-ic svg{width:24px;height:24px}
-.nav-item.emph{color:var(--soft)}
-.nav-item.emph.on{color:var(--gold)}
-.nav-item.emph.on .ni-ic{background:var(--gold)}
+.nav-item.emph{color:var(--gold)}
+.nav-item.emph .ni-ic{background:var(--cream);box-shadow:inset 0 0 0 1.5px rgba(161,98,7,.22)}
+.nav-item.emph .ni-ic svg{stroke:var(--gold)}
+.nav-item.emph .n{font-weight:600}
+.nav-item.emph.on .ni-ic{background:linear-gradient(150deg,var(--gold),var(--goldL));box-shadow:0 4px 12px rgba(161,98,7,.34)}
 .nav-item.emph.on .ni-ic svg{stroke:#fff}
-.nav-item.emph:not(.on) .ni-ic{background:var(--cream)}
-.nav-item.emph:not(.on) .ni-ic svg{stroke:var(--gold)}
+html[data-theme="dark"] .nav-item.emph .ni-ic{box-shadow:inset 0 0 0 1.5px rgba(203,162,80,.3)}
 </style>
 </head>
 <body>
@@ -431,6 +439,7 @@ body.zenmode .navwrap{display:none}
     <div class="rdr-top">
       <button class="rdr-ic" onclick="back()" aria-label="back"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="rdr-title" id="rdrTitle"></div>
+      <button class="rdr-ic hidden" id="rdrHeart" onclick="toggleRdrFav()" aria-label="favorite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M12 20.5C5.5 16 3.5 12 3.5 8.8 3.5 6.2 5.5 4.5 7.8 4.5c1.7 0 3.2 1 4.2 2.4 1-1.4 2.5-2.4 4.2-2.4 2.3 0 4.3 1.7 4.3 4.3 0 3.2-2 7.2-8.5 11.7z"/></svg></button>
       <button class="rdr-ic" onclick="toggleZen()" aria-label="prayer mode"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M8 3.5H4.5V7M16 3.5h3.5V7M8 20.5H4.5V17M16 20.5h3.5V17"/></svg></button>
       <button class="rdr-ic" onclick="openRdrSheet()" aria-label="settings"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7"><path d="M5 8h10M5 8a2 2 0 1 0 4 0 2 2 0 0 0-4 0M19 8h-2M9 16h10M19 16a2 2 0 1 0-4 0 2 2 0 0 0 4 0M5 16h2"/></svg></button>
     </div>
@@ -444,7 +453,6 @@ body.zenmode .navwrap{display:none}
   <div class="pick-sheet" id="favPick"></div>
   <div id="ob" class="hidden"></div>
   <div id="welcome" class="hidden"></div>
-  <div id="splash"><div class="sp-star"><div class="sp-glow"></div><svg viewBox="0 0 100 100"><polygon points="50,12 83,68 17,68" fill="none" stroke="#D8BE83" stroke-width="2.4" stroke-linejoin="round"/><polygon points="50,88 17,32 83,32" fill="none" stroke="#D8BE83" stroke-width="2.4" stroke-linejoin="round"/></svg></div><div class="sp-he">שֶׁבֶת אַחִים גַּם יָחַד</div><div class="sp-name">Сидур</div></div>
   <div id="toast"></div>
 </div>
 
@@ -476,6 +484,7 @@ const ICON={
  trash:'<path d="M5 7h14M9.5 7V5.2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1V7M7 7l.8 12a1.5 1.5 0 0 0 1.5 1.4h5.4a1.5 1.5 0 0 0 1.5-1.4L18 7"/>',
  books:'<path d="M5 5.5h4v13H5zM9 5.5h4v13H9zM13.5 6l4 .7-2.2 12.3-4-.7z"/>',
  play:'<path d="M8 5.5v13l11-6.5z"/>',
+ heart:'<path d="M12 20.5C5.5 16 3.5 12 3.5 8.8 3.5 6.2 5.5 4.5 7.8 4.5c1.7 0 3.2 1 4.2 2.4 1-1.4 2.5-2.4 4.2-2.4 2.3 0 4.3 1.7 4.3 4.3 0 3.2-2 7.2-8.5 11.7z"/>',
  rainbow:'<path d="M3.5 18a8.5 8.5 0 0 1 17 0M6.5 18a5.5 5.5 0 0 1 11 0M9.5 18a2.5 2.5 0 0 1 5 0"/>',
  wave:'<path d="M2.5 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2.5 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
  candle:'<path d="M9.5 20.5h5M9.8 11.5h4.4v9H9.8zM12 11.5V8.8M12 8.8c0-1.4-1.4-1.9-1.4-3.3A1.4 1.4 0 0 1 12 4.2a1.4 1.4 0 0 1 1.4 1.3c0 1.4-1.4 1.9-1.4 3.3z"/>',
@@ -538,9 +547,9 @@ const L={
    zIntro:'Полный расчёт по KosherJava для ваших координат. Нажмите на категорию, чтобы раскрыть все варианты.',zNow:'сейчас',zDur:'продолжит.',
    zc_dawn:'Рассвет и заря',zc_shma:'Кр. Шма и молитва',zc_mid:'Полдень и Минха',zc_dusk:'Закат и сумерки',zc_night:'Выход звёзд',zc_hour:'Временной час',
    zc_dawn_h:'Алот, мишеякир, восход',zc_shma_h:'Соф зман Шма / Тфила',zc_mid_h:'Хацот, Минха, Плаг',zc_dusk_h:'Шкия, бейн-hашмашот',zc_night_h:'Цет hа-кохавим',zc_hour_h:'Шаа зманит',
-   zIntro2:'Основные времена дня. Нажмите на любое, чтобы увидеть все варианты расчёта и включить напоминание.',zVariants:'Все варианты',zRemind:'Напоминание',zRemindOn:'Напоминание включено',zRemindOff:'Напоминание выключено',zRemindBefore:'За сколько до',zRemindHint:'Уведомления приходят, пока приложение запущено. Полные пуш-уведомления — в следующей версии.',zRemindBlocked:'Разрешите уведомления в настройках телефона',min5:'5 мин',min10:'10 мин',min15:'15 мин',min0:'Вовремя',
+   zIntro2:'Основные времена дня. Нажмите на любое, чтобы увидеть все варианты расчёта и включить напоминание.',zVariants:'Все варианты',zRemind:'Напоминание',zRemindOn:'Напоминание включено',zRemindOff:'Напоминание выключено',zRemindBefore:'За сколько до',zRemindWhich:'Время для напоминания',zRemindHint:'Уведомления приходят, пока приложение запущено. Полные пуш-уведомления — в следующей версии.',zRemindBlocked:'Разрешите уведомления в настройках телефона',min5:'5 мин',min10:'10 мин',min15:'15 мин',min0:'Вовремя',
    edit:'Изменить',done:'Готово',favAdd:'Добавить',favEmpty:'Нет избранного — нажмите «Изменить», чтобы добавить',
-   resumeTitle:'Продолжить чтение',resume:'Продолжить',
+   resumeTitle:'Продолжить чтение',resume:'Продолжить',navDir:'Направление',navCal:'Календарь',navTz:'Цдака',tehFavTitle:'Избранные',
    greetM:'Доброе утро',greetD:'Добрый день',greetE:'Добрый вечер',greetN:'Доброй ночи',welPray:'Лёгкой и наполненной молитвы',welStart:'Войти',welHe:'בָּרוּךְ הַבָּא',
    bookHdr:['Книга первая','Книга вторая','Книга третья','Книга четвёртая','Книга пятая'],
    z:['Алот а-Шахар','Мишеякир','Нец','Соф зман Шма','Соф зман Тфила','Хацот','Минха гдола','Минха ктана','Плаг а-Минха','Шкия','Цет а-кохавим'],
@@ -579,9 +588,9 @@ const L={
    zIntro:'חישוב מלא לפי KosherJava עבור הקואורדינטות שלכם. הקישו על קטגוריה כדי לפתוח את כל האפשרויות.',zNow:'עכשיו',zDur:'משך',
    zc_dawn:'עלות השחר וזריחה',zc_shma:'ק״ש ותפילה',zc_mid:'חצות ומנחה',zc_dusk:'שקיעה ובין השמשות',zc_night:'צאת הכוכבים',zc_hour:'שעה זמנית',
    zc_dawn_h:'עלות, משיכיר, נץ',zc_shma_h:'סוף זמן ק״ש / תפילה',zc_mid_h:'חצות, מנחה, פלג',zc_dusk_h:'שקיעה, בין השמשות',zc_night_h:'צאת הכוכבים',zc_hour_h:'שעה זמנית',
-   zIntro2:'זמני היום העיקריים. הקישו על כל אחד כדי לראות את כל החישובים ולהפעיל תזכורת.',zVariants:'כל החישובים',zRemind:'תזכורת',zRemindOn:'התזכורת הופעלה',zRemindOff:'התזכורת בוטלה',zRemindBefore:'כמה זמן לפני',zRemindHint:'התזכורות מגיעות כל עוד האפליקציה פעילה. פוש מלא — בגרסה הבאה.',zRemindBlocked:'אשרו התראות בהגדרות הטלפון',min5:'5 דק׳',min10:'10 דק׳',min15:'15 דק׳',min0:'בזמן',
+   zIntro2:'זמני היום העיקריים. הקישו על כל אחד כדי לראות את כל החישובים ולהפעיל תזכורת.',zVariants:'כל החישובים',zRemind:'תזכורת',zRemindOn:'התזכורת הופעלה',zRemindOff:'התזכורת בוטלה',zRemindBefore:'כמה זמן לפני',zRemindWhich:'זמן לתזכורת',zRemindHint:'התזכורות מגיעות כל עוד האפליקציה פעילה. פוש מלא — בגרסה הבאה.',zRemindBlocked:'אשרו התראות בהגדרות הטלפון',min5:'5 דק׳',min10:'10 דק׳',min15:'15 דק׳',min0:'בזמן',
    edit:'עריכה',done:'סיום',favAdd:'הוספה',favEmpty:'אין שמורים — הקישו «עריכה» כדי להוסיף',
-   resumeTitle:'המשך קריאה',resume:'המשך',
+   resumeTitle:'המשך קריאה',resume:'המשך',navDir:'כיוון',navCal:'לוח',navTz:'צדקה',tehFavTitle:'מועדפים',
    greetM:'בוקר טוב',greetD:'צהריים טובים',greetE:'ערב טוב',greetN:'לילה טוב',welPray:'תפילה קלה ומלאת כוונה',welStart:'כניסה',welHe:'בָּרוּךְ הַבָּא',
    bookHdr:['ספר ראשון','ספר שני','ספר שלישי','ספר רביעי','ספר חמישי'],
    z:['עֲלוֹת הַשַּׁחַר','מִשֶּׁיַּכִּיר','הָנֵץ','סוֹף זְמַן ק״ש','סוֹף זְמַן תְּפִלָּה','חֲצוֹת','מִנְחָה גְּדוֹלָה','מִנְחָה קְטַנָּה','פְּלַג','שְׁקִיעָה','צֵאת'],
@@ -668,28 +677,31 @@ function zmanimScreen(){const d=L[lang],z=getZmanim();
  return `${backBtn()}<div class="h1" style="margin:2px 0 6px">${d.t_zmanim}</div><div class="note" style="margin-bottom:12px">${d.zIntro2}</div><div class="zmain">${rows}</div><div class="note" style="margin-top:8px;text-align:center;font-size:11px">KosherJava · ${loc.name||`${loc.lat.toFixed(3)}, ${loc.lng.toFixed(3)}`}</div>`;
 }
 function zmanDetail(id){const d=L[lang],z=getZmanim(),m=ZMANIM_MAIN.find(x=>x.id===id);if(!m)return zmanimScreen();
- const t=z?zmTime(z,m.k):null;const rem=zmReminders[id]||{on:false,before:10};
- const vars=(z?m.vars:[]).map(v=>{const tt=zmTime(z,v[0]);const nm=lang==='he'?v[2]:v[1];const hh=lang!=='he'?`<span class="zh">${v[2]}</span>`:'';return `<div class="zrow${tt?'':' miss'}"><span class="zn">${nm}</span>${hh}<span class="zt">${fmt(tt)}</span></div>`;}).join('');
+ const rem=zmReminders[id]||{on:false,before:10,vk:m.k};const vk=rem.vk||m.k;
+ const headK=rem.on?vk:m.k;const t=z?zmTime(z,headK):null;
  const befs=[[0,d.min0],[5,d.min5],[10,d.min10],[15,d.min15]];
+ const vars=(z?m.vars:[]).map(v=>{const tt=zmTime(z,v[0]);const nm=lang==='he'?v[2]:v[1];const hh=lang!=='he'?`<span class="zh">${v[2]}</span>`:'';const sel=v[0]===vk;
+  return `<div class="zrow${tt?'':' miss'}${rem.on?' zsel':''}${rem.on&&sel?' on':''}"${rem.on?` onclick="setZmVar('${id}','${v[0]}')"`:''}>${rem.on?`<span class="zradio${sel?' on':''}"></span>`:''}<span class="zn">${nm}</span>${hh}<span class="zt">${fmt(tt)}</span></div>`;}).join('');
  return `${backBtn()}<div class="h1" style="margin:2px 0 2px;text-align:center">${lang==='he'?m.he:m.ru}</div>
   <div class="zbig"><div class="t">${fmt(t)}</div>${lang!=='he'?`<div class="h">${m.he}</div>`:''}</div>
   <div class="ztoggle"><span class="zt-ic">${svg('bell')}</span><div class="zt-t"><div class="a">${d.zRemind}</div><div class="b">${rem.on?d.zRemindOn:d.zRemindOff}</div></div><div class="switch${rem.on?' on':''}" onclick="toggleZmReminder('${id}')"></div></div>
-  ${rem.on?`<div class="note" style="margin:2px 2px 6px">${d.zRemindBefore}</div><div class="set-seg" style="margin-bottom:6px">${befs.map(([mn,t2])=>`<button class="${rem.before===mn?'on':''}" onclick="setZmBefore('${id}',${mn})">${t2}</button>`).join('')}</div>`:''}
+  ${rem.on?`<div class="note" style="margin:2px 2px 6px">${d.zRemindBefore}</div><div class="set-seg" style="margin-bottom:10px">${befs.map(([mn,t2])=>`<button class="${rem.before===mn?'on':''}" onclick="setZmBefore('${id}',${mn})">${t2}</button>`).join('')}</div>`:''}
   <div class="note" style="margin:6px 2px 14px;font-size:11.5px">${d.zRemindHint}</div>
-  ${lbl(d.zVariants)}<div class="group" style="padding:2px 18px 6px">${vars}</div>`;
+  ${lbl(rem.on?d.zRemindWhich:d.zVariants)}<div class="group" style="padding:2px 18px 6px">${vars}</div>`;
 }
 window.openZman=function(id){if(cur!=='zman:'+id)hist.push(cur);cur='zman:'+id;render();scr.scrollTop=0;};
 /* zman reminders (local, while app open) */
 let zmReminders=JSON.parse(localStorage.getItem('zmReminders')||'{}');
 function saveZmRem(){localStorage.setItem('zmReminders',JSON.stringify(zmReminders));}
 function requestNotifPerm(){return new Promise(res=>{if(!('Notification'in window)){res(false);return;}if(Notification.permission==='granted'){res(true);return;}if(Notification.permission==='denied'){res(false);return;}Notification.requestPermission().then(p=>res(p==='granted')).catch(()=>res(false));});}
-window.toggleZmReminder=function(id){const c=zmReminders[id]||{on:false,before:10};
- if(!c.on){requestNotifPerm().then(ok=>{if(!ok){toast(L[lang].zRemindBlocked);return;}c.on=true;zmReminders[id]=c;saveZmRem();scheduleReminders();render();});}
+window.toggleZmReminder=function(id){const m=ZMANIM_MAIN.find(x=>x.id===id);const c=zmReminders[id]||{on:false,before:10,vk:m?m.k:''};
+ if(!c.on){requestNotifPerm().then(ok=>{if(!ok){toast(L[lang].zRemindBlocked);return;}c.on=true;if(!c.vk&&m)c.vk=m.k;zmReminders[id]=c;saveZmRem();scheduleReminders();render();});}
  else{c.on=false;zmReminders[id]=c;saveZmRem();scheduleReminders();render();}};
 window.setZmBefore=function(id,mn){const c=zmReminders[id]||{on:true,before:10};c.before=mn;zmReminders[id]=c;saveZmRem();scheduleReminders();render();};
+window.setZmVar=function(id,vk){const c=zmReminders[id]||{on:true,before:10};c.vk=vk;zmReminders[id]=c;saveZmRem();scheduleReminders();render();};
 let _remTimers=[];
 function scheduleReminders(){_remTimers.forEach(t=>clearTimeout(t));_remTimers=[];if(!('Notification'in window)||Notification.permission!=='granted')return;const z=getZmanim();if(!z)return;const now=Date.now();
- Object.keys(zmReminders).forEach(id=>{const r=zmReminders[id];if(!r||!r.on)return;const m=ZMANIM_MAIN.find(x=>x.id===id);if(!m)return;const t=zmTime(z,m.k);if(!t)return;const delay=(+t-(r.before||0)*6e4)-now;if(delay>1500&&delay<22*3600*1000){_remTimers.push(setTimeout(()=>{const title='Сидур · '+(lang==='he'?m.he:m.ru);const body=(r.before?`${L[lang].into} ${r.before} ${lang==='he'?'דק׳':'мин'} · `:'')+fmt(t);try{if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(reg=>reg.showNotification(title,{body,icon:'icon-192.png'})).catch(()=>{new Notification(title,{body});});else new Notification(title,{body});}catch(e){}},delay));}});}
+ Object.keys(zmReminders).forEach(id=>{const r=zmReminders[id];if(!r||!r.on)return;const m=ZMANIM_MAIN.find(x=>x.id===id);if(!m)return;const t=zmTime(z,r.vk||m.k);if(!t)return;const delay=(+t-(r.before||0)*6e4)-now;if(delay>1500&&delay<22*3600*1000){_remTimers.push(setTimeout(()=>{const title='Сидур · '+(lang==='he'?m.he:m.ru);const body=(r.before?`${L[lang].into} ${r.before} ${lang==='he'?'דק׳':'мин'} · `:'')+fmt(t);try{if(navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(reg=>reg.showNotification(title,{body,icon:'icon-192.png'})).catch(()=>{new Notification(title,{body});});else new Notification(title,{body});}catch(e){}},delay));}});}
 function gapTxt(ms){const m=Math.round(ms/6e4),h=Math.floor(m/60),mm=m%60,H=lang==='he'?'שע׳':'ч',M=lang==='he'?'דק׳':'мин';return h>0?`${h} ${H} ${mm} ${M}`:`${mm} ${M}`}
 function bearing(a,b){const r=Math.PI/180,dL=(b.lng-a.lng)*r,y=Math.sin(dL)*Math.cos(b.lat*r),x=Math.cos(a.lat*r)*Math.sin(b.lat*r)-Math.sin(a.lat*r)*Math.cos(b.lat*r)*Math.cos(dL);return (Math.atan2(y,x)*180/Math.PI+360)%360}
 function distKm(a,b){const r=Math.PI/180,R=6371,dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r,h=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return R*2*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
@@ -714,10 +726,10 @@ function gostQR(){return `ST00012|Name=Еврейская религиозная
 function screens(){const d=L[lang];const z=getZmanim();const hero=z?prayerState(z):null;const dist=loc?Math.round(distKm(loc,KOTEL)).toLocaleString(d.locale):'—';const bear=loc?Math.round(bearing(loc,KOTEL)):'—';const td=hebDay();const tdN=td>30?30:td;const nus=nusach?NUSACH[nusach][lang]:'';
  return {
  today:`<div class="date" style="margin-top:6px">${hebDate()}</div><div class="greg">${gregDate()}</div>
-   <div class="quickrow"><button class="qa" onclick="go('mizrah')"><span class="qa-ic">${svg('compass')}</span><span class="qa-l">${d.t_mizrah}</span></button><button class="qa" onclick="go('calendar')"><span class="qa-ic">${svg('calendar')}</span><span class="qa-l">${d.t_cal}</span></button><button class="qa" onclick="go('tzedaka')"><span class="qa-ic">${svg('coin')}</span><span class="qa-l">${d.t_tzedaka}</span></button></div>
+   <div class="quickrow"><button class="qa" onclick="go('mizrah')"><span class="qa-ic">${svg('compass')}</span><span class="qa-l">${d.navDir}</span></button><button class="qa" onclick="go('calendar')"><span class="qa-ic">${svg('calendar')}</span><span class="qa-l">${d.navCal}</span></button><button class="qa" onclick="go('tzedaka')"><span class="qa-ic">${svg('coin')}</span><span class="qa-l">${d.navTz}</span></button></div>
    ${resumeBannerHtml()}
    <div class="prayer-card" style="margin-top:14px"><div class="pc-label">${d.nearest}</div><div class="pc-body"><button class="pc-nav" onclick="prev()">‹</button><div class="pc-main"><div class="pc-name">${hero?hero.p.n:'—'}</div><div class="pc-count">${hero?hero.count:d.locating}</div><div class="pc-wins">${hero?hero.p.w.map(x=>`<span class="pc-w"><span class="pc-wdot"></span>${x[0]} <b>${fmt(x[1])}</b></span>`).join(''):''}</div></div><button class="pc-nav" onclick="nextP()">›</button></div><div class="pc-tabs">${[{n:d.sh,k:'netz'},{n:d.mi,k:'minchaG'},{n:d.ma,k:'tzeit'}].map((p,i)=>`<button class="pc-tab${(pidx===null?0:pidx)===i?' on':''}" onclick="pidx=${i};render()">${p.n}<span class="pt-time">${z?fmt(z[p.k]):'—'}</span></button>`).join('')}</div></div>
-   <div class="bigtiles" style="margin:14px 0 14px"><button class="bt bt-prayers" onclick="go('prayers',true)"><span class="bi">${svg('book')}</span><div><div class="bn">${d.prayers}</div><div class="bh">תְּפִלּוֹת</div></div></button><button class="bt bt-brachot" onclick="go('brachot',true)"><span class="bi">${svg('grape')}</span><div><div class="bn">${d.brachot}</div><div class="bh">בְּרָכוֹת</div></div></button></div>
+   <div class="bigtiles" style="margin:14px 0 14px"><button class="bt bt-prayers" onclick="go('prayers',true)"><span class="bi">${svg('book')}</span><div class="btx"><div class="bn">${d.prayers}</div><div class="bh">תְּפִלּוֹת</div></div><svg class="bcv" viewBox="0 0 24 24" fill="none" stroke-width="1.7">${ICON.chevL}</svg></button><button class="bt bt-brachot" onclick="go('brachot',true)"><span class="bi">${svg('grape')}</span><div class="btx"><div class="bn">${d.brachot}</div><div class="bh">בְּרָכוֹת</div></div><svg class="bcv" viewBox="0 0 24 24" fill="none" stroke-width="1.7">${ICON.chevL}</svg></button></div>
    <div class="tehil" onclick="openTehillim()"><div class="tn">${tdN}</div><div class="tt"><div class="a">${d.tehTitle} · ${d.tehChap} ${TEHILLIM[tdN]}</div><div class="b">${d.tehOpen}</div></div>${svg('chevL')}</div>
    <div class="fav-head"><span class="fh-l">${d.t_fav}<span class="ln"></span></span><button class="fav-edit" onclick="toggleEditFav()">${editFav?d.done:d.edit}</button></div>
    <div class="bm-grid${editFav?' editing':''}" id="bmgrid">${bmCardsHtml()}${editFav&&bmRemaining().length?`<button class="bm-add" onclick="openFavPicker()">${svg('plus')}<span>${d.favAdd}</span></button>`:''}</div>
@@ -742,7 +754,7 @@ function screens(){const d=L[lang];const z=getZmanim();const hero=z?prayerState(
 
  tehillim:`${backBtn()}<div class="h1" style="margin:2px 0 10px">${d.t_teh}</div>
    <div class="modeseg"><button class="${tehMode==='book'?'on':''}" onclick="setTehMode('book')">${d.tehBook}</button><button class="${tehMode==='day'?'on':''}" onclick="setTehMode('day')">${d.tehByDay}</button><button class="${tehMode==='seg'?'on':''}" onclick="setTehMode('seg')">${d.t_seg}</button></div>
-   ${tehMode==='book'?TEH_BOOKS.map((rng,bi)=>`<div class="book-sec"><div class="book-hdr"><span class="a">${d.bookHdr[bi]}</span><span class="r">${d.psalm} ${rng[0]}–${rng[1]}</span><span class="ln"></span></div><div class="book-grid">${Array.from({length:rng[1]-rng[0]+1},(_,i)=>{const n=rng[0]+i;return `<div class="bnum" onclick="readPsalm(${n})">${n}</div>`}).join('')}</div></div>`).join('')
+   ${tehMode==='book'?`${tehFav.length?`<div class="book-sec"><div class="book-hdr"><span class="a" style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" fill="var(--gold)" stroke="none" style="width:19px;height:19px">${ICON.heart}</svg>${d.tehFavTitle}</span><span class="ln"></span></div><div class="book-grid">${tehFav.map(n=>`<div class="bnum fav" onclick="readPsalm(${n})">${n}</div>`).join('')}</div></div>`:''}${TEH_BOOKS.map((rng,bi)=>`<div class="book-sec"><div class="book-hdr"><span class="rn">${['I','II','III','IV','V'][bi]}</span><span class="a">${d.bookHdr[bi]}</span><span class="r">${rng[0]}–${rng[1]}</span><span class="ln"></span></div><div class="book-grid">${Array.from({length:rng[1]-rng[0]+1},(_,i)=>{const n=rng[0]+i;const f=tehFav.indexOf(n)>=0;return `<div class="bnum${f?' fav':''}" onclick="readPsalm(${n})">${n}${f?'<span class="bdot"></span>':''}</div>`}).join('')}</div></div>`).join('')}`
    :tehMode==='day'?`<div class="group">${TEHILLIM.slice(1).map((rng,i)=>{const day=i+1,on=day===tdN;return `<div class="row" style="${on?'background:var(--cream)':''}" onclick="readDay(${day})"><span class="ricon" style="background:${on?'var(--gold)':'var(--cream)'};min-width:44px;min-height:44px"><span style="font-family:'Bodoni Moda',serif;color:${on?'#fff':'var(--gold)'};font-size:22px;font-weight:700;line-height:1">${day}</span></span><div class="rt"><div class="nm">${d.tehDay} ${day}</div></div><span class="time">${rng}</span></div>`}).join('')}</div>`
    :`<div class="note" style="margin-bottom:10px">${d.segIntro}</div>${SEGULOT.map(s=>`<div class="seg-card" onclick="openSegula('${s.id}')"><div class="sb"><div class="sn">${s.need[lang]}</div><div class="sc">${d.tehChap}: ${s.psalms.join(' · ')}</div></div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6">${ICON.chevL}</svg></div>`).join('')}`}`,
 
@@ -783,11 +795,18 @@ let lastRead=null;try{lastRead=JSON.parse(localStorage.getItem('lastRead')||'nul
 let _restoreScroll=null;
 function saveLastRead(kind,ref,title){lastRead={kind,ref,title,scroll:0,ts:Date.now()};localStorage.setItem('lastRead',JSON.stringify(lastRead));}
 function saveReadScroll(){if(!lastRead)return;const b=document.getElementById('rdrBody');if(!b)return;lastRead.scroll=b.scrollTop;localStorage.setItem('lastRead',JSON.stringify(lastRead));}
-function resumeBannerHtml(){if(!lastRead||(Date.now()-lastRead.ts)>3*864e5)return '';const d=L[lang];return `<div class="resume" onclick="resumeRead()"><span class="r-ic">${svg('play')}</span><div class="r-t"><div class="a">${d.resumeTitle}</div><div class="b">${lastRead.title||''}</div></div><svg class="r-cv" viewBox="0 0 24 24" fill="none" stroke-width="1.7">${ICON.chevL}</svg></div>`;}
+function resumeBannerHtml(){if(!lastRead||(Date.now()-lastRead.ts)>3*864e5)return '';const d=L[lang];return `<div class="resume" onclick="resumeRead()"><span class="r-ic">${svg('play')}</span><div class="r-t"><div class="a">${d.resumeTitle}</div><div class="b">${lastRead.title||''}</div></div><button class="r-close" onclick="event.stopPropagation();dismissResume()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2">${ICON.close}</svg></button></div>`;}
 window.resumeRead=function(){if(!lastRead)return;_restoreScroll=lastRead.scroll||0;const k=lastRead.kind,r=lastRead.ref;if(k==='day')readDay(r);else if(k==='psalm')readPsalm(r);else if(k==='segula')openSegula(r);else if(k==='bracha')openBracha(r);};
+window.dismissResume=function(){lastRead=null;localStorage.removeItem('lastRead');render();};
 
 /* tehillim */
 let tehMode='book',tehTitleCur='',tehChapters=[];
+let tehFav=[];try{tehFav=JSON.parse(localStorage.getItem('tehFav')||'[]');}catch(e){}
+function saveTehFav(){localStorage.setItem('tehFav',JSON.stringify(tehFav));}
+window.toggleTehFav=function(n){const i=tehFav.indexOf(n);if(i>=0)tehFav.splice(i,1);else tehFav.push(n);tehFav.sort((a,b)=>a-b);saveTehFav();updateRdrHeart();if(cur==='tehillim')render();};
+function curPsalm(){return (cur==='tehread'&&tehChapters.length===1)?tehChapters[0]:null;}
+function updateRdrHeart(){const h=document.getElementById('rdrHeart');if(!h)return;const n=curPsalm();if(n==null){h.classList.add('hidden');return;}h.classList.remove('hidden');const on=tehFav.indexOf(n)>=0;h.querySelector('svg').setAttribute('fill',on?'var(--gold)':'none');h.querySelector('svg').style.stroke=on?'var(--gold)':'var(--rdr-fg)';}
+window.toggleRdrFav=function(){const n=curPsalm();if(n!=null)toggleTehFav(n);};
 const tehCache={};
 let psalmsRu=null;
 async function loadPsalmsRu(){if(psalmsRu)return psalmsRu;const r=await fetch('https://raw.githubusercontent.com/maatheusgois/bible/main/versions/ru/synodal/ps/ps.json');if(!r.ok)throw new Error('ru');psalmsRu=(await r.json()).chapters;return psalmsRu;}
@@ -802,7 +821,7 @@ window.readPsalm=function(n){segulaDesc='';tehTitleCur=L[lang].psalm+' '+n;tehCh
 async function renderTehread(){const d=L[lang];__rerender=renderTehread;const rtl=(tehLang==='he');
  document.getElementById('rdrTitle').textContent=tehTitleCur||d.t_teh;
  const body=document.getElementById('rdrBody');body.className='rdr-body'+(rtl?' rtl':'');body.dir=rtl?'rtl':'ltr';
- applyReaderStyle();showReader();renderNav();body.scrollTop=0;
+ applyReaderStyle();showReader();renderNav();updateRdrHeart();body.scrollTop=0;
  body.innerHTML=`${segulaDesc?`<div class="rdesc">${segulaDesc}</div>`:''}<div class="loading">…</div>`;
  let html=segulaDesc?`<div class="rdesc">${segulaDesc}</div>`:'';
  for(const n of tehChapters){try{const p=await fetchPsalm(n);const lines=psalmLines(p,tehLang);if(!lines.length){html+=`<div class="rdesc">${d.psalm} ${n}: ${lang==='ru'?'нет текста':'אין טקסט'}</div>`;continue;}
@@ -829,7 +848,7 @@ function brachaTitle(id){const k=BRACHA_NAME[id];return (k&&L[lang][k])?L[lang][
 function renderBracha(id){const b=BRACHA[id];if(!b){toast(L[lang].soonTxt);return;}const d=L[lang];__rerender=()=>renderBracha(id);const main=bLang==='he'?b.he:(bLang==='translit'?b.translit:b.ru);const rtl=(bLang==='he');
  document.getElementById('rdrTitle').textContent=brachaTitle(id);
  const body=document.getElementById('rdrBody');body.className='rdr-body'+(rtl?' rtl':'');body.dir=rtl?'rtl':'ltr';
- applyReaderStyle();showReader();renderNav();body.scrollTop=0;
+ applyReaderStyle();showReader();renderNav();updateRdrHeart();body.scrollTop=0;
  body.innerHTML=`<div style="text-align:center;padding-top:28px">${main}</div>`;
  if(_restoreScroll){body.scrollTop=_restoreScroll;_restoreScroll=null;}
 }
@@ -865,7 +884,7 @@ async function renderCalendar(){const d=L[lang];__rerender=renderCalendar;const 
 }
 
 /* nav + routing */
-const ROOTS=['today','zmanim','prayers','brachot','tehillim'];
+const ROOTS=['today','zmanim','prayers','brachot','tehillim','more'];
 function updateTopChips(){const d=L[lang];document.getElementById('loctext').textContent=loc?(loc.name||`${loc.lat.toFixed(2)}, ${loc.lng.toFixed(2)}`):d.locating;
  const th=document.getElementById('themechip');
  th.innerHTML=svg(theme==='dark'?'moon':theme==='light'?'sun':'themeauto');
@@ -879,7 +898,8 @@ function renderNav(){const d=L[lang];let activeRoot=ROOTS.includes(cur)?cur:'';i
   {r:'zmanim',ic:svg('clock'),n:d.zmanim},
   {r:'prayers',ic:svg('book'),n:d.prayers,emph:1},
   {r:'brachot',ic:svg('grape'),n:d.brachot,emph:1},
-  {r:'tehillim',ic:magen,n:d.t_teh}];
+  {r:'tehillim',ic:magen,n:d.t_teh},
+  {r:'more',ic:svg('dots'),n:d.more}];
  const idx=Math.max(0,items.findIndex(x=>x.r===activeRoot));
  nav.innerHTML=`<div class="nav-ind" style="transform:translateX(${idx*100}%)"></div>`+items.map(it=>
   `<button class="nav-item${it.emph?' emph':''}${it.r===activeRoot?' on':''}" onclick="go('${it.r}',true)"><span class="ni-ic">${it.ic}</span><span class="n">${it.n}</span></button>`).join('');
@@ -952,30 +972,32 @@ window.openFavPicker=function(){const d=L[lang];const rem=bmRemaining();const sh
 window.closeFavPicker=function(){const s=document.getElementById('favPick'),b=document.getElementById('favPickBd');if(s)s.classList.remove('show');if(b)b.classList.remove('show');};
 let _bd=null;
 function bmDragSetup(){const grid=document.getElementById('bmgrid');if(!grid||!editFav)return;grid.querySelectorAll('.bm-handle').forEach(h=>h.addEventListener('pointerdown',e=>bmDragStart(e,h)));}
-function bmReflow(activeId){const grid=document.getElementById('bmgrid');if(!grid)return;grid.innerHTML=bmCardsHtml()+(editFav&&bmRemaining().length?`<button class="bm-add" onclick="openFavPicker()">${svg('plus')}<span>${L[lang].favAdd}</span></button>`:'');const c=grid.querySelector('.bm-card[data-bmid="'+activeId+'"]');if(c)c.classList.add('bm-ghost');bmDragSetup();}
-function bmDragStart(e,handle){e.preventDefault();const grid=document.getElementById('bmgrid');const card=handle.closest('.bm-card');if(!card)return;const id=card.dataset.bmid;const r=card.getBoundingClientRect();
+function bmDragStart(e,handle){e.preventDefault();e.stopPropagation();const grid=document.getElementById('bmgrid');const card=handle.closest('.bm-card');if(!card)return;const r=card.getBoundingClientRect();
+ try{handle.setPointerCapture(e.pointerId);}catch(_){}
  const float=card.cloneNode(true);float.classList.add('bm-float');float.style.width=r.width+'px';float.style.height=r.height+'px';float.style.left=r.left+'px';float.style.top=r.top+'px';document.body.appendChild(float);
- card.classList.add('bm-ghost');_bd={id,float,offx:e.clientX-r.left,offy:e.clientY-r.top};
+ card.classList.add('bm-ghost');_bd={card,float,offx:e.clientX-r.left,offy:e.clientY-r.top};
  const move=ev=>{ev.preventDefault();_bd.float.style.left=(ev.clientX-_bd.offx)+'px';_bd.float.style.top=(ev.clientY-_bd.offy)+'px';
-  const cards=[...grid.querySelectorAll('.bm-card')];let tgt=null;for(const c of cards){if(c.dataset.bmid===_bd.id)continue;const cr=c.getBoundingClientRect();if(ev.clientX>cr.left&&ev.clientX<cr.right&&ev.clientY>cr.top&&ev.clientY<cr.bottom){tgt=c;break;}}
-  if(tgt){const fi=bmOrder.indexOf(_bd.id),ti=bmOrder.indexOf(tgt.dataset.bmid);if(fi>=0&&ti>=0&&fi!==ti){bmOrder.splice(fi,1);bmOrder.splice(ti,0,_bd.id);bmSave();bmReflow(_bd.id);}}};
- const up=()=>{document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',up);if(_bd&&_bd.float)_bd.float.remove();_bd=null;render();};
- document.addEventListener('pointermove',move,{passive:false});document.addEventListener('pointerup',up);}
+  const cards=[...grid.querySelectorAll('.bm-card')];
+  for(const c of cards){if(c===_bd.card)continue;const cr=c.getBoundingClientRect();
+   if(ev.clientX>cr.left&&ev.clientX<cr.right&&ev.clientY>cr.top&&ev.clientY<cr.bottom){
+    const after=(_bd.card.compareDocumentPosition(c)&Node.DOCUMENT_POSITION_FOLLOWING);
+    grid.insertBefore(_bd.card,after?c.nextSibling:c);break;}}};
+ const up=()=>{handle.removeEventListener('pointermove',move);handle.removeEventListener('pointerup',up);handle.removeEventListener('pointercancel',up);try{handle.releasePointerCapture(e.pointerId);}catch(_){}
+  if(_bd&&_bd.float)_bd.float.remove();const grid2=document.getElementById('bmgrid');if(grid2){bmOrder=[...grid2.querySelectorAll('.bm-card')].map(c=>c.dataset.bmid);bmSave();}_bd=null;render();};
+ handle.addEventListener('pointermove',move);handle.addEventListener('pointerup',up);handle.addEventListener('pointercancel',up);}
 
 /* onboarding */
 function showOnboarding(){const d=L[lang];ob.innerHTML=`<div class="obhe">שבת אחים גם יחד</div><h1>${d.onbTitle}</h1><p>${d.onbSub}</p><div class="opts">${Object.keys(NUSACH).map(k=>`<button onclick="pickNusach('${k}')">${NUSACH[k][lang]} <span>${NUSACH[k].he}</span></button>`).join('')}</div><small>${d.onbHint}</small>`;ob.classList.remove('hidden');}
-window.pickNusach=function(k){nusach=k;localStorage.setItem('nusach',k);ob.classList.add('hidden');render();maybeWelcome(1);};
+window.pickNusach=function(k){nusach=k;localStorage.setItem('nusach',k);ob.classList.add('hidden');render();showWelcome();};
 
-/* welcome greeting */
+/* welcome greeting — siddur cover, auto-enters */
 function greetKey(){const h=new Date().getHours();return h<5?'greetN':h<12?'greetM':h<18?'greetD':'greetE';}
+const MAGEN_GOLD='<svg viewBox="0 0 24 24" fill="none"><polygon points="12,2.6 21,17.4 3,17.4" fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-linejoin="round"/><polygon points="12,21.4 3,6.6 21,6.6" fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-linejoin="round"/></svg>';
 function showWelcome(){const d=L[lang];const w=document.getElementById('welcome');
- w.innerHTML=`<div class="wel-he">${d.welHe}</div><div class="wel-greet">${d[greetKey()]}</div><div class="wel-date">${hebDate()} · ${gregDate()}</div><div class="wel-divider"></div><div class="wel-pray">${d.welPray}</div><button class="wel-btn" onclick="closeWelcome()">${d.welStart}</button>`;
- w.classList.remove('hidden','hide');}
-window.closeWelcome=function(){const w=document.getElementById('welcome');w.classList.add('hide');setTimeout(()=>w.classList.add('hidden'),460);localStorage.setItem('welDate',new Date().toDateString());};
-function maybeWelcome(force){if(!nusach)return;const today=new Date().toDateString();if(force||localStorage.getItem('welDate')!==today)showWelcome();}
-
-/* splash */
-function hideSplash(){const s=document.getElementById('splash');if(!s)return;setTimeout(()=>{s.classList.add('hide');setTimeout(()=>{if(s.parentNode)s.remove();if(!nusach)showOnboarding();else maybeWelcome(0);},720);},1500);}
+ w.innerHTML=`<div class="wel-card"><div class="wel-orn">${MAGEN_GOLD}</div><div class="wel-he">${d.welHe}</div><div class="wel-greet">${d[greetKey()]}</div><div class="wel-date">${hebDate()}</div><div class="wel-date2">${gregDate()}</div><div class="wel-rule"><span></span>✦<span></span></div><div class="wel-pray">${d.welPray}</div></div>`;
+ w.classList.remove('hidden','hide');w.onclick=closeWelcome;
+ clearTimeout(w._t);w._t=setTimeout(closeWelcome,2800);}
+window.closeWelcome=function(){const w=document.getElementById('welcome');if(w.classList.contains('hide')||w.classList.contains('hidden'))return;clearTimeout(w._t);w.classList.add('hide');setTimeout(()=>w.classList.add('hidden'),600);};
 
 /* swipe back (edge) */
 let _tsx=0,_tsy=0,_tst=0;
@@ -986,7 +1008,7 @@ document.addEventListener('touchend',e=>{const t=e.changedTouches[0];const dx=t.
 window.__zReady=function(){if(nusach){applyTheme();render();scheduleReminders();}};
 applyTheme();requestLocation();
 render();
-hideSplash();
+if(!nusach)showOnboarding();else showWelcome();
 scheduleReminders();
 setInterval(()=>{if(cur==='today'||cur==='zmanim'){applyTheme();render();}},60000);
 setInterval(scheduleReminders,30*60000);
