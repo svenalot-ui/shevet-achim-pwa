@@ -1,11 +1,13 @@
-const CACHE = 'shevet-achim-v7';
+const CACHE = 'shevet-achim-v8';
 const SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
-  './icon-180.png'
+  './icon-180.png',
+  './icon-152.png',
+  './icon-167.png'
 ];
 
 self.addEventListener('install', e => {
