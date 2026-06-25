@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "sidur",
+      "name": "shevet-pwa",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["/tmp/sidur_serve.js"],
+      "runtimeArgs": ["serve.js"],
       "port": 8731
     }
   ]
